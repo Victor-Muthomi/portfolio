@@ -1,0 +1,383 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import Navbar from '../components/Navbar.astro';
+import ProjectCard from '../components/ProjectCard.astro';
+
+// Project data
+const projects = [
+  {
+    title: 'Point of Sale (POS) System',
+    description: 'Comprehensive retail solution enabling efficient transaction processing, real-time inventory tracking, and sales reporting. Features include automated stock alerts, customer loyalty programs, advanced analytics dashboards, and employee performance tracking with modular architecture for future integrations.',
+    technologies: ['Python', 'PostgreSQL', 'Flask', 'JavaScript', 'React'],
+    link: '/projects/pos-system'
+  },
+  {
+    title: 'Livestock Management System',
+    description: 'End-to-end ERP-integrated platform centralizing animal farming operations including individual animal records, health monitoring, breeding cycles, feed scheduling, and financial tracking. Features automated alerts, role-based dashboards, and comprehensive reporting for enhanced farm efficiency.',
+    technologies: ['Frappe Framework', 'ERPNext', 'Python', 'MariaDB', 'JavaScript'],
+    link: '/projects/livestock-management'
+  },
+  {
+    title: 'Hospital Management System',
+    description: 'Comprehensive healthcare solution using ERPNext and custom Frappe components unifying patient care workflows, financial processes, pharmacy inventory, and laboratory operations. Features electronic medical records (EMRs), appointment scheduling, billing automation, and real-time resource management.',
+    technologies: ['Frappe Framework', 'ERPNext', 'Python', 'MariaDB', 'PostgreSQL'],
+    link: '/projects/hospital-management'
+  },
+  {
+    title: 'Dating Mobile App',
+    description: 'Modern cross-platform dating application with user profiles, swipe-based matching logic, real-time chat, and push notifications. Built with secure backend architecture, privacy-aware features, and optimized performance delivering 60fps responsiveness on Android and iOS.',
+    technologies: ['Flutter', 'FastAPI', 'PostgreSQL', 'Python', 'Dart'],
+    link: '/projects/dating-mobile-app'
+  },
+  {
+    title: 'Rent Management Mobile App',
+    description: 'Comprehensive platform streamlining landlord-tenant interactions with property listings, automated rent tracking and payments, maintenance request workflows, and role-based dashboards. Features cross-platform consistency with Flutter and robust PostgreSQL backend.',
+    technologies: ['Flutter', 'PostgreSQL', 'Python', 'FastAPI', 'Dart'],
+    link: '/projects/rent-management'
+  },
+  {
+    title: 'AI Virtual Assistant',
+    description: 'Voice-enabled AI assistant for university websites using NLP for structured responses. Features conversational agent capabilities, Google Text-to-Speech integration, and PostgreSQL-backed knowledge base for intelligent query handling and automation.',
+    technologies: ['Python', 'Rasa NLP', 'Google TTS', 'PostgreSQL', 'SpaCy'],
+    link: '/projects/ai-virtual-assistant'
+  },
+  {
+    title: 'AI Document Intelligence Platform',
+    description: 'Designed a document processing pipeline that converts unstructured business documents (invoices, receipts, contracts, and forms) into structured, queryable records. The system performs OCR extraction, semantic classification, and contextual validation using rule engines and language models. Background workers process uploads asynchronously while a review interface allows human verification when confidence scores fall below thresholds. The platform significantly reduces manual data entry and enables automated reporting, auditing, and compliance workflows.',
+    technologies: ['Python', 'FastAPI', 'PostgreSQL', 'Redis', 'Celery', 'OCR', 'LLM', 'Vector Search'],
+    link: '/projects/ai-document-intelligence'
+  },
+  {
+    title: 'Real-Time Analytics & Monitoring Dashboard',
+    description: 'Built a streaming analytics platform that collects application and user activity events, processes them in real time, and visualises operational metrics through interactive dashboards. The system aggregates logs, calculates performance indicators, and triggers alerts when anomalies occur. Designed to help administrators understand system health, usage behaviour, and bottlenecks without relying on delayed batch reports.',
+    technologies: ['Python', 'WebSockets', 'Redis Streams', 'TimescaleDB', 'Docker', 'Charting'],
+    link: '/projects/realtime-analytics-dashboard'
+  },
+  {
+    title: 'Multi-Tenant SaaS Boilerplate',
+    description: 'Developed a reusable production-grade SaaS foundation supporting tenant isolation, authentication, permissions, and subscription lifecycle management. Includes role-based access control, background jobs, rate limiting, and modular service architecture to accelerate building startups or enterprise tools. The template focuses on maintainability and predictable scaling rather than rapid prototyping shortcuts.',
+    technologies: ['FastAPI', 'PostgreSQL', 'Redis', 'Celery', 'JWT', 'Docker'],
+    link: '/projects/multi-tenant-saas'
+  },
+  {
+    title: 'Knowledge Retrieval AI (RAG) System',
+    description: 'Implemented a retrieval-augmented knowledge engine capable of answering domain-specific questions using private organisational data. The system embeds documents into vector space, retrieves relevant context, and guides model responses to minimise hallucinations. Designed for internal documentation, policy assistance, and operational knowledge discovery.',
+    technologies: ['Python', 'Embeddings', 'Vector Database', 'LLM', 'API'],
+    link: '/projects/rag-knowledge-system'
+  },
+  {
+    title: 'Smart Inventory Forecasting Engine',
+    description: 'Created a forecasting service that predicts future stock demand based on historical transactions, seasonality, and trend patterns. The model generates reorder recommendations and integrates into business workflows to prevent shortages and overstocking. Emphasis placed on interpretability and stability over purely academic accuracy.',
+    technologies: ['Python', 'Pandas', 'Scikit-learn', 'Time Series', 'FastAPI'],
+    link: '/projects/smart-inventory-forecasting'
+  },
+  {
+    title: 'Offline-First Synchronisation Engine',
+    description: 'Engineered a data synchronisation mechanism allowing applications to operate without continuous internet connectivity. Local changes are stored, versioned, and reconciled when connectivity returns, resolving conflicts deterministically. Designed for field operations and rural deployments where reliable connectivity cannot be assumed.',
+    technologies: ['Python', 'SQLite', 'Diff Sync', 'Background Workers', 'API'],
+    link: '/projects/offline-sync-engine'
+  },
+  {
+    title: 'Automated Data Pipeline Framework',
+    description: 'Built a modular ETL framework that ingests external datasets, validates records, transforms schemas, and loads them into structured storage. Includes scheduling, retry handling, and monitoring to maintain data reliability across multiple integrations.',
+    technologies: ['Python', 'Celery', 'PostgreSQL', 'Redis', 'Data Validation'],
+    link: '/projects/data-pipeline-framework'
+  },
+  {
+    title: 'API Gateway & Rate-Limiting Service',
+    description: 'Developed a centralised gateway handling authentication, request routing, throttling, and logging for distributed services. Provides unified security policies and protects internal systems from abusive traffic patterns.',
+    technologies: ['FastAPI', 'Reverse Proxy', 'Redis', 'JWT', 'Logging'],
+    link: '/projects/api-gateway'
+  },
+  {
+    title: 'Intelligent Notification & Messaging Engine',
+    description: 'Designed an event-driven communication system that delivers alerts via SMS, email, and in-app notifications based on business triggers. Includes retry logic, scheduling, and user preference management.',
+    technologies: ['Python', 'Message Queue', 'Background Workers', 'APIs'],
+    link: '/projects/notification-messaging-engine'
+  },
+  {
+    title: 'AI Assisted Code Knowledge Tool',
+    description: 'Created an internal development assistant capable of analysing codebases and answering questions about architecture, dependencies, and behaviour. Helps developers onboard faster and understand legacy systems.',
+    technologies: ['Python', 'LLM', 'Embeddings', 'Static Analysis'],
+    link: '/projects/ai-code-knowledge-tool'
+  },
+  {
+    title: 'Distributed Job Processing Framework',
+    description: 'Implemented a scalable worker system for long-running operations such as report generation, exports, and bulk processing. Supports retries, monitoring, prioritisation, and failure recovery.',
+    technologies: ['Celery', 'Redis', 'Python', 'Monitoring'],
+    link: '/projects/distributed-job-processing'
+  },
+  {
+    title: 'Secure File Storage & Access Service',
+    description: 'Designed a storage service with signed URLs, access policies, and audit logging to safely manage sensitive documents across applications and users.',
+    technologies: ['Python', 'Object Storage', 'Authentication', 'Encryption'],
+    link: '/projects/secure-file-storage'
+  },
+  {
+    title: 'Data Quality & Validation Engine',
+    description: 'Built a validation layer enforcing schema rules, referential integrity checks, and anomaly detection before data enters operational databases. Prevents silent corruption and improves analytics reliability.',
+    technologies: ['Python', 'Rules Engine', 'PostgreSQL', 'Data Processing'],
+    link: '/projects/data-quality-engine'
+  },
+  {
+    title: 'Workflow Automation Builder',
+    description: 'Developed a configurable automation engine where non-technical users can define triggers and actions (if-this-then-that style) to automate operational processes such as approvals, notifications, and record updates.',
+    technologies: ['Python', 'Event System', 'Background Jobs', 'UI Integration'],
+    link: '/projects/workflow-automation-builder'
+  },
+];
+---
+
+<MainLayout
+  title="Projects | Victor Muthomi"
+  description="Explore my portfolio of enterprise-grade software engineering projects including ERP systems, healthcare solutions, mobile apps, and AI-powered applications."
+>
+  <!-- Navigation -->
+  <Navbar slot="nav" developerName="Victor Muthomi" currentPath="/projects" />
+
+  <!-- Projects Header -->
+  <section class="projects-hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>
+          <span class="title-emoji">🚀</span> All <span class="gradient-text-accent">Projects</span>
+        </h1>
+        <p class="hero-description">
+          A comprehensive portfolio of enterprise-grade software solutions across diverse industries, 
+          showcasing expertise in full-stack development, ERP systems, mobile applications, and AI/ML integration.
+        </p>
+        <div class="hero-stats" data-animate="stagger" data-stagger-delay="100">
+          <div class="stat-item">
+            <span class="stat-emoji">💼</span>
+            <span class="stat-value gradient-text">20</span>
+            <span class="stat-label">Projects Delivered</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-emoji">⚡</span>
+            <span class="stat-value gradient-text">100+</span>
+            <span class="stat-label">Technologies</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-emoji">🎯</span>
+            <span class="stat-value gradient-text">4+ Years</span>
+            <span class="stat-label">Experience</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projects Grid -->
+  <section class="projects-section">
+    <div class="container">
+      <div class="projects-grid" data-animate="stagger" data-stagger-delay="100">
+        {projects.map((project) => (
+          <ProjectCard
+            title={project.title}
+            description={project.description}
+            technologies={project.technologies}
+            link={project.link}
+          />
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA Section -->
+  <section class="cta-section">
+    <div class="container">
+      <div class="cta-content glass">
+        <span class="cta-emoji">🤝</span>
+        <h2>Interested in Working Together?</h2>
+        <p>Let's discuss how I can help bring your next project to life.</p>
+        <div class="cta-actions">
+          <a href="mailto:muthomivictor367@gmail.com" class="btn btn-primary btn-lg">
+            <span>📧</span> Send an Email
+          </a>
+          <a href="https://wa.me/254712550618" class="btn btn-secondary btn-lg" target="_blank" rel="noopener noreferrer">
+            <span>💬</span> WhatsApp Me
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+</MainLayout>
+
+<style>
+  /* Projects Hero */
+  .projects-hero {
+    padding: calc(var(--space-5xl) + 80px) 0 var(--space-4xl);
+    background: 
+      radial-gradient(circle at 30% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 70% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+  }
+
+  .hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .hero-content h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: var(--font-weight-black);
+    margin-bottom: var(--space-lg);
+    line-height: 1.1;
+  }
+
+  .title-emoji {
+    font-size: 0.8em;
+  }
+
+  .hero-description {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-3xl);
+  }
+
+  /* Stats */
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-xl);
+    padding: var(--space-xl);
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .stat-emoji {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .stat-value {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: var(--font-weight-black);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.875rem;
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: var(--font-weight-medium);
+  }
+
+  .stat-divider {
+    width: 1px;
+    height: 80px;
+    background: var(--color-border);
+  }
+
+  /* Projects Section */
+  .projects-section {
+    padding: var(--space-4xl) 0;
+  }
+
+  .projects-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
+    gap: var(--space-xl);
+  }
+
+  /* CTA Section */
+  .cta-section {
+    padding: var(--space-4xl) 0 var(--space-5xl);
+  }
+
+  .cta-content {
+    padding: var(--space-4xl) var(--space-2xl);
+    text-align: center;
+    border-radius: var(--radius-2xl);
+  }
+
+  .cta-emoji {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: var(--space-lg);
+  }
+
+  .cta-content h2 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-md);
+  }
+
+  .cta-content p {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-xl);
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  .cta-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  .cta-actions .btn span {
+    margin-right: var(--space-xs);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .projects-hero {
+      padding: calc(var(--space-4xl) + 60px) 0 var(--space-3xl);
+    }
+
+    .hero-stats {
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .stat-divider {
+      width: 100%;
+      height: 1px;
+    }
+
+    .projects-section {
+      padding: var(--space-3xl) 0;
+    }
+
+    .projects-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-lg);
+    }
+
+    .cta-content {
+      padding: var(--space-2xl) var(--space-lg);
+    }
+
+    .cta-actions {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .cta-actions .btn {
+      width: 100%;
+    }
+  }
+</style>

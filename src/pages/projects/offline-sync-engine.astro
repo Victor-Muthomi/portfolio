@@ -1,0 +1,156 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+
+const projectData = {
+  title: 'Offline-First Synchronisation Engine',
+  description: 'Data synchronisation mechanism allowing applications to operate without continuous internet connectivity, with deterministic conflict resolution on reconnection.',
+  summary: 'Engineered a data synchronisation mechanism allowing applications to operate without continuous internet connectivity. Local changes are stored, versioned, and reconciled when connectivity returns, resolving conflicts deterministically — designed for field operations and rural deployments where reliable connectivity cannot be assumed.',
+  technologies: ['Python', 'SQLite', 'Diff Sync', 'Background Workers', 'API'],
+  year: '2024',
+  category: 'Systems Engineering'
+};
+---
+
+<CaseStudyLayout {...projectData}>
+  <section class="case-section">
+    <h2>Problem Statement</h2>
+    <div class="glass section-content">
+      <p>
+        Field operators — agricultural workers, health workers, logistics teams — need to record and access data in environments where internet connectivity is absent, intermittent, or unaffordable. Applications that require a live connection fail completely in these contexts. The challenge was building a synchronisation layer that allows the application to operate fully offline, buffers changes locally, and reconciles with the central server when connectivity is available — without losing data or creating inconsistencies.
+      </p>
+      <div class="challenge-list">
+        <h3>Key Challenges:</h3>
+        <ul>
+          <li>Deterministic conflict resolution when the same record is modified both locally and remotely</li>
+          <li>Efficient delta synchronisation — sending only changed records, not full datasets</li>
+          <li>Ordering guarantees for operations that depend on each other</li>
+          <li>Handling partial sync failures gracefully without corrupting state</li>
+          <li>Keeping the local SQLite database in a consistent state across crashes</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>System Architecture</h2>
+    <div class="glass section-content">
+      <p>
+        Each client runs a local SQLite database with an embedded change-log tracking every insert, update, and delete with a logical timestamp and device ID. A background worker monitors connectivity and initiates sync when online. The server reconciles incoming change logs with its own, applies conflict resolution rules, and returns the merged state to the client.
+      </p>
+      <div class="architecture-points">
+        <div class="arch-item">
+          <h4>Local Change Log</h4>
+          <p>Every write to the local database appends a change record to a dedicated changelog table containing the operation type, record ID, field deltas, logical clock value, and device ID. This log is the source of truth for sync.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Diff Sync Protocol</h4>
+          <p>Sync sessions exchange only changes since the last successful sync, identified by the client's last known server clock value. Diffs contain field-level deltas rather than full record copies, minimising data transfer.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Conflict Resolution</h4>
+          <p>Conflicts (same record modified on both client and server since last sync) are resolved by a configurable strategy: last-write-wins by logical clock, field-level merge preferring the more recent value per field, or flagging for manual review.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Background Sync Worker</h4>
+          <p>Connectivity monitor triggers sync when a network becomes available. Sync is transactional — changes are committed atomically on both sides, with rollback on partial failure to maintain consistency.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Key Engineering Challenges</h2>
+    <div class="glass section-content">
+      <div class="challenge-grid">
+        <div class="challenge-card">
+          <h4>Conflict Resolution Correctness</h4>
+          <p>Challenge: Two users editing the same record offline can produce genuinely conflicting states that a simple last-write-wins rule may resolve incorrectly for the domain.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Field-level conflict resolution with domain-configurable strategies — some fields (e.g., cumulative counters) use sum merge; others use last-writer-wins; critical fields flag for manual review.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Operation Ordering</h4>
+          <p>Challenge: Some operations are semantically dependent: deleting a parent record before processing child updates from a different device causes referential integrity failures.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Topological sort of incoming changes by foreign key relationships before applying, ensuring parent records are created before children and deletions are applied after all dependent changes.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Partial Sync Failure Recovery</h4>
+          <p>Challenge: A sync session interrupted halfway through can leave the client in an inconsistent state that is difficult to resume.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Two-phase commit protocol — server prepares and validates the full changeset before the client applies any of it, with a confirmed commit step that is idempotent on retry.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Bandwidth Efficiency</h4>
+          <p>Challenge: Rural deployments often operate on limited, metered data connections where transferring full dataset copies is prohibitive.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Field-level delta encoding compressing only changed fields, with binary serialisation reducing sync payload size by up to 80% compared to full JSON record transfers.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Solutions Implemented</h2>
+    <div class="glass section-content">
+      <ul class="solution-list">
+        <li><strong>Change Log Architecture:</strong> Append-only local changelog tracking all mutations with logical clocks enabling accurate delta computation across devices.</li>
+        <li><strong>Field-Level Diff Sync:</strong> Protocol exchanging only changed fields since last sync, with binary encoding for bandwidth efficiency.</li>
+        <li><strong>Configurable Conflict Resolution:</strong> Per-field strategy definitions allowing domain-appropriate conflict handling — merge, last-write-wins, or manual review queuing.</li>
+        <li><strong>Transactional Sync Sessions:</strong> Two-phase commit ensuring sync is atomic — applied fully or not at all — with idempotent retry handling.</li>
+        <li><strong>Connectivity-Aware Background Worker:</strong> Automatic sync initiation on network availability with exponential backoff for repeated failures.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Outcome & Impact</h2>
+    <div class="glass section-content">
+      <div class="impact-grid">
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">100%</span>
+          <span class="metric-label">Offline Capability</span>
+          <p class="metric-desc">Full functionality without connectivity</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">Zero</span>
+          <span class="metric-label">Data Loss</span>
+          <p class="metric-desc">On connectivity restoration</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">80%</span>
+          <span class="metric-label">Bandwidth Reduction</span>
+          <p class="metric-desc">vs. full record sync</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">Deterministic</span>
+          <span class="metric-label">Conflict Resolution</span>
+          <p class="metric-desc">No random or undefined outcomes</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</CaseStudyLayout>
+
+<style>
+  .case-section { margin-bottom: var(--space-4xl); }
+  .case-section h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: var(--font-weight-bold); margin-bottom: var(--space-xl); }
+  .section-content { padding: var(--space-2xl); border-radius: var(--radius-xl); }
+  .section-content p { font-size: 1.125rem; line-height: 1.8; color: var(--color-text-secondary); margin-bottom: var(--space-lg); }
+  .challenge-list { margin-top: var(--space-xl); }
+  .challenge-list h3 { font-size: 1.25rem; font-weight: var(--font-weight-semibold); margin-bottom: var(--space-md); }
+  .challenge-list ul, .solution-list { list-style: none; }
+  .challenge-list li, .solution-list li { padding-left: var(--space-lg); margin-bottom: var(--space-md); position: relative; font-size: 1.0625rem; line-height: 1.7; color: var(--color-text-secondary); }
+  .challenge-list li::before, .solution-list li::before { content: '→'; position: absolute; left: 0; color: var(--color-accent-cyan); font-weight: var(--font-weight-bold); }
+  .architecture-points { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .arch-item { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .arch-item h4 { color: var(--color-accent-cyan); margin-bottom: var(--space-sm); font-size: 1.25rem; }
+  .arch-item p { font-size: 1rem; margin-bottom: 0; }
+  .challenge-grid { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .challenge-card { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-left: 3px solid var(--color-accent-indigo); border-radius: var(--radius-lg); }
+  .challenge-card h4 { margin-bottom: var(--space-sm); font-size: 1.25rem; }
+  .challenge-card p { font-size: 1rem; margin-bottom: var(--space-md); }
+  .solution-tag { color: var(--color-text-tertiary); font-size: 0.9375rem; }
+  .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-xl); margin-bottom: var(--space-2xl); }
+  .impact-metric { text-align: center; padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .metric-value { display: block; font-size: clamp(2rem, 4vw, 3rem); font-weight: var(--font-weight-black); margin-bottom: var(--space-sm); }
+  .metric-label { display: block; font-size: 1rem; font-weight: var(--font-weight-semibold); color: var(--color-text-primary); margin-bottom: var(--space-xs); }
+  .metric-desc { font-size: 0.875rem; color: var(--color-text-tertiary); margin-bottom: 0; }
+  @media (max-width: 768px) { .section-content { padding: var(--space-lg); } .impact-grid { grid-template-columns: 1fr; gap: var(--space-md); } }
+</style>

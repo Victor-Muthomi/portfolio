@@ -1,0 +1,362 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+
+const projectData = {
+  title: 'Point of Sale (POS) System',
+  description: 'Comprehensive retail solution with transaction processing, inventory management, and analytics',
+  summary: 'Designed and developed a robust Point of Sale system enabling efficient transaction processing, real-time inventory tracking, sales reporting, customer loyalty programs, and employee performance monitoring with modular architecture for future integrations.',
+  technologies: ['Python', 'PostgreSQL', 'Flask', 'JavaScript', 'React'],
+  year: '2024',
+  category: 'Enterprise Software'
+};
+---
+
+<CaseStudyLayout {...projectData}>
+  <!-- Problem Statement -->
+  <section class="case-section">
+    <h2>Problem Statement</h2>
+    <div class="glass section-content">
+      <p>
+        Retail businesses need efficient transaction processing systems that can handle daily sales operations 
+        while maintaining accurate inventory records and providing valuable business insights through analytics.
+      </p>
+      <div class="challenge-list">
+        <h3>Key Challenges:</h3>
+        <ul>
+          <li>Efficient processing of customer transactions with multiple payment methods</li>
+          <li>Real-time inventory tracking and automated low-stock alerts</li>
+          <li>Customer relationship management and loyalty program integration</li>
+          <li>Comprehensive reporting for business decision-making</li>
+          <li>Employee performance tracking and management</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- System Architecture -->
+  <section class="case-section">
+    <h2>System Architecture</h2>
+    <div class="glass section-content">
+      <p>
+        Built a comprehensive POS system with modular architecture supporting transaction processing, 
+        inventory management, customer relationship features, and advanced analytics.
+      </p>
+      <div class="architecture-points">
+        <div class="arch-item">
+          <h4>Frontend Layer</h4>
+          <p>React-based responsive UI providing intuitive interface for sales transactions, inventory management, and reporting dashboards.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Backend Services</h4>
+          <p>Python Flask backend handling business logic, authentication, and API endpoints with clean code architecture.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Database Layer</h4>
+          <p>PostgreSQL database for reliable storage of transactions, inventory, customer data, and employee records.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Integration Layer</h4>
+          <p>Modular design supporting future integrations with accounting, CRM, and e-commerce platforms for scalability.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Engineering Challenges -->
+  <section class="case-section">
+    <h2>Key Engineering Challenges</h2>
+    <div class="glass section-content">
+      <div class="challenge-grid">
+        <div class="challenge-card">
+          <h4>Transaction Processing</h4>
+          <p>
+            Challenge: Building efficient payment processing supporting multiple payment methods (cash and electronic).
+          </p>
+          <p class="solution-tag">
+            <strong>Solution:</strong> Implemented payment abstraction layer with support for cash and digital payments, 
+            automated calculation of totals, taxes, and receipt generation.
+          </p>
+        </div>
+        <div class="challenge-card">
+          <h4>Inventory Management</h4>
+          <p>
+            Challenge: Maintaining accurate real-time stock levels and preventing stockouts.
+          </p>
+          <p class="solution-tag">
+            <strong>Solution:</strong> Developed automated inventory tracking that updates stock on each sale 
+            with alerts for low stock levels, improving accuracy and reducing stockouts.
+          </p>
+        </div>
+        <div class="challenge-card">
+          <h4>Business Analytics</h4>
+          <p>
+            Challenge: Providing actionable insights for business decision-making.
+          </p>
+          <p class="solution-tag">
+            <strong>Solution:</strong> Built comprehensive reporting dashboards showing daily/weekly/monthly sales trends, 
+            inventory performance, and customer analytics.
+          </p>
+        </div>
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solutions Implemented -->
+  <section class="case-section">
+    <h2>Solutions Implemented</h2>
+    <div class="glass section-content">
+      <ul class="solution-list">
+        <li>
+          <strong>Core Transaction Functionality:</strong> Built efficient payment processing supporting cash and 
+          electronic payments with automated calculation of totals, taxes, and receipt generation.
+        </li>
+        <li>
+          <strong>Real-Time Inventory Management:</strong> Implemented automatic stock level updates as sales occur 
+          with low-stock alert generation, improving accuracy and reducing stockouts.
+        </li>
+        <li>
+          <strong>Customer Relationship Features:</strong> Created customer purchase history tracking, loyalty program 
+          support, and customer-centric sales insights for better engagement.
+        </li>
+        <li>
+          <strong>Advanced Analytics Dashboards:</strong> Built comprehensive reporting showing daily/weekly/monthly 
+          sales trends, inventory performance, and business insights for strategic decision-making.
+        </li>
+        <li>
+          <strong>Employee Management Tools:</strong> Implemented staff performance tracking with sales monitoring, 
+          metrics analysis, and support for payroll and commission calculations.
+        </li>
+        <li>
+          <strong>Modular Architecture:</strong> Designed system with modular structure supporting future integrations 
+          with accounting, CRM, and e-commerce platforms for scalability.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Outcome and Impact -->
+  <section class="case-section">
+    <h2>Outcome & Impact</h2>
+    <div class="glass section-content">
+      <div class="impact-grid">
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">100%</span>
+          <span class="metric-label">Automated Inventory</span>
+          <p class="metric-desc">Real-time stock tracking with alerts</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">Multi</span>
+          <span class="metric-label">Payment Support</span>
+          <p class="metric-desc">Cash and electronic payments</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">Advanced</span>
+          <span class="metric-label">Analytics</span>
+          <p class="metric-desc">Comprehensive business insights</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">Scalable</span>
+          <span class="metric-label">Architecture</span>
+          <p class="metric-desc">Modular design for future growth</p>
+        </div>
+      </div>
+      <div class="testimonial">
+        <p>
+          "Built comprehensive retail solution enabling efficient transaction processing, real-time inventory 
+          tracking, and advanced analytics. The modular architecture supports easy integration with other 
+          business systems for seamless operations."
+        </p>
+        <cite>— Victor Muthomi, Software Engineer</cite>
+      </div>
+    </div>
+  </section>
+</CaseStudyLayout>
+
+<style>
+  .case-section {
+    margin-bottom: var(--space-4xl);
+  }
+
+  .case-section h2 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-xl);
+    color: var(--color-text-primary);
+  }
+
+  .section-content {
+    padding: var(--space-2xl);
+    border-radius: var(--radius-xl);
+  }
+
+  .section-content p {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-lg);
+  }
+
+  .section-content p:last-child {
+    margin-bottom: 0;
+  }
+
+  .challenge-list,
+  .solution-list {
+    margin-top: var(--space-xl);
+  }
+
+  .challenge-list h3,
+  .section-content h4 {
+    font-size: 1.25rem;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-md);
+  }
+
+  .challenge-list ul,
+  .solution-list {
+    list-style: none;
+  }
+
+  .challenge-list li,
+  .solution-list li {
+    padding-left: var(--space-lg);
+    margin-bottom: var(--space-md);
+    position: relative;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+  }
+
+  .challenge-list li::before,
+  .solution-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--color-accent-cyan);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .architecture-points {
+    display: grid;
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .arch-item {
+    padding: var(--space-lg);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .arch-item h4 {
+    color: var(--color-accent-cyan);
+    margin-bottom: var(--space-sm);
+  }
+
+  .arch-item p {
+    font-size: 1rem;
+    margin-bottom: 0;
+  }
+
+  .challenge-grid {
+    display: grid;
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .challenge-card {
+    padding: var(--space-lg);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-accent-indigo);
+    border-radius: var(--radius-lg);
+  }
+
+  .challenge-card h4 {
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-sm);
+  }
+
+  .challenge-card p {
+    font-size: 1rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .solution-tag {
+    color: var(--color-text-tertiary);
+    font-size: 0.9375rem;
+  }
+
+  .impact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-xl);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .impact-metric {
+    text-align: center;
+    padding: var(--space-lg);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .metric-value {
+    display: block;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: var(--font-weight-black);
+    margin-bottom: var(--space-sm);
+  }
+
+  .metric-label {
+    display: block;
+    font-size: 1rem;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-xs);
+  }
+
+  .metric-desc {
+    font-size: 0.875rem;
+    color: var(--color-text-tertiary);
+    margin-bottom: 0;
+  }
+
+  .testimonial {
+    padding: var(--space-xl);
+    background: var(--color-bg-secondary);
+    border-left: 3px solid var(--color-accent-cyan);
+    border-radius: var(--radius-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .testimonial p {
+    font-size: 1.125rem;
+    font-style: italic;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-md);
+  }
+
+  .testimonial cite {
+    font-size: 0.9375rem;
+    font-style: normal;
+    color: var(--color-text-tertiary);
+    font-weight: var(--font-weight-medium);
+  }
+
+  @media (max-width: 768px) {
+    .section-content {
+      padding: var(--space-lg);
+    }
+
+    .impact-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+  }
+</style>

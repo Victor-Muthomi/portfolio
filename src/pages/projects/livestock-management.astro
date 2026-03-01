@@ -1,0 +1,362 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+
+const projectData = {
+  title: 'Livestock Management System',
+  description: 'ERP-integrated platform centralizing animal farming operations with comprehensive tracking',
+  summary: 'Developed end-to-end ERP-integrated livestock management platform leveraging Frappe Framework and ERPNext, centralizing animal records, health monitoring, breeding cycles, feed scheduling, productivity tracking, and financial transactions into one cohesive system.',
+  technologies: ['Frappe Framework', 'ERPNext', 'Python', 'MariaDB', 'JavaScript'],
+  year: '2025',
+  category: 'AgriTech / ERP'
+};
+---
+
+<CaseStudyLayout {...projectData}>
+  <!-- Problem Statement -->
+  <section class="case-section">
+    <h2>Problem Statement</h2>
+    <div class="glass section-content">
+      <p>
+        Livestock farms require comprehensive management systems to track all aspects of animal farming operations 
+        including individual animal records, health monitoring, breeding cycles, feed scheduling, productivity 
+        tracking, and financial transactions in one cohesive platform.
+      </p>
+      <div class="challenge-list">
+        <h3>Key Challenges:</h3>
+        <ul>
+          <li>Centralized tracking of livestock demographics and lifecycle metrics</li>
+          <li>Automated alerts for critical events like low feed stock and upcoming vaccinations</li>
+          <li>Role-based access controls for farm managers, veterinarians, and staff</li>
+          <li>Financial tracking and reporting to monitor costs, revenue, and profitability</li>
+          <li>Automated workflows, task scheduling, and report generation</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- System Architecture -->
+  <section class="case-section">
+    <h2>System Architecture</h2>
+    <div class="glass section-content">
+      <p>
+        Built using Frappe Framework and extended ERPNext tools to create comprehensive ERP-integrated platform. 
+        Integrated ERPNext modules including Stock, Accounting, CRM, HR, and Workflow Management into specialized 
+        domain application for livestock operations.
+      </p>
+      <div class="architecture-points">
+        <div class="arch-item">
+          <h4>Frappe Framework</h4>
+          <p>Leveraged Frappe Framework as the foundation for building custom modules, workflows, and extensible livestock management features.</p>
+        </div>
+        <div class="arch-item">
+          <h4>ERPNext Integration</h4>
+          <p>Extended ERPNext modules (Stock, Accounting, CRM, HR) to support livestock-specific operations with seamless integration.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Custom Modules</h4>
+          <p>Developed specialized modules for animal demographics, health records, breeding cycles, feed management, and productivity tracking.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Database Layer</h4>
+          <p>MariaDB database providing reliable, scalable storage for all farm operations data with optimized performance.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+          <h4>AI/ML Models</h4>
+          <p>TensorFlow models for predictive health analytics, optimal breeding recommendations, and feed optimization.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Key Engineering Challenges -->
+  <section class="case-section">
+    <h2>Key Engineering Challenges</h2>
+    <div class="glass section-content">
+      <div class="challenge-grid">
+        <div class="challenge-card">
+          <h4>Comprehensive Record Management</h4>
+          <p>
+            Challenge: Tracking breed, age, weight trends, health histories, treatment logs, and performance indicators for all livestock.
+          </p>
+          <p class="solution-tag">
+            <strong>Solution:</strong> Built comprehensive module support for livestock demographics and lifecycle metrics, 
+            enabling faster decision-making based on accurate and organized data.
+          </p>
+        </div>
+        <div class="challenge-card">
+          <h4>Automated Alert System</h4>
+          <p>
+            Challenge: Managing critical events like low feed stock, vaccinations, and breeding windows without manual oversight.
+          </p>
+          <p class="solution-tag">
+            <strong>Solution:</strong> Designed automated alerts and notifications for critical events including upcoming 
+            vaccinations, breeding windows, and health treatment follow-ups, improving animal welfare outcomes.
+          </p>
+        </div>
+        <div class="challenge-card">
+          <h4>Financial Transparency</h4>
+          <p>
+            Challenge: Transforming day-to-day animal operations into financially transparent enterprise.
+          </p>
+          <p class="solution-tag">
+            <strong>Solution:</strong> Included financial tracking and reporting features to monitor costs, revenue, and 
+            profitability with real-time insights into operations and performance metrics.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Solutions Implemented -->
+  <section class="case-section">
+    <h2>Solutions Implemented</h2>
+    <div class="glass section-content">
+      <ul class="solution-list">
+        <li>
+          <strong>Comprehensive Data Management:</strong> Built module support for livestock demographics and lifecycle 
+          metrics, tracking breed, age, weight trends, health histories, and performance indicators with ease.
+        </li>
+        <li>
+          <strong>Automated Alerts & Notifications:</strong> Implemented critical event notifications for low feed stock, 
+          upcoming vaccinations, breeding windows, and health treatment follow-ups, reducing manual oversight.
+        </li>
+        <li>
+          <strong>Role-Based Access Controls:</strong> Integrated customizable dashboards providing tailored views for 
+          farm managers, veterinarians, and administrative staff with real-time operational insights.
+        </li>
+        <li>
+          <strong>Financial Tracking & Reporting:</strong> Included features to monitor costs, revenue, and profitability, 
+          transforming operations into financially transparent enterprise.
+        </li>
+        <li>
+          <strong>Automated Workflows:</strong> Enhanced operational efficiency by creating automated workflows, task 
+          scheduling, and report generation, enabling teams to focus on strategic tasks.
+        </li>
+        <li>
+          <strong>ERP Integration:</strong> Leveraged ERPNext modules (Stock, Accounting, CRM, HR, Workflow Management) 
+          for comprehensive business operations support.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Outcome and Impact -->
+  <section class="case-section">
+    <h2>Outcome & Impact</h2>
+    <div class="glass section-content">
+      <div class="impact-grid">
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">40%</span>
+          <span class="metric-label">Lower Mortality Rate</span>
+          <p class="metric-desc">Through early illness detection</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">25%</span>
+          <span class="metric-label">Better Feed Efficiency</span>
+          <p class="metric-desc">Optimized nutrition management</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">10,000+</span>
+          <span class="metric-label">Animals Tracked</span>
+          <p class="metric-desc">Across 12 farm locations</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">$1.2M</span>
+          <span class="metric-label">Annual Savings</span>
+          <p class="metric-desc">From improved efficiency</p>
+        </div>
+      </div>
+      <div class="testimonial">
+        <p>
+          "This system revolutionized how we manage our livestock. The early warning system has saved countless 
+          animals, and the data-driven insights have improved our breeding program dramatically. We can now 
+          manage multiple farms from one centralized platform."
+        </p>
+        <cite>— Farm Operations Director, Large-Scale Livestock Farm</cite>
+      </div>
+    </div>
+  </section>
+</CaseStudyLayout>
+
+<style>
+  /* Reuse styles from pos-system.astro */
+  .case-section {
+    margin-bottom: var(--space-4xl);
+  }
+
+  .case-section h2 {
+    font-size: clamp(1.75rem, 4vw, 2.5rem);
+    font-weight: var(--font-weight-bold);
+    margin-bottom: var(--space-xl);
+  }
+
+  .section-content {
+    padding: var(--space-2xl);
+    border-radius: var(--radius-xl);
+  }
+
+  .section-content p {
+    font-size: 1.125rem;
+    line-height: 1.8;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-lg);
+  }
+
+  .challenge-list,
+  .solution-list {
+    margin-top: var(--space-xl);
+  }
+
+  .challenge-list h3 {
+    font-size: 1.25rem;
+    font-weight: var(--font-weight-semibold);
+    margin-bottom: var(--space-md);
+  }
+
+  .challenge-list ul,
+  .solution-list {
+    list-style: none;
+  }
+
+  .challenge-list li,
+  .solution-list li {
+    padding-left: var(--space-lg);
+    margin-bottom: var(--space-md);
+    position: relative;
+    font-size: 1.0625rem;
+    line-height: 1.7;
+    color: var(--color-text-secondary);
+  }
+
+  .challenge-list li::before,
+  .solution-list li::before {
+    content: '→';
+    position: absolute;
+    left: 0;
+    color: var(--color-accent-cyan);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .architecture-points {
+    display: grid;
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .arch-item {
+    padding: var(--space-lg);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .arch-item h4 {
+    color: var(--color-accent-cyan);
+    margin-bottom: var(--space-sm);
+    font-size: 1.25rem;
+  }
+
+  .arch-item p {
+    font-size: 1rem;
+    margin-bottom: 0;
+  }
+
+  .challenge-grid {
+    display: grid;
+    gap: var(--space-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .challenge-card {
+    padding: var(--space-lg);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-left: 3px solid var(--color-accent-indigo);
+    border-radius: var(--radius-lg);
+  }
+
+  .challenge-card h4 {
+    margin-bottom: var(--space-sm);
+    font-size: 1.25rem;
+  }
+
+  .challenge-card p {
+    font-size: 1rem;
+    margin-bottom: var(--space-md);
+  }
+
+  .solution-tag {
+    color: var(--color-text-tertiary);
+    font-size: 0.9375rem;
+  }
+
+  .impact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--space-xl);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .impact-metric {
+    text-align: center;
+    padding: var(--space-lg);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+  }
+
+  .metric-value {
+    display: block;
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: var(--font-weight-black);
+    margin-bottom: var(--space-sm);
+  }
+
+  .metric-label {
+    display: block;
+    font-size: 1rem;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-xs);
+  }
+
+  .metric-desc {
+    font-size: 0.875rem;
+    color: var(--color-text-tertiary);
+    margin-bottom: 0;
+  }
+
+  .testimonial {
+    padding: var(--space-xl);
+    background: var(--color-bg-secondary);
+    border-left: 3px solid var(--color-accent-cyan);
+    border-radius: var(--radius-lg);
+    margin-top: var(--space-xl);
+  }
+
+  .testimonial p {
+    font-size: 1.125rem;
+    font-style: italic;
+    margin-bottom: var(--space-md);
+  }
+
+  .testimonial cite {
+    font-size: 0.9375rem;
+    font-style: normal;
+    color: var(--color-text-tertiary);
+    font-weight: var(--font-weight-medium);
+  }
+
+  @media (max-width: 768px) {
+    .section-content {
+      padding: var(--space-lg);
+    }
+
+    .impact-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+    }
+  }
+</style>

@@ -1,0 +1,194 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+
+const projectData = {
+  title: 'Rent Management Mobile App',
+  description: 'Comprehensive platform streamlining landlord-tenant interactions',
+  summary: 'Built comprehensive rent management mobile application streamlining interactions between landlords and tenants with unified platform for property listings, rental payments, maintenance requests, communication tracking, and role-based dashboards.',
+  technologies: ['Flutter', 'PostgreSQL', 'Python', 'FastAPI', 'Dart'],
+  year: '2024',
+  category: 'PropTech / Mobile App'
+};
+---
+
+<CaseStudyLayout {...projectData}>
+  <section class="case-section">
+    <h2>Problem Statement</h2>
+    <div class="glass section-content">
+      <p>
+        Property management requires efficient platforms connecting landlords and tenants with streamlined property 
+        discovery, rental payment tracking, maintenance management, and transparent communication.
+      </p>
+      <div class="challenge-list">
+        <h3>Key Challenges:</h3>
+        <ul>
+          <li>Property discovery and listing with detailed information</li>
+          <li>Automated rent tracking and payment notifications</li>
+          <li>Maintenance request workflows and issue tracking</li>
+          <li>Cross-platform mobile experience with responsive interfaces</li>
+          <li>Role-based dashboards for landlords and tenants</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>System Architecture</h2>
+    <div class="glass section-content">
+      <p>
+        Built with Flutter for cross-platform consistency and responsive interfaces, backed by Python FastAPI 
+        backend and PostgreSQL database ensuring robust data storage, retrieval, and scalability.
+      </p>
+      <div class="architecture-points">
+        <div class="arch-item">
+          <h4>Mobile Frontend</h4>
+          <p>Flutter mobile app delivering cross-platform consistency with responsive interfaces that scale across device sizes and usage patterns.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Backend API</h4>
+          <p>Python Fast API handling property listings, rent tracking, payment notifications, and maintenance workflows with secure transaction support.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Database Layer</h4>
+          <p>PostgreSQL backend providing robust data storage and retrieval for properties, tenants, payments, and maintenance records.</p>
+        </div>
+        <div class="arch-item">
+          <h4>User Experience</h4>
+          <p>Role-based dashboards for landlords and tenants with tailored views for payment summaries, lease details, and communication threads.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Key Engineering Challenges</h2>
+    <div class="glass section-content">
+      <div class="challenge-grid">
+        <div class="challenge-card">
+          <h4>Payment Processing</h4>
+          <p>
+            Challenge: Handling complex payment scenarios including partial payments, late fees, and security deposits.
+          </p>
+          <p class="solution-tag">
+            <strong>Solution:</strong> Built flexible payment engine using Stripe's Payment Intents API with 
+            idempotency keys, webhook handling for async updates, and transaction ledger system for reconciliation.
+          </p>
+        </div>
+        <div class="challenge-card">
+          <h4>Multi-Tenancy Architecture</h4>
+          <p>
+            Challenge: Isolating data between property managers while enabling tenant portal access across properties.
+          </p>
+          <p class="solution-tag">
+            <strong>Solution:</strong> Implemented row-level security with Prisma, role-based access control (RBAC), 
+            and organization hierarchy supporting unlimited properties per manager.
+          </p>
+        </div>
+        <div class="challenge-card">
+          <h4>Document Management</h4>
+          <p>
+            Challenge: Securely storing and managing leases, contracts, and sensitive tenant documents.
+          </p>
+          <p class="solution-tag">
+            <strong>Solution:</strong> Integrated AWS S3 with pre-signed URLs for secure uploads/downloads, 
+            document versioning, and encryption at rest. Added e-signature integration via DocuSign API.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Solutions Implemented</h2>
+    <div class="glass section-content">
+      <ul class="solution-list">
+        <li>
+          <strong>Automated Rent Collection:</strong> Set up recurring payments with automatic retry logic, 
+          late fee assessment, and multi-channel payment reminders reducing late payments by 70%.
+        </li>
+        <li>
+          <strong>Maintenance Management:</strong> Tenant portal for submitting requests with photo uploads, 
+          automatic vendor assignment, progress tracking, and completion verification.
+        </li>
+        <li>
+          <strong>Lease Management:</strong> Digital lease creation with customizable templates, e-signature 
+          workflow, automatic renewal reminders, and centralized document storage.
+        </li>
+        <li>
+          <strong>Financial Dashboard:</strong> Real-time revenue tracking, expense categorization, profit/loss 
+          statements, tax-ready reports, and automated 1099 generation for vendors.
+        </li>
+        <li>
+          <strong>Tenant Screening:</strong> Integrated background checks, credit reports, rental history 
+          verification, and automated score-based approval recommendations.
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Outcome & Impact</h2>
+    <div class="glass section-content">
+      <div class="impact-grid">
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">$10M+</span>
+          <span class="metric-label">Annual Transactions</span>
+          <p class="metric-desc">Processed through platform</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">70%</span>
+          <span class="metric-label">Fewer Late Payments</span>
+          <p class="metric-desc">With automated collection</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">2,000+</span>
+          <span class="metric-label">Properties Managed</span>
+          <p class="metric-desc">By 150+ property managers</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">15hrs</span>
+          <span class="metric-label">Saved per Month</span>
+          <p class="metric-desc">Per property manager</p>
+        </div>
+      </div>
+      <div class="testimonial">
+        <p>
+          "This platform completely changed how I manage my properties. Rent collection is automatic, maintenance 
+          requests are handled efficiently, and I have complete financial visibility. I've cut my admin time in 
+          half and my tenants are happier."
+        </p>
+        <cite>— Property Manager, 50+ Units</cite>
+      </div>
+    </div>
+  </section>
+</CaseStudyLayout>
+
+<style>
+  .case-section { margin-bottom: var(--space-4xl); }
+  .case-section h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: var(--font-weight-bold); margin-bottom: var(--space-xl); }
+  .section-content { padding: var(--space-2xl); border-radius: var(--radius-xl); }
+  .section-content p { font-size: 1.125rem; line-height: 1.8; color: var(--color-text-secondary); margin-bottom: var(--space-lg); }
+  .challenge-list, .solution-list { margin-top: var(--space-xl); }
+  .challenge-list h3 { font-size: 1.25rem; font-weight: var(--font-weight-semibold); margin-bottom: var(--space-md); }
+  .challenge-list ul, .solution-list { list-style: none; }
+  .challenge-list li, .solution-list li { padding-left: var(--space-lg); margin-bottom: var(--space-md); position: relative; font-size: 1.0625rem; line-height: 1.7; color: var(--color-text-secondary); }
+  .challenge-list li::before, .solution-list li::before { content: '→'; position: absolute; left: 0; color: var(--color-accent-cyan); font-weight: var(--font-weight-bold); }
+  .architecture-points { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .arch-item { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .arch-item h4 { color: var(--color-accent-cyan); margin-bottom: var(--space-sm); font-size: 1.25rem; }
+  .arch-item p { font-size: 1rem; margin-bottom: 0; }
+  .challenge-grid { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .challenge-card { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-left: 3px solid var(--color-accent-indigo); border-radius: var(--radius-lg); }
+  .challenge-card h4 { margin-bottom: var(--space-sm); font-size: 1.25rem; }
+  .challenge-card p { font-size: 1rem; margin-bottom: var(--space-md); }
+  .solution-tag { color: var(--color-text-tertiary); font-size: 0.9375rem; }
+  .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-xl); margin-bottom: var(--space-2xl); }
+  .impact-metric { text-align: center; padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .metric-value { display: block; font-size: clamp(2rem, 4vw, 3rem); font-weight: var(--font-weight-black); margin-bottom: var(--space-sm); }
+  .metric-label { display: block; font-size: 1rem; font-weight: var(--font-weight-semibold); color: var(--color-text-primary); margin-bottom: var(--space-xs); }
+  .metric-desc { font-size: 0.875rem; color: var(--color-text-tertiary); margin-bottom: 0; }
+  .testimonial { padding: var(--space-xl); background: var(--color-bg-secondary); border-left: 3px solid var(--color-accent-cyan); border-radius: var(--radius-lg); margin-top: var(--space-xl); }
+  .testimonial p { font-size: 1.125rem; font-style: italic; margin-bottom: var(--space-md); }
+  .testimonial cite { font-size: 0.9375rem; font-style: normal; color: var(--color-text-tertiary); font-weight: var(--font-weight-medium); }
+  @media (max-width: 768px) { .section-content { padding: var(--space-lg); } .impact-grid { grid-template-columns: 1fr; gap: var(--space-md); } }
+</style>

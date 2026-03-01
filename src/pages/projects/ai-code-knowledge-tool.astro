@@ -1,0 +1,156 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+
+const projectData = {
+  title: 'AI Assisted Code Knowledge Tool',
+  description: 'Internal development assistant analysing codebases and answering questions about architecture, dependencies, and behaviour to help developers onboard faster.',
+  summary: 'Created an internal development assistant capable of analysing codebases and answering questions about architecture, dependencies, and behaviour. Combines static analysis with retrieval-augmented generation to help developers onboard faster, understand legacy systems, and locate relevant code without needing tribal knowledge.',
+  technologies: ['Python', 'LLM', 'Embeddings', 'Static Analysis'],
+  year: '2024',
+  category: 'AI/ML'
+};
+---
+
+<CaseStudyLayout {...projectData}>
+  <section class="case-section">
+    <h2>Problem Statement</h2>
+    <div class="glass section-content">
+      <p>
+        Large codebases accumulate complexity that is difficult to transfer through documentation or code review alone. New developers spend weeks mapping systems manually; experienced developers forget the rationale behind old decisions; no one knows which module owns a particular behaviour without asking the original author. The goal was an assistant that could answer "how does X work?", "where is Y implemented?", and "what does this function do?" accurately — using the actual codebase as its source of truth.
+      </p>
+      <div class="challenge-list">
+        <h3>Key Challenges:</h3>
+        <ul>
+          <li>Code has different retrieval semantics than prose — function boundaries, call graphs, and import structures matter</li>
+          <li>Keeping the index current as the codebase changes</li>
+          <li>Answering architectural questions that span many files</li>
+          <li>Not hallucinating function signatures or behaviour that doesn't exist</li>
+          <li>Handling multiple languages and frameworks within one codebase</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>System Architecture</h2>
+    <div class="glass section-content">
+      <p>
+        The tool indexes the codebase using static analysis to extract function signatures, class hierarchies, and import graphs alongside code embeddings. Queries retrieve relevant code chunks, which are passed with structural context to an LLM that answers grounded in actual code. A CLI and web interface expose queries to developers.
+      </p>
+      <div class="architecture-points">
+        <div class="arch-item">
+          <h4>Static Analysis Layer</h4>
+          <p>AST-based parser extracts function signatures, class definitions, method call graphs, and import dependencies. This structural metadata augments embedding retrieval to enable precise queries like "show me all callers of this function" or "what does this class inherit from".</p>
+        </div>
+        <div class="arch-item">
+          <h4>Code Embedding Index</h4>
+          <p>Code blocks are embedded at function/class granularity using a code-specialised embedding model. The vector index enables semantic retrieval — finding implementations related to a concept even when the exact term isn't in the code.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Retrieval-Augmented Generation</h4>
+          <p>Retrieved code chunks combined with call graph context are injected into an LLM prompt that instructs the model to answer only from provided code, cite file paths and line numbers, and indicate when something is not present in the retrieved context.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Incremental Indexing</h4>
+          <p>Git hook and file-watcher based update pipeline re-indexes only changed files, keeping the knowledge base fresh on every commit without expensive full reindexing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Key Engineering Challenges</h2>
+    <div class="glass section-content">
+      <div class="challenge-grid">
+        <div class="challenge-card">
+          <h4>Code-Appropriate Chunking</h4>
+          <p>Challenge: Splitting code at arbitrary character counts breaks function context, degrading both retrieval and answer quality.</p>
+          <p class="solution-tag"><strong>Solution:</strong> AST-aware chunking splitting at function and class boundaries, preserving complete callable units in each chunk with their docstrings, signatures, and bodies intact.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Cross-File Reasoning</h4>
+          <p>Challenge: Architectural questions span many files — understanding a feature requires tracing calls across modules.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Static call graph traversal expands retrieved results to include callers and callees, providing multi-file context windows for questions about system behaviour.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Hallucinated Code References</h4>
+          <p>Challenge: LLMs confidently describe function behaviour or signatures that don't exist, misleading developers.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Strict prompting requiring file:line citations for every claim, with a post-processing verification step checking that cited locations exist and contain the described content.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Multi-Language Support</h4>
+          <p>Challenge: A mixed Python/JavaScript/SQL codebase needs language-appropriate parsers and embedding strategies.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Language-detecting dispatcher routing files to dedicated AST parsers per language while using a unified embedding model trained on mixed-language code corpora.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Solutions Implemented</h2>
+    <div class="glass section-content">
+      <ul class="solution-list">
+        <li><strong>AST-Aware Chunking:</strong> Function and class boundary splits preserving complete callable units with full context for accurate retrieval.</li>
+        <li><strong>Call Graph Expansion:</strong> Static analysis augmenting retrieved chunks with related callers and callees for multi-file architectural queries.</li>
+        <li><strong>Citation-Required Answers:</strong> Prompt constraints forcing file:line references for all claims, with automated verification against the index.</li>
+        <li><strong>Incremental Git Integration:</strong> Post-commit hooks triggering re-indexing of changed files, maintaining index freshness without batch reprocessing delays.</li>
+        <li><strong>Developer Interface:</strong> CLI for terminal-native queries and a web UI for browsing, bookmarking, and sharing code knowledge answers across the team.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Outcome & Impact</h2>
+    <div class="glass section-content">
+      <div class="impact-grid">
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">50%</span>
+          <span class="metric-label">Faster Onboarding</span>
+          <p class="metric-desc">New developer ramp-up time</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">Cited</span>
+          <span class="metric-label">Every Answer</span>
+          <p class="metric-desc">File:line references included</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">Real-time</span>
+          <span class="metric-label">Index Updates</span>
+          <p class="metric-desc">On every commit</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">Multi-lang</span>
+          <span class="metric-label">Support</span>
+          <p class="metric-desc">Python, JS, SQL and more</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</CaseStudyLayout>
+
+<style>
+  .case-section { margin-bottom: var(--space-4xl); }
+  .case-section h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: var(--font-weight-bold); margin-bottom: var(--space-xl); }
+  .section-content { padding: var(--space-2xl); border-radius: var(--radius-xl); }
+  .section-content p { font-size: 1.125rem; line-height: 1.8; color: var(--color-text-secondary); margin-bottom: var(--space-lg); }
+  .challenge-list { margin-top: var(--space-xl); }
+  .challenge-list h3 { font-size: 1.25rem; font-weight: var(--font-weight-semibold); margin-bottom: var(--space-md); }
+  .challenge-list ul, .solution-list { list-style: none; }
+  .challenge-list li, .solution-list li { padding-left: var(--space-lg); margin-bottom: var(--space-md); position: relative; font-size: 1.0625rem; line-height: 1.7; color: var(--color-text-secondary); }
+  .challenge-list li::before, .solution-list li::before { content: '→'; position: absolute; left: 0; color: var(--color-accent-cyan); font-weight: var(--font-weight-bold); }
+  .architecture-points { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .arch-item { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .arch-item h4 { color: var(--color-accent-cyan); margin-bottom: var(--space-sm); font-size: 1.25rem; }
+  .arch-item p { font-size: 1rem; margin-bottom: 0; }
+  .challenge-grid { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .challenge-card { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-left: 3px solid var(--color-accent-indigo); border-radius: var(--radius-lg); }
+  .challenge-card h4 { margin-bottom: var(--space-sm); font-size: 1.25rem; }
+  .challenge-card p { font-size: 1rem; margin-bottom: var(--space-md); }
+  .solution-tag { color: var(--color-text-tertiary); font-size: 0.9375rem; }
+  .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-xl); margin-bottom: var(--space-2xl); }
+  .impact-metric { text-align: center; padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .metric-value { display: block; font-size: clamp(2rem, 4vw, 3rem); font-weight: var(--font-weight-black); margin-bottom: var(--space-sm); }
+  .metric-label { display: block; font-size: 1rem; font-weight: var(--font-weight-semibold); color: var(--color-text-primary); margin-bottom: var(--space-xs); }
+  .metric-desc { font-size: 0.875rem; color: var(--color-text-tertiary); margin-bottom: 0; }
+  @media (max-width: 768px) { .section-content { padding: var(--space-lg); } .impact-grid { grid-template-columns: 1fr; gap: var(--space-md); } }
+</style>

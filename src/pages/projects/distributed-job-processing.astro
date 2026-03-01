@@ -1,0 +1,156 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+
+const projectData = {
+  title: 'Distributed Job Processing Framework',
+  description: 'Scalable worker system for long-running operations including report generation, exports, and bulk processing with retries, monitoring, and failure recovery.',
+  summary: 'Implemented a scalable worker system for long-running operations such as report generation, exports, and bulk processing. Supports retries, monitoring, prioritisation, and failure recovery — offloading expensive tasks from request handlers to dedicated workers that can scale independently.',
+  technologies: ['Celery', 'Redis', 'Python', 'Monitoring'],
+  year: '2024',
+  category: 'Backend Engineering'
+};
+---
+
+<CaseStudyLayout {...projectData}>
+  <section class="case-section">
+    <h2>Problem Statement</h2>
+    <div class="glass section-content">
+      <p>
+        Long-running operations — generating large reports, exporting datasets, sending bulk notifications, processing uploaded files — block request handlers if run synchronously, causing timeouts and poor user experience. Without a structured job system, these tasks are either run synchronously (blocking), scheduled via cron (inflexible), or implemented inconsistently across services. The goal was a unified, observable, and reliable async job framework covering the full task lifecycle from dispatch to completion and failure handling.
+      </p>
+      <div class="challenge-list">
+        <h3>Key Challenges:</h3>
+        <ul>
+          <li>Task durability — jobs must survive worker restarts without being lost</li>
+          <li>Reliable failure handling with appropriate retry strategies</li>
+          <li>Priority queuing ensuring urgent tasks preempt batch workloads</li>
+          <li>Progress reporting for long-running tasks visible to end users</li>
+          <li>Dead-letter handling for tasks that exhaust retries</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>System Architecture</h2>
+    <div class="glass section-content">
+      <p>
+        Celery workers consume tasks from Redis queues. Multiple named queues handle different priority levels and task categories, with dedicated workers per queue ensuring critical tasks are never starved. Task metadata is stored in a results backend tracking state, progress, and outcomes.
+      </p>
+      <div class="architecture-points">
+        <div class="arch-item">
+          <h4>Queue Architecture</h4>
+          <p>Separate Celery queues for critical, standard, and bulk tasks. Critical queue workers run at higher concurrency and are isolated from batch workloads. Queue depth monitoring triggers auto-scaling of worker processes during peak periods.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Task Lifecycle Management</h4>
+          <p>Task states (Pending → Running → Success/Failure → Retrying) tracked in the results backend. Application services poll or subscribe for completion events to notify users and trigger downstream actions.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Retry Strategy</h4>
+          <p>Configurable retry policies per task type: exponential backoff with jitter for transient failures, fixed intervals for external API rate limits, and immediate retry for worker crash recovery. Max retry counts and total retry windows are enforced.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Dead-Letter & Monitoring</h4>
+          <p>Tasks exhausting retry limits are moved to a dead-letter queue with full failure context. A monitoring dashboard tracks queue depths, worker throughput, failure rates, and dead-letter accumulation with alerting on anomalies.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Key Engineering Challenges</h2>
+    <div class="glass section-content">
+      <div class="challenge-grid">
+        <div class="challenge-card">
+          <h4>Task Durability on Worker Crash</h4>
+          <p>Challenge: A worker crash mid-task leaves the task in a running state indefinitely without recovery.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Celery task acknowledgement after completion (not receipt), combined with a task heartbeat monitor that detects stale running tasks and reschedules them after a configurable timeout.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Idempotent Task Execution</h4>
+          <p>Challenge: A task retried after partial completion may duplicate side effects (e.g., sending a report twice or double-inserting records).</p>
+          <p class="solution-tag"><strong>Solution:</strong> Task idempotency keys checked before execution. Completed subtasks are checkpointed so retried tasks resume from the last successful step rather than restarting from scratch.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Progress Reporting</h4>
+          <p>Challenge: Users submitting long-running export or report tasks need visibility into progress, not just eventual completion.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Tasks publish incremental progress updates to the results backend at configurable intervals. A WebSocket endpoint streams these updates to the requesting client's browser in real time.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Queue Starvation</h4>
+          <p>Challenge: Large batch jobs monopolise worker capacity, delaying critical user-facing tasks.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Dedicated worker pools per queue with capacity isolation. Critical queue workers are never allocated to batch queues, guaranteeing sub-second critical task pickup regardless of batch queue depth.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Solutions Implemented</h2>
+    <div class="glass section-content">
+      <ul class="solution-list">
+        <li><strong>Priority Queue Isolation:</strong> Named queues with dedicated worker pools ensuring critical task capacity is never consumed by batch workloads.</li>
+        <li><strong>Idempotent Task Design:</strong> Completion checkpointing enabling safe retries on partial failures without duplicating side effects.</li>
+        <li><strong>Real-Time Progress Streaming:</strong> Worker-to-client progress updates via WebSocket for long-running task visibility.</li>
+        <li><strong>Dead-Letter Queue:</strong> Persistent capture of exhausted-retry tasks with full failure context for investigation and manual reprocessing.</li>
+        <li><strong>Operations Dashboard:</strong> Live queue depth, worker throughput, failure rate, and dead-letter metrics with alerting on threshold breaches.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Outcome & Impact</h2>
+    <div class="glass section-content">
+      <div class="impact-grid">
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">Zero</span>
+          <span class="metric-label">Lost Tasks</span>
+          <p class="metric-desc">On worker crash or restart</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">Instant</span>
+          <span class="metric-label">Critical Pickup</span>
+          <p class="metric-desc">Critical queue always available</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">Live</span>
+          <span class="metric-label">Progress Updates</span>
+          <p class="metric-desc">Real-time user visibility</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">Full</span>
+          <span class="metric-label">Failure Capture</span>
+          <p class="metric-desc">Dead-letter with context</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</CaseStudyLayout>
+
+<style>
+  .case-section { margin-bottom: var(--space-4xl); }
+  .case-section h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: var(--font-weight-bold); margin-bottom: var(--space-xl); }
+  .section-content { padding: var(--space-2xl); border-radius: var(--radius-xl); }
+  .section-content p { font-size: 1.125rem; line-height: 1.8; color: var(--color-text-secondary); margin-bottom: var(--space-lg); }
+  .challenge-list { margin-top: var(--space-xl); }
+  .challenge-list h3 { font-size: 1.25rem; font-weight: var(--font-weight-semibold); margin-bottom: var(--space-md); }
+  .challenge-list ul, .solution-list { list-style: none; }
+  .challenge-list li, .solution-list li { padding-left: var(--space-lg); margin-bottom: var(--space-md); position: relative; font-size: 1.0625rem; line-height: 1.7; color: var(--color-text-secondary); }
+  .challenge-list li::before, .solution-list li::before { content: '→'; position: absolute; left: 0; color: var(--color-accent-cyan); font-weight: var(--font-weight-bold); }
+  .architecture-points { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .arch-item { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .arch-item h4 { color: var(--color-accent-cyan); margin-bottom: var(--space-sm); font-size: 1.25rem; }
+  .arch-item p { font-size: 1rem; margin-bottom: 0; }
+  .challenge-grid { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .challenge-card { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-left: 3px solid var(--color-accent-indigo); border-radius: var(--radius-lg); }
+  .challenge-card h4 { margin-bottom: var(--space-sm); font-size: 1.25rem; }
+  .challenge-card p { font-size: 1rem; margin-bottom: var(--space-md); }
+  .solution-tag { color: var(--color-text-tertiary); font-size: 0.9375rem; }
+  .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-xl); margin-bottom: var(--space-2xl); }
+  .impact-metric { text-align: center; padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .metric-value { display: block; font-size: clamp(2rem, 4vw, 3rem); font-weight: var(--font-weight-black); margin-bottom: var(--space-sm); }
+  .metric-label { display: block; font-size: 1rem; font-weight: var(--font-weight-semibold); color: var(--color-text-primary); margin-bottom: var(--space-xs); }
+  .metric-desc { font-size: 0.875rem; color: var(--color-text-tertiary); margin-bottom: 0; }
+  @media (max-width: 768px) { .section-content { padding: var(--space-lg); } .impact-grid { grid-template-columns: 1fr; gap: var(--space-md); } }
+</style>

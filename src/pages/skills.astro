@@ -1,0 +1,561 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import Navbar from '../components/Navbar.astro';
+
+// Skills data
+const skillsData = [
+  {
+    category: 'Core Software Engineering',
+    icon: '🧱',
+    skills: [
+      'Python',
+      'TypeScript',
+      'JavaScript',
+      'System Design',
+      'Clean Architecture',
+      'Design Patterns',
+      'OOP & Functional Programming',
+      'Modular Monoliths',
+      'Service-Oriented Architecture',
+      'Scalable Backend Design',
+      'Concurrency & Async Programming',
+      'Performance Optimization',
+      'Debugging & Profiling',
+      'Technical Documentation'
+    ]
+  },
+  {
+    category: 'Backend & Frameworks',
+    icon: '⚙️',
+    skills: [
+      'FastAPI',
+      'Flask',
+      'Frappe Framework',
+      'ERPNext',
+      'Jinja',
+      'REST APIs',
+      'GraphQL Basics',
+      'WebSockets',
+      'Background Workers',
+      'Task Queues',
+      'Scheduling Systems',
+      'File Processing',
+      'Authentication Systems',
+      'Role-Based Access Control',
+      'Multi-Tenant Architecture'
+    ]
+  },
+  {
+    category: 'AI Engineering & Machine Learning',
+    icon: '🤖',
+    skills: [
+      'Machine Learning Pipelines',
+      'Model Integration',
+      'Feature Engineering',
+      'Data Preprocessing',
+      'NLP Systems',
+      'RAG Architectures',
+      'Embeddings',
+      'Vector Search',
+      'Semantic Search',
+      'Prompt Engineering',
+      'Model Evaluation',
+      'AI Reliability & Guardrails',
+      'AI Assisted Automation',
+      'Knowledge Retrieval Systems',
+      'Conversational Systems',
+      'LLM API Integration',
+      'Rasa',
+      'SpaCy',
+      'Scikit-Learn',
+      'PyTorch',
+      'TensorFlow'
+    ]
+  },
+  {
+    category: 'Data Engineering & Analytics',
+    icon: '💾',
+    skills: [
+      'PostgreSQL',
+      'SQLite',
+      'MariaDB',
+      'Data Modeling',
+      'Query Optimization',
+      'ETL Pipelines',
+      'Data Validation',
+      'Data Cleaning',
+      'Time-Series Analysis',
+      'Analytics Pipelines',
+      'Reporting Systems',
+      'Data Warehousing Concepts',
+      'Observability Metrics'
+    ]
+  },
+  {
+    category: 'Distributed Systems & Infrastructure',
+    icon: '🏗️',
+    skills: [
+      'Redis',
+      'Caching Strategies',
+      'Rate Limiting',
+      'Idempotency',
+      'Event-Driven Systems',
+      'Message Queues',
+      'Fault Tolerance',
+      'Horizontal Scaling',
+      'Consistency Strategies',
+      'Offline-First Sync',
+      'System Monitoring',
+      'Logging & Tracing'
+    ]
+  },
+  {
+    category: 'DevOps & Deployment',
+    icon: '🚀',
+    skills: [
+      'Docker',
+      'Linux',
+      'CI/CD',
+      'Nginx',
+      'Gunicorn',
+      'Reverse Proxy',
+      'Environment Management',
+      'Automated Deployment',
+      'Server Provisioning',
+      'Containerized Applications',
+      'Production Debugging',
+      'Release Versioning'
+    ]
+  },
+  {
+    category: 'Integrations & External Services',
+    icon: '🔗',
+    skills: [
+      'M-Pesa Daraja API',
+      'Payment Processing',
+      'Google APIs',
+      'OAuth Integrations',
+      'Webhooks',
+      'Third-Party APIs',
+      'ERP Integrations',
+      'SMS & Email Gateways',
+      'Maps & Location Services',
+      'File Storage Services'
+    ]
+  },
+  {
+    category: 'Mobile & Frontend',
+    icon: '📱',
+    skills: [
+      'Flutter',
+      'Dart',
+      'UI/UX Implementation',
+      'Responsive Interfaces',
+      'State Management',
+      'API Consumption',
+      'Offline Storage',
+      'Push Notifications',
+      'App Deployment'
+    ]
+  }
+];
+---
+
+<MainLayout
+  title="Skills | Victor Muthomi - Software Engineer"
+  description="Explore my technical skills and expertise in Python, Flutter, ERPNext, AI/ML, and full-stack development."
+>
+  <!-- Navigation -->
+  <Navbar slot="nav" developerName="Victor Muthomi" currentPath="/skills" />
+
+  <!-- Skills Header -->
+  <section class="skills-hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>
+          <span class="title-emoji">⚒️</span> Skills & <span class="gradient-text-accent">Expertise</span>
+        </h1>
+        <p class="hero-description">
+          Full-stack engineering capabilities across modern technologies and platforms. 
+          From building scalable ERP systems to developing AI-powered solutions.
+        </p>
+        <div class="hero-stats" data-animate="stagger" data-stagger-delay="100">
+          <div class="stat-item">
+            <span class="stat-emoji">🎯</span>
+            <span class="stat-value gradient-text">4+</span>
+            <span class="stat-label">Years Experience</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-emoji">💻</span>
+            <span class="stat-value gradient-text">100+</span>
+            <span class="stat-label">Technologies</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-emoji">🔥</span>
+            <span class="stat-value gradient-text">8</span>
+            <span class="stat-label">Core Areas</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Skills Grid Section -->
+  <section class="skills-section">
+    <div class="container">
+      <div class="skills-grid" data-animate="stagger" data-stagger-delay="150">
+        {skillsData.map((category) => (
+          <div class="skill-category glass" data-tilt>
+            <div class="category-header">
+              <span class="category-icon">{category.icon}</span>
+              <h3 class="category-title">{category.category}</h3>
+            </div>
+            <div class="skills-container">
+              {category.skills.map((skill) => (
+                <span class="skill-tag">{skill}</span>
+              ))}
+            </div>
+          </div>
+        ))}
+      </div>
+
+      <div class="skills-cta glass" data-animate="fade-up">
+        <span class="cta-emoji">🤝</span>
+        <p class="cta-text">
+          Looking for expertise in a specific technology? <strong>Let's discuss your project needs.</strong>
+        </p>
+        <div class="cta-actions">
+          <a href="/projects" class="btn btn-gradient">
+            <span>🚀</span> View Projects
+          </a>
+          {/* <a href="/downloads" class="btn btn-secondary">
+            <span>📥</span> Get Resume
+          </a> */}
+        </div>
+      </div>
+    </div>
+  </section>
+</MainLayout>
+
+<style>
+  /* Skills Hero */
+  .skills-hero {
+    padding: calc(var(--space-5xl) + 80px) 0 var(--space-4xl);
+    background: 
+      radial-gradient(circle at 30% 20%, rgba(99, 102, 241, 0.1) 0%, transparent 50%),
+      radial-gradient(circle at 70% 80%, rgba(6, 182, 212, 0.1) 0%, transparent 50%);
+  }
+
+  .hero-content {
+    max-width: 900px;
+    margin: 0 auto;
+    text-align: center;
+  }
+
+  .hero-content h1 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: var(--space-sm);
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: var(--font-weight-black);
+    margin-bottom: var(--space-lg);
+    line-height: 1.1;
+  }
+
+  .title-emoji {
+    font-size: 0.8em;
+  }
+
+  .hero-description {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-3xl);
+  }
+
+  /* Stats */
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--space-xl);
+    padding: var(--space-xl);
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-xl);
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .stat-emoji {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .stat-value {
+    font-size: clamp(2rem, 4vw, 3rem);
+    font-weight: var(--font-weight-black);
+    line-height: 1;
+  }
+
+  .stat-label {
+    font-size: 0.875rem;
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    font-weight: var(--font-weight-medium);
+  }
+
+  .stat-divider {
+    width: 1px;
+    height: 80px;
+    background: var(--color-border);
+  }
+
+  /* Skills Section */
+  .skills-section {
+    padding: var(--space-4xl) var(--space-lg);
+    background: var(--color-bg-primary);
+    position: relative;
+  }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+    gap: var(--space-xl);
+    margin-bottom: var(--space-3xl);
+  }
+
+  .skill-category {
+    padding: var(--space-xl);
+    border-radius: var(--radius-xl);
+    transition: all var(--transition-normal);
+    animation: fadeInUp 0.6s ease-out backwards;
+  }
+
+  .skill-category:nth-child(1) { animation-delay: 0.1s; }
+  .skill-category:nth-child(2) { animation-delay: 0.2s; }
+  .skill-category:nth-child(3) { animation-delay: 0.3s; }
+  .skill-category:nth-child(4) { animation-delay: 0.4s; }
+  .skill-category:nth-child(5) { animation-delay: 0.5s; }
+  .skill-category:nth-child(6) { animation-delay: 0.6s; }
+
+  .skill-category:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-accent-indigo);
+  }
+
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .category-icon {
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  .category-title {
+    font-size: 1.5rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .skill-tag {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-md);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    font-size: 0.9375rem;
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
+    transition: all var(--transition-fast);
+    cursor: default;
+  }
+
+  .skill-tag:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(99, 102, 241, 0.1),
+      rgba(6, 182, 212, 0.1)
+    );
+    border-color: var(--color-accent-indigo);
+    color: var(--color-text-primary);
+    transform: translateY(-2px);
+  }
+
+  .skills-cta {
+    padding: var(--space-2xl);
+    border-radius: var(--radius-xl);
+    text-align: center;
+    animation: fadeInUp 0.6s ease-out 0.7s backwards;
+  }
+
+  .cta-emoji {
+    font-size: 3rem;
+    display: block;
+    margin-bottom: var(--space-md);
+  }
+
+  .cta-text {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-lg);
+    line-height: 1.6;
+  }
+
+  .cta-text strong {
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .cta-actions {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-xl);
+    border-radius: var(--radius-full);
+    font-size: 1rem;
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    transition: all var(--transition-base);
+    cursor: pointer;
+  }
+
+  .btn span {
+    font-size: 1.125rem;
+  }
+
+  .btn-gradient {
+    background: linear-gradient(135deg, var(--color-accent-indigo), var(--color-accent-cyan));
+    color: white;
+    border: none;
+  }
+
+  .btn-gradient:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+  }
+
+  .btn-secondary {
+    background: transparent;
+    color: var(--color-text-primary);
+    border: 1px solid var(--color-border-strong);
+  }
+
+  .btn-secondary:hover {
+    background: var(--glass-bg);
+    border-color: var(--color-accent-indigo);
+  }
+
+  .btn .arrow {
+    transition: transform var(--transition-fast);
+  }
+
+  .btn:hover .arrow {
+    transform: translateX(4px);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .skills-hero {
+      padding: calc(var(--space-4xl) + 60px) 0 var(--space-3xl);
+    }
+
+    .hero-stats {
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .stat-divider {
+      width: 100%;
+      height: 1px;
+    }
+
+    .skills-section {
+      padding: var(--space-3xl) var(--space-md);
+    }
+
+    .skills-grid {
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .skill-category {
+      padding: var(--space-lg);
+    }
+
+    .category-title {
+      font-size: 1.25rem;
+    }
+
+    .category-icon {
+      font-size: 1.5rem;
+    }
+
+    .skills-cta {
+      padding: var(--space-xl);
+    }
+
+    .cta-text {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .skill-tag {
+      font-size: 0.875rem;
+      padding: 6px var(--space-sm);
+    }
+
+    .skills-container {
+      gap: 8px;
+    }
+  }
+</style>
+

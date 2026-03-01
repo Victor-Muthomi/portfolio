@@ -1,0 +1,105 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Footer from '../components/Footer.astro';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  robots?: string;
+  showNav?: boolean;
+  showFooter?: boolean;
+}
+
+const {
+  title = 'Professional Portfolio | Software Engineer',
+  description = 'Professional portfolio showcasing enterprise-grade software engineering projects and expertise.',
+  image = '/og-image.jpg',
+  robots = 'index, follow',
+  showNav = true,
+  showFooter = true,
+} = Astro.props;
+---
+
+<BaseLayout
+  title={title}
+  description={description}
+  image={image}
+  robots={robots}
+>
+  <div class="main-wrapper">
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-link">
+      Skip to main content
+    </a>
+
+    <!-- Navigation (will be implemented in Phase 3) -->
+    {showNav && (
+      <header id="site-header" role="banner">
+        <slot name="nav">
+          <!-- Default nav content or navbar component -->
+        </slot>
+      </header>
+    )}
+
+    <!-- Main Content Area -->
+    <main id="main-content" role="main" tabindex="-1">
+      <slot />
+    </main>
+
+    <!-- Footer -->
+    {showFooter && (
+      <Footer />
+    )}
+  </div>
+</BaseLayout>
+
+<style>
+  .main-wrapper {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    position: relative;
+    z-index: 1;
+  }
+
+  /* Skip Link for Accessibility */
+  .skip-link {
+    position: absolute;
+    top: -100%;
+    left: 0;
+    z-index: var(--z-tooltip);
+    padding: var(--space-md) var(--space-lg);
+    background: var(--color-accent-indigo);
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    border-radius: 0 0 var(--radius-md) 0;
+    transition: top var(--transition-fast);
+  }
+
+  .skip-link:focus {
+    top: 0;
+    outline: 2px solid var(--color-text-primary);
+    outline-offset: 2px;
+  }
+
+  /* Header */
+  #site-header {
+    position: sticky;
+    top: 0;
+    z-index: var(--z-sticky);
+    width: 100%;
+  }
+
+  /* Main Content */
+  #main-content {
+    flex: 1;
+    width: 100%;
+    outline: none;
+  }
+
+  #main-content:focus {
+    outline: none;
+  }
+</style>

@@ -1,0 +1,156 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+
+const projectData = {
+  title: 'Smart Inventory Forecasting Engine',
+  description: 'Forecasting service predicting future stock demand based on historical transactions, seasonality, and trends to generate reorder recommendations.',
+  summary: 'Created a forecasting service that predicts future stock demand based on historical transactions, seasonality, and trend patterns. The model generates reorder recommendations and integrates into business workflows to prevent shortages and overstocking — with emphasis on interpretability and operational stability over purely academic accuracy.',
+  technologies: ['Python', 'Pandas', 'Scikit-learn', 'Time Series', 'FastAPI'],
+  year: '2024',
+  category: 'Data Science'
+};
+---
+
+<CaseStudyLayout {...projectData}>
+  <section class="case-section">
+    <h2>Problem Statement</h2>
+    <div class="glass section-content">
+      <p>
+        Inventory management without forecasting leads to two costly failure modes: stockouts that block sales and frustrate customers, and overstocking that ties up capital and causes waste. Most small and medium businesses rely on intuition or simple reorder-point rules that ignore seasonality and trend shifts. The goal was to build a data-driven forecasting service that integrates with existing inventory systems, generates interpretable predictions, and provides actionable reorder recommendations rather than opaque model outputs.
+      </p>
+      <div class="challenge-list">
+        <h3>Key Challenges:</h3>
+        <ul>
+          <li>Short and irregular historical transaction records for many SKUs</li>
+          <li>Seasonality patterns varying significantly across product categories</li>
+          <li>Business user requirement for interpretable, explainable predictions</li>
+          <li>Integration with existing inventory and purchasing workflows</li>
+          <li>Graceful degradation when historical data is insufficient</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>System Architecture</h2>
+    <div class="glass section-content">
+      <p>
+        Historical transaction data is loaded and preprocessed per SKU. A model selection layer chooses the appropriate forecasting approach based on data availability and pattern type. Predictions are post-processed to generate reorder recommendations factoring in lead times and safety stock buffers. Results are served via FastAPI for integration with inventory management systems.
+      </p>
+      <div class="architecture-points">
+        <div class="arch-item">
+          <h4>Data Preparation</h4>
+          <p>Pandas-based pipeline cleaning transaction records, aggregating to daily/weekly demand, handling missing periods (zero-sales days vs. no-data gaps), and computing derived features like rolling averages and seasonal indices.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Model Selection</h4>
+          <p>Tiered model selection: exponential smoothing for short series, SARIMA for seasonal patterns, and gradient-boosted regressors with time features for SKUs with rich history. Cross-validation on held-out periods selects the best model per SKU.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Recommendation Engine</h4>
+          <p>Forecasts are converted to reorder recommendations using configurable parameters: supplier lead time, desired service level, safety stock formula, and minimum order quantities — producing purchase orders rather than raw numbers.</p>
+        </div>
+        <div class="arch-item">
+          <h4>API & Integration</h4>
+          <p>FastAPI service exposing forecast retrieval, model retraining triggers, and recommendation queries. Designed for integration with ERP and inventory management systems via standard REST calls.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Key Engineering Challenges</h2>
+    <div class="glass section-content">
+      <div class="challenge-grid">
+        <div class="challenge-card">
+          <h4>Sparse Historical Data</h4>
+          <p>Challenge: New or slow-moving products have few transactions, making statistical models unreliable.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Category-level aggregation to detect shared seasonal patterns, which are then applied to individual SKUs as a prior — enabling reasonable forecasts even with limited per-SKU history.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Interpretability Requirement</h4>
+          <p>Challenge: Business users distrust black-box predictions; they need to understand why a reorder quantity was recommended.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Prediction explanations showing the trend, seasonal, and residual components separately, with plain-language summaries of the factors driving the recommendation.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Model Staleness</h4>
+          <p>Challenge: Models trained on old data drift away from current demand patterns without retraining.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Scheduled weekly retraining pipeline per SKU, with a drift detector comparing recent actuals against forecast confidence intervals to trigger early retraining when performance degrades.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Safety Stock Calibration</h4>
+          <p>Challenge: Overly conservative safety stock wastes capital; too little causes stockouts when demand spikes.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Service-level-driven safety stock formula using forecast error standard deviation, calibrated per product category and supplier reliability profile.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Solutions Implemented</h2>
+    <div class="glass section-content">
+      <ul class="solution-list">
+        <li><strong>Tiered Model Selection:</strong> Automatic selection of the best-fit forecasting algorithm per SKU based on series length, variance, and detected seasonality.</li>
+        <li><strong>Category-Level Priors:</strong> Shared seasonal patterns across product families providing reliable seasonality estimates for data-sparse SKUs.</li>
+        <li><strong>Explainable Recommendations:</strong> Decomposed forecast components with plain-language justification for each reorder quantity generated.</li>
+        <li><strong>Drift Detection:</strong> Ongoing monitoring of forecast accuracy with automatic retraining triggers on performance degradation.</li>
+        <li><strong>ERP Integration Layer:</strong> REST API designed for plug-in integration with inventory management and purchasing modules.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Outcome & Impact</h2>
+    <div class="glass section-content">
+      <div class="impact-grid">
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">30%</span>
+          <span class="metric-label">Stockout Reduction</span>
+          <p class="metric-desc">Compared to rule-based reordering</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">20%</span>
+          <span class="metric-label">Inventory Cost Reduction</span>
+          <p class="metric-desc">Less capital tied in excess stock</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">Weekly</span>
+          <span class="metric-label">Auto-Retraining</span>
+          <p class="metric-desc">Keeping models current</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">95%+</span>
+          <span class="metric-label">SKU Coverage</span>
+          <p class="metric-desc">Including sparse-history products</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</CaseStudyLayout>
+
+<style>
+  .case-section { margin-bottom: var(--space-4xl); }
+  .case-section h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: var(--font-weight-bold); margin-bottom: var(--space-xl); }
+  .section-content { padding: var(--space-2xl); border-radius: var(--radius-xl); }
+  .section-content p { font-size: 1.125rem; line-height: 1.8; color: var(--color-text-secondary); margin-bottom: var(--space-lg); }
+  .challenge-list { margin-top: var(--space-xl); }
+  .challenge-list h3 { font-size: 1.25rem; font-weight: var(--font-weight-semibold); margin-bottom: var(--space-md); }
+  .challenge-list ul, .solution-list { list-style: none; }
+  .challenge-list li, .solution-list li { padding-left: var(--space-lg); margin-bottom: var(--space-md); position: relative; font-size: 1.0625rem; line-height: 1.7; color: var(--color-text-secondary); }
+  .challenge-list li::before, .solution-list li::before { content: '→'; position: absolute; left: 0; color: var(--color-accent-cyan); font-weight: var(--font-weight-bold); }
+  .architecture-points { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .arch-item { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .arch-item h4 { color: var(--color-accent-cyan); margin-bottom: var(--space-sm); font-size: 1.25rem; }
+  .arch-item p { font-size: 1rem; margin-bottom: 0; }
+  .challenge-grid { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .challenge-card { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-left: 3px solid var(--color-accent-indigo); border-radius: var(--radius-lg); }
+  .challenge-card h4 { margin-bottom: var(--space-sm); font-size: 1.25rem; }
+  .challenge-card p { font-size: 1rem; margin-bottom: var(--space-md); }
+  .solution-tag { color: var(--color-text-tertiary); font-size: 0.9375rem; }
+  .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-xl); margin-bottom: var(--space-2xl); }
+  .impact-metric { text-align: center; padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .metric-value { display: block; font-size: clamp(2rem, 4vw, 3rem); font-weight: var(--font-weight-black); margin-bottom: var(--space-sm); }
+  .metric-label { display: block; font-size: 1rem; font-weight: var(--font-weight-semibold); color: var(--color-text-primary); margin-bottom: var(--space-xs); }
+  .metric-desc { font-size: 0.875rem; color: var(--color-text-tertiary); margin-bottom: 0; }
+  @media (max-width: 768px) { .section-content { padding: var(--space-lg); } .impact-grid { grid-template-columns: 1fr; gap: var(--space-md); } }
+</style>

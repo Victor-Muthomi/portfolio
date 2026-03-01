@@ -1,0 +1,478 @@
+---
+const contactMethods = [
+  {
+    label: 'WhatsApp',
+    value: '+254712550618',
+    href: 'https://wa.me/254712550618',
+    icon: 'whatsapp',
+    description: 'Send me a message on WhatsApp',
+    primary: false
+  },
+  {
+    label: 'Email',
+    value: 'muthomivictor367@gmail.com',
+    href: 'mailto:muthomivictor367@gmail.com',
+    icon: 'email',
+    description: 'Send me a message anytime',
+    primary: true
+  },
+  {
+    label: 'GitHub',
+    value: '@Victor-Muthomi',
+    href: 'https://github.com/Victor-Muthomi',
+    icon: 'github',
+    description: 'Check out my open source work',
+    primary: false
+  },
+  {
+    label: 'LinkedIn',
+    value: 'Victor Muthomi',
+    href: 'https://www.linkedin.com/in/victor-muthomi-497b173a4/',
+    icon: 'linkedin',
+    description: 'Connect professionally',
+    primary: false
+  }
+];
+---
+
+<section id="contact" class="contact-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">
+        Get In <span class="gradient-text">Touch</span>
+      </h2>
+      <p class="section-subtitle">
+        Have a project in mind or want to discuss opportunities? I'd love to hear from you.
+      </p>
+    </div>
+
+    <div class="contact-content">
+      <div class="contact-grid" data-animate="stagger" data-stagger-delay="150">
+        {contactMethods.map((method) => (
+          <a 
+            href={method.href}
+            class={`contact-card glass ${method.primary ? 'primary' : ''}`}
+            target={method.label !== 'Email' ? '_blank' : undefined}
+            rel={method.label !== 'Email' ? 'noopener noreferrer' : undefined}
+            aria-label={`Contact via ${method.label}: ${method.value}`}
+          >
+            <div class="card-icon">
+              {method.icon === 'whatsapp' && (
+                <svg 
+                  width="32" 
+                  height="32" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  stroke-width="2" 
+                  stroke-linecap="round" 
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967" />
+                  <path d="M13.867 19.085c.234.472.341.795.285 1.192-.06.4-.244.971-.583 1.5-1.337 1.745-2.78 2.173-3.86 1.797-1.12-.4-1.745-1.01-2.4-1.858l-.722-.607" />
+                  <path d="M10.18 18.643c.337-.26.587-.52.587-.77 0-.95-.893-1.53-1.88-1.31-1.113.23-2.295.96-3.11 2.047-1.03 1.38-.94 3.63.23 4.83 1.04 1.07 2.3 1.6 3.68 1.47.76-.07 1.38-.49 1.83-.97" />
+                  <path d="M14.2 11.253c-.16-.16-.24-.33-.3-.5 0 0-.64-.87-1.16-1.23-.58-.38-.97-.32-1.32.17l-.56.72c-.35.44-.7.45-1.25.28-1.17-.36-2.03-.94-2.79-1.93-.96-1.25-1.53-2.73-1.34-3.87.18-1.14 1.08-2.06 2.3-2.06.52 0 1.03.13 1.5.38.47.25.8.57.96.95l.02.02c.23.5.53 1 .85 1.48l.64.94c.23.34.46.34.73.23.27-.1.58-.17.95-.07.37.1.77.35 1.2.75.6.56.88 1.23.88 1.87 0 .5-.15.9-.43 1.21-.28.3-.67.48-1.14.54.7.23 1.27.6 1.68 1.1.42.5.6 1.08.53 1.74-.08.65-.44 1.21-.9 1.58l-.93.75" />
+                </svg>
+              )}
+              {method.icon === 'email' && (
+                <svg 
+                  width="32" 
+                  height="32" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  stroke-width="2" 
+                  stroke-linecap="round" 
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z" />
+                  <polyline points="22,6 12,13 2,6" />
+                </svg>
+              )}
+              {method.icon === 'github' && (
+                <svg 
+                  width="32" 
+                  height="32" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  stroke-width="2" 
+                  stroke-linecap="round" 
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                </svg>
+              )}
+              {method.icon === 'linkedin' && (
+                <svg 
+                  width="32" 
+                  height="32" 
+                  viewBox="0 0 24 24" 
+                  fill="none" 
+                  stroke="currentColor" 
+                  stroke-width="2" 
+                  stroke-linecap="round" 
+                  stroke-linejoin="round"
+                  aria-hidden="true"
+                >
+                  <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z" />
+                  <rect x="2" y="9" width="4" height="12" />
+                  <circle cx="4" cy="4" r="2" />
+                </svg>
+              )}
+            </div>
+
+            <div class="card-content">
+              <h3 class="contact-label">{method.label}</h3>
+              <p class="contact-value">{method.value}</p>
+              <p class="contact-description">{method.description}</p>
+            </div>
+
+            <div class="card-arrow">
+              <svg 
+                width="20" 
+                height="20" 
+                viewBox="0 0 24 24" 
+                fill="none" 
+                stroke="currentColor" 
+                stroke-width="2" 
+                stroke-linecap="round" 
+                stroke-linejoin="round"
+                aria-hidden="true"
+              >
+                <path d="M7 17L17 7" />
+                <path d="M7 7h10v10" />
+              </svg>
+            </div>
+          </a>
+        ))}
+      </div>
+
+      <div class="contact-footer glass" data-animate="fade-up">
+        <div class="footer-content">
+          <div class="footer-text">
+            <h3>Open to Opportunities</h3>
+            <p>
+              Currently available for freelance projects, consulting, and full-time positions. 
+              Whether you need help with enterprise architecture, AI implementation, or full-stack development, 
+              let's build something amazing together.
+            </p>
+          </div>
+          <div class="footer-badges">
+            <span class="status-badge">
+              <span class="status-indicator"></span>
+              Available for work
+            </span>
+            <span class="response-badge">
+              ⚡ Usually responds within 24 hours
+            </span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .contact-section {
+    padding: var(--space-4xl) var(--space-lg);
+    background: 
+      radial-gradient(circle at 20% 50%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 80% 50%, rgba(6, 182, 212, 0.08) 0%, transparent 50%),
+      var(--color-bg-primary);
+    position: relative;
+  }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: var(--font-weight-black);
+    margin-bottom: var(--space-md);
+    line-height: 1.1;
+  }
+
+  .section-subtitle {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--color-text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .contact-content {
+    max-width: 900px;
+    margin: 0 auto;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+    gap: var(--space-lg);
+    margin-bottom: var(--space-3xl);
+  }
+
+  .contact-card {
+    position: relative;
+    padding: var(--space-xl);
+    border-radius: var(--radius-xl);
+    text-decoration: none;
+    transition: all var(--transition-normal);
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    animation: fadeInUp 0.6s ease-out backwards;
+    overflow: hidden;
+  }
+
+  .contact-card:nth-child(1) { animation-delay: 0.1s; }
+  .contact-card:nth-child(2) { animation-delay: 0.2s; }
+  .contact-card:nth-child(3) { animation-delay: 0.3s; }
+
+  .contact-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(90deg, var(--color-accent-indigo), var(--color-accent-cyan));
+    opacity: 0;
+    transition: opacity var(--transition-normal);
+  }
+
+  .contact-card:hover {
+    transform: translateY(-6px);
+    border-color: var(--color-accent-indigo);
+  }
+
+  .contact-card:hover::before {
+    opacity: 1;
+  }
+
+  .contact-card.primary {
+    border: 2px solid var(--color-accent-indigo);
+    background: linear-gradient(
+      135deg,
+      rgba(99, 102, 241, 0.08),
+      rgba(6, 182, 212, 0.05)
+    );
+  }
+
+  .contact-card.primary::before {
+    opacity: 1;
+  }
+
+  .card-icon {
+    width: 56px;
+    height: 56px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: var(--radius-lg);
+    background: linear-gradient(
+      135deg,
+      rgba(99, 102, 241, 0.1),
+      rgba(6, 182, 212, 0.1)
+    );
+    color: var(--color-accent-indigo);
+    transition: all var(--transition-normal);
+  }
+
+  .contact-card:hover .card-icon {
+    background: linear-gradient(135deg, var(--color-accent-indigo), var(--color-accent-cyan));
+    color: white;
+    transform: scale(1.1) rotate(5deg);
+  }
+
+  .card-content {
+    flex: 1;
+  }
+
+  .contact-label {
+    font-size: 1.125rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-xs);
+  }
+
+  .contact-value {
+    font-size: 1rem;
+    color: var(--color-accent-cyan);
+    font-weight: var(--font-weight-medium);
+    margin-bottom: var(--space-sm);
+    word-break: break-word;
+  }
+
+  .contact-description {
+    font-size: 0.875rem;
+    color: var(--color-text-tertiary);
+    margin: 0;
+    line-height: 1.5;
+  }
+
+  .card-arrow {
+    position: absolute;
+    top: var(--space-lg);
+    right: var(--space-lg);
+    color: var(--color-text-tertiary);
+    transition: all var(--transition-normal);
+    opacity: 0;
+  }
+
+  .contact-card:hover .card-arrow {
+    opacity: 1;
+    transform: translate(4px, -4px);
+    color: var(--color-accent-cyan);
+  }
+
+  .contact-footer {
+    padding: var(--space-2xl);
+    border-radius: var(--radius-xl);
+    animation: fadeInUp 0.6s ease-out 0.4s backwards;
+  }
+
+  .footer-content {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+  }
+
+  .footer-text h3 {
+    font-size: 1.5rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-sm);
+  }
+
+  .footer-text p {
+    font-size: 1rem;
+    color: var(--color-text-secondary);
+    margin: 0;
+    line-height: 1.7;
+  }
+
+  .footer-badges {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+  }
+
+  .status-badge,
+  .response-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) var(--space-md);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    font-size: 0.875rem;
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
+  }
+
+  .status-indicator {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: var(--color-accent-cyan);
+    animation: pulse 2s ease-in-out infinite;
+  }
+
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+      transform: scale(1);
+    }
+    50% {
+      opacity: 0.6;
+      transform: scale(1.2);
+    }
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .contact-section {
+      padding: var(--space-3xl) var(--space-md);
+    }
+
+    .contact-grid {
+      grid-template-columns: 1fr;
+      gap: var(--space-md);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .contact-card {
+      padding: var(--space-lg);
+    }
+
+    .contact-footer {
+      padding: var(--space-xl);
+    }
+
+    .footer-text h3 {
+      font-size: 1.25rem;
+    }
+
+    .footer-badges {
+      flex-direction: column;
+    }
+
+    .status-badge,
+    .response-badge {
+      justify-content: center;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .card-icon {
+      width: 48px;
+      height: 48px;
+    }
+
+    .card-icon svg {
+      width: 24px;
+      height: 24px;
+    }
+
+    .contact-label {
+      font-size: 1rem;
+    }
+
+    .contact-value {
+      font-size: 0.9375rem;
+    }
+  }
+
+  /* Focus styles for accessibility */
+  .contact-card:focus {
+    outline: 2px solid var(--color-accent-indigo);
+    outline-offset: 4px;
+  }
+
+  .contact-card:focus:not(:focus-visible) {
+    outline: none;
+  }
+</style>

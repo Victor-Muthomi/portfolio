@@ -1,0 +1,156 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+
+const projectData = {
+  title: 'Real-Time Analytics & Monitoring Dashboard',
+  description: 'Streaming analytics platform collecting application events, processing them in real time, and visualising operational metrics through interactive dashboards.',
+  summary: 'Built a streaming analytics platform that collects application and user activity events, processes them in real time, and visualises operational metrics through interactive dashboards. The system aggregates logs, calculates performance indicators, and triggers alerts when anomalies occur — enabling administrators to understand system health and usage behaviour without waiting on delayed batch reports.',
+  technologies: ['Python', 'WebSockets', 'Redis Streams', 'TimescaleDB', 'Docker', 'Charting'],
+  year: '2024',
+  category: 'Data Engineering'
+};
+---
+
+<CaseStudyLayout {...projectData}>
+  <section class="case-section">
+    <h2>Problem Statement</h2>
+    <div class="glass section-content">
+      <p>
+        Operations teams managing distributed applications often rely on delayed batch reports that are hours behind reality. By the time an issue is spotted in a report, users have already experienced degraded performance or data loss. The need was a live monitoring layer that surfaces system health, user behaviour, and anomalies in seconds rather than hours — without requiring a complex data warehouse setup.
+      </p>
+      <div class="challenge-list">
+        <h3>Key Challenges:</h3>
+        <ul>
+          <li>Ingesting high-frequency event streams without dropping data under load</li>
+          <li>Low-latency aggregation suitable for real-time display</li>
+          <li>Efficient time-series storage with long retention at reasonable cost</li>
+          <li>Anomaly detection without excessive false positives</li>
+          <li>Live dashboard delivery to multiple browser clients simultaneously</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>System Architecture</h2>
+    <div class="glass section-content">
+      <p>
+        Events are emitted by applications and pushed into Redis Streams as the ingestion buffer. Stream consumers aggregate and compute metrics, persisting time-series data to TimescaleDB. A WebSocket server pushes metric updates to connected dashboards in real time. Alerting rules evaluate incoming metrics and dispatch notifications when thresholds are breached.
+      </p>
+      <div class="architecture-points">
+        <div class="arch-item">
+          <h4>Event Ingestion</h4>
+          <p>Applications publish structured events to Redis Streams via a lightweight SDK. The buffer absorbs traffic spikes and decouples producers from consumers, preventing backpressure from reaching application services.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Stream Processing</h4>
+          <p>Consumer groups read events, compute windowed aggregates (per-minute, per-hour counts, averages, percentiles), and write time-series records to TimescaleDB using continuous aggregates for efficient historicals.</p>
+        </div>
+        <div class="arch-item">
+          <h4>WebSocket Delivery</h4>
+          <p>A Python WebSocket server maintains connections with dashboard clients and broadcasts metric updates as they are computed, delivering sub-second latency between event occurrence and dashboard display.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Alerting Engine</h4>
+          <p>Rule-based evaluator checks incoming metrics against configurable thresholds. Anomaly detection uses rolling z-score analysis to catch unexpected spikes. Alerts are dispatched via email, SMS, or webhook.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Key Engineering Challenges</h2>
+    <div class="glass section-content">
+      <div class="challenge-grid">
+        <div class="challenge-card">
+          <h4>High-Frequency Ingestion</h4>
+          <p>Challenge: Applications generating thousands of events per second can overwhelm a synchronous storage layer.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Redis Streams as a durable, ordered buffer with consumer group semantics ensuring events are processed exactly once and no data is lost during consumer restarts.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Time-Series Storage at Scale</h4>
+          <p>Challenge: Raw event storage grows unbounded; querying large tables for aggregates becomes slow.</p>
+          <p class="solution-tag"><strong>Solution:</strong> TimescaleDB with automatic partitioning by time (hypertables) and continuous aggregate materialised views precomputing common metric rollups for fast dashboard queries.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Simultaneous Dashboard Clients</h4>
+          <p>Challenge: Broadcasting live updates to many connected clients efficiently without duplicating computation.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Single metric computation path writes to a shared publish channel; the WebSocket server fans out to all subscribed clients, keeping server-side computation constant regardless of client count.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Alert Noise Reduction</h4>
+          <p>Challenge: Threshold-based alerts trigger excessively on normal traffic variation, leading to alert fatigue.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Rolling z-score anomaly detection combined with sustained-breach requirements (alert only after N consecutive threshold violations) dramatically reducing false positive rate.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Solutions Implemented</h2>
+    <div class="glass section-content">
+      <ul class="solution-list">
+        <li><strong>Redis Streams Ingestion:</strong> Durable ordered event buffer with consumer group processing, replay capability, and automatic trimming to manage memory.</li>
+        <li><strong>TimescaleDB Continuous Aggregates:</strong> Precomputed rollups for 1-minute, 1-hour, and 1-day windows enabling instant historical chart queries.</li>
+        <li><strong>WebSocket Broadcast Server:</strong> Async Python server managing concurrent client connections with per-metric subscription filtering.</li>
+        <li><strong>Anomaly Detection:</strong> Rolling statistical analysis flagging values deviating significantly from recent baselines, with hysteresis to prevent flapping.</li>
+        <li><strong>Interactive Dashboards:</strong> Configurable metric panels with time range selectors, drill-down capability, and exportable reports for management review.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Outcome & Impact</h2>
+    <div class="glass section-content">
+      <div class="impact-grid">
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">&lt;1s</span>
+          <span class="metric-label">Event-to-Dashboard Latency</span>
+          <p class="metric-desc">From emission to display</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">10K+</span>
+          <span class="metric-label">Events/Second</span>
+          <p class="metric-desc">Sustained ingestion capacity</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">70%</span>
+          <span class="metric-label">Faster Incident Detection</span>
+          <p class="metric-desc">Vs. previous batch reporting</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">90%</span>
+          <span class="metric-label">Alert Noise Reduction</span>
+          <p class="metric-desc">After anomaly detection tuning</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</CaseStudyLayout>
+
+<style>
+  .case-section { margin-bottom: var(--space-4xl); }
+  .case-section h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: var(--font-weight-bold); margin-bottom: var(--space-xl); }
+  .section-content { padding: var(--space-2xl); border-radius: var(--radius-xl); }
+  .section-content p { font-size: 1.125rem; line-height: 1.8; color: var(--color-text-secondary); margin-bottom: var(--space-lg); }
+  .challenge-list { margin-top: var(--space-xl); }
+  .challenge-list h3 { font-size: 1.25rem; font-weight: var(--font-weight-semibold); margin-bottom: var(--space-md); }
+  .challenge-list ul, .solution-list { list-style: none; }
+  .challenge-list li, .solution-list li { padding-left: var(--space-lg); margin-bottom: var(--space-md); position: relative; font-size: 1.0625rem; line-height: 1.7; color: var(--color-text-secondary); }
+  .challenge-list li::before, .solution-list li::before { content: '→'; position: absolute; left: 0; color: var(--color-accent-cyan); font-weight: var(--font-weight-bold); }
+  .architecture-points { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .arch-item { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .arch-item h4 { color: var(--color-accent-cyan); margin-bottom: var(--space-sm); font-size: 1.25rem; }
+  .arch-item p { font-size: 1rem; margin-bottom: 0; }
+  .challenge-grid { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .challenge-card { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-left: 3px solid var(--color-accent-indigo); border-radius: var(--radius-lg); }
+  .challenge-card h4 { margin-bottom: var(--space-sm); font-size: 1.25rem; }
+  .challenge-card p { font-size: 1rem; margin-bottom: var(--space-md); }
+  .solution-tag { color: var(--color-text-tertiary); font-size: 0.9375rem; }
+  .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-xl); margin-bottom: var(--space-2xl); }
+  .impact-metric { text-align: center; padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .metric-value { display: block; font-size: clamp(2rem, 4vw, 3rem); font-weight: var(--font-weight-black); margin-bottom: var(--space-sm); }
+  .metric-label { display: block; font-size: 1rem; font-weight: var(--font-weight-semibold); color: var(--color-text-primary); margin-bottom: var(--space-xs); }
+  .metric-desc { font-size: 0.875rem; color: var(--color-text-tertiary); margin-bottom: 0; }
+  @media (max-width: 768px) { .section-content { padding: var(--space-lg); } .impact-grid { grid-template-columns: 1fr; gap: var(--space-md); } }
+</style>

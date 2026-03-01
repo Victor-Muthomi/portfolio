@@ -1,0 +1,156 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+
+const projectData = {
+  title: 'Multi-Tenant SaaS Boilerplate',
+  description: 'Production-grade SaaS foundation with tenant isolation, authentication, permissions, subscription management, and modular service architecture.',
+  summary: 'Developed a reusable production-grade SaaS foundation supporting tenant isolation, authentication, permissions, and subscription lifecycle management. Includes role-based access control, background jobs, rate limiting, and modular service architecture — designed to accelerate building startups or enterprise tools with maintainability and predictable scaling at its core.',
+  technologies: ['FastAPI', 'PostgreSQL', 'Redis', 'Celery', 'JWT', 'Docker'],
+  year: '2024',
+  category: 'Backend Engineering'
+};
+---
+
+<CaseStudyLayout {...projectData}>
+  <section class="case-section">
+    <h2>Problem Statement</h2>
+    <div class="glass section-content">
+      <p>
+        Every new SaaS product requires the same foundational plumbing: authentication, multi-tenancy, billing, permissions, and background job processing. Building this from scratch each time wastes weeks of engineering effort and often introduces subtle security or isolation bugs. The goal was to produce a robust, reusable boilerplate that teams could fork and build product features on top of immediately — with none of the typical corner-cutting that leads to rework later.
+      </p>
+      <div class="challenge-list">
+        <h3>Key Challenges:</h3>
+        <ul>
+          <li>Strict tenant data isolation without global query filters being missed by developers</li>
+          <li>Flexible role-based access control that scales from simple to complex permission trees</li>
+          <li>Subscription lifecycle management across free, trial, and paid tiers</li>
+          <li>Rate limiting that is tenant-aware and configurable per plan</li>
+          <li>Developer experience that does not sacrifice correctness for speed</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>System Architecture</h2>
+    <div class="glass section-content">
+      <p>
+        The boilerplate is structured around independent domain modules — auth, tenants, billing, permissions, jobs — each with clear boundaries and no cross-module database queries. FastAPI provides the API layer; PostgreSQL with row-level security enforces tenant isolation at the database level; Celery handles background work; Redis manages caching and rate limiting.
+      </p>
+      <div class="architecture-points">
+        <div class="arch-item">
+          <h4>Tenant Isolation</h4>
+          <p>PostgreSQL row-level security policies enforce that queries only return rows belonging to the requesting tenant, with application-level middleware setting the current tenant context on every request.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Auth & Permissions</h4>
+          <p>JWT-based authentication with short-lived access tokens and rotating refresh tokens. RBAC system supporting hierarchical roles, resource-level permissions, and per-tenant permission overrides.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Subscription Management</h4>
+          <p>Plan definitions with feature flags and usage limits stored per tenant. Webhook handlers process payment provider events to activate, upgrade, downgrade, or suspend tenant access automatically.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Background Jobs</h4>
+          <p>Celery worker pool with Redis broker handling async tasks: emails, report generation, bulk operations, and scheduled jobs. Tasks are tenant-scoped and respect plan-level execution priority.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Key Engineering Challenges</h2>
+    <div class="glass section-content">
+      <div class="challenge-grid">
+        <div class="challenge-card">
+          <h4>Tenant Data Leakage Prevention</h4>
+          <p>Challenge: Application-level filters can be forgotten or bypassed by developers adding new queries, risking cross-tenant data leakage.</p>
+          <p class="solution-tag"><strong>Solution:</strong> PostgreSQL row-level security as the enforcement layer — even a raw SQL query without a filter returns zero rows for the wrong tenant, making leakage structurally impossible.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Flexible Permission Modelling</h4>
+          <p>Challenge: Different SaaS products need different permission semantics — simple roles vs. fine-grained resource-level ACLs.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Layered permission system: global roles define broad access, resource-level overrides allow per-record exceptions, and tenants can define custom roles within plan limits.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Rate Limiting Across Distributed Workers</h4>
+          <p>Challenge: Rate limits must be enforced consistently even when multiple API instances are running behind a load balancer.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Redis-based sliding window counters keyed by tenant and endpoint, providing consistent rate state across all API instances without a centralised bottleneck.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Developer Ergonomics</h4>
+          <p>Challenge: Security infrastructure tends to add friction to development if not designed carefully, causing developers to work around it.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Dependency injection patterns in FastAPI make tenant context, user identity, and permission checks declarative one-liners at the route level with no repetitive boilerplate.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Solutions Implemented</h2>
+    <div class="glass section-content">
+      <ul class="solution-list">
+        <li><strong>Row-Level Security:</strong> PostgreSQL policies automatically scoping all queries to the current tenant context, enforced at the database engine level.</li>
+        <li><strong>JWT Auth Pipeline:</strong> Access token issuance, refresh rotation, token revocation list in Redis, and per-device session management.</li>
+        <li><strong>RBAC Engine:</strong> Hierarchical roles with inheritance, resource-level permission overrides, and plan-gated feature flags evaluated at request time.</li>
+        <li><strong>Subscription Webhooks:</strong> Idempotent event handlers processing payment provider callbacks to manage tenant access states reliably.</li>
+        <li><strong>Dockerised Dev Environment:</strong> One-command local setup with Postgres, Redis, Celery worker, and API service; production-parity configuration via environment variable schema validation.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Outcome & Impact</h2>
+    <div class="glass section-content">
+      <div class="impact-grid">
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">3 weeks</span>
+          <span class="metric-label">Setup Time Saved</span>
+          <p class="metric-desc">Per new SaaS project</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">Zero</span>
+          <span class="metric-label">Tenant Leakage Incidents</span>
+          <p class="metric-desc">Due to DB-level enforcement</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">Modular</span>
+          <span class="metric-label">Architecture</span>
+          <p class="metric-desc">Each domain independently replaceable</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">Production</span>
+          <span class="metric-label">Ready</span>
+          <p class="metric-desc">Security & observability included</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</CaseStudyLayout>
+
+<style>
+  .case-section { margin-bottom: var(--space-4xl); }
+  .case-section h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: var(--font-weight-bold); margin-bottom: var(--space-xl); }
+  .section-content { padding: var(--space-2xl); border-radius: var(--radius-xl); }
+  .section-content p { font-size: 1.125rem; line-height: 1.8; color: var(--color-text-secondary); margin-bottom: var(--space-lg); }
+  .challenge-list { margin-top: var(--space-xl); }
+  .challenge-list h3 { font-size: 1.25rem; font-weight: var(--font-weight-semibold); margin-bottom: var(--space-md); }
+  .challenge-list ul, .solution-list { list-style: none; }
+  .challenge-list li, .solution-list li { padding-left: var(--space-lg); margin-bottom: var(--space-md); position: relative; font-size: 1.0625rem; line-height: 1.7; color: var(--color-text-secondary); }
+  .challenge-list li::before, .solution-list li::before { content: '→'; position: absolute; left: 0; color: var(--color-accent-cyan); font-weight: var(--font-weight-bold); }
+  .architecture-points { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .arch-item { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .arch-item h4 { color: var(--color-accent-cyan); margin-bottom: var(--space-sm); font-size: 1.25rem; }
+  .arch-item p { font-size: 1rem; margin-bottom: 0; }
+  .challenge-grid { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .challenge-card { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-left: 3px solid var(--color-accent-indigo); border-radius: var(--radius-lg); }
+  .challenge-card h4 { margin-bottom: var(--space-sm); font-size: 1.25rem; }
+  .challenge-card p { font-size: 1rem; margin-bottom: var(--space-md); }
+  .solution-tag { color: var(--color-text-tertiary); font-size: 0.9375rem; }
+  .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-xl); margin-bottom: var(--space-2xl); }
+  .impact-metric { text-align: center; padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .metric-value { display: block; font-size: clamp(2rem, 4vw, 3rem); font-weight: var(--font-weight-black); margin-bottom: var(--space-sm); }
+  .metric-label { display: block; font-size: 1rem; font-weight: var(--font-weight-semibold); color: var(--color-text-primary); margin-bottom: var(--space-xs); }
+  .metric-desc { font-size: 0.875rem; color: var(--color-text-tertiary); margin-bottom: 0; }
+  @media (max-width: 768px) { .section-content { padding: var(--space-lg); } .impact-grid { grid-template-columns: 1fr; gap: var(--space-md); } }
+</style>

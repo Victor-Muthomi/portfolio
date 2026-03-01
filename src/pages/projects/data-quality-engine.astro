@@ -1,0 +1,156 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+
+const projectData = {
+  title: 'Data Quality & Validation Engine',
+  description: 'Validation layer enforcing schema rules, referential integrity checks, and anomaly detection before data enters operational databases.',
+  summary: 'Built a validation layer enforcing schema rules, referential integrity checks, and anomaly detection before data enters operational databases. Prevents silent data corruption and improves analytics reliability by catching bad data at the boundary where it enters the system — rather than discovering inconsistencies weeks later in reports.',
+  technologies: ['Python', 'Rules Engine', 'PostgreSQL', 'Data Processing'],
+  year: '2024',
+  category: 'Data Engineering'
+};
+---
+
+<CaseStudyLayout {...projectData}>
+  <section class="case-section">
+    <h2>Problem Statement</h2>
+    <div class="glass section-content">
+      <p>
+        Data quality problems rarely announce themselves immediately. A missing field gets defaulted to null, an out-of-range value passes silently, a duplicate record is inserted — and weeks later an analytics report shows results that don't match reality. By the time the root cause is traced back to a data quality issue, downstream systems have already made decisions based on corrupted data. The goal was a systematic validation layer that catches these problems at entry points before bad data has any opportunity to propagate.
+      </p>
+      <div class="challenge-list">
+        <h3>Key Challenges:</h3>
+        <ul>
+          <li>Validation rules that are declarative, auditable, and maintainable without code changes</li>
+          <li>Referential integrity checks across services without database foreign key constraints</li>
+          <li>Statistical anomaly detection distinguishing genuine data from outliers and errors</li>
+          <li>Quarantine mechanism preserving rejected records for investigation and reprocessing</li>
+          <li>Performance suitable for high-volume ingestion without becoming a bottleneck</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>System Architecture</h2>
+    <div class="glass section-content">
+      <p>
+        The engine sits at data entry points — API endpoints, ETL pipeline outputs, manual import flows. Incoming records are evaluated against a rule set defined in configuration. Passing records proceed to the operational database; failing records are quarantined with error context. Statistical monitors run on committed data to detect distributional anomalies post-ingestion.
+      </p>
+      <div class="architecture-points">
+        <div class="arch-item">
+          <h4>Rule Engine</h4>
+          <p>Declarative rule definitions cover field-level checks (type, nullability, range, regex), cross-field constraints (conditional requirements, logical consistency), and record-level business rules (e.g., end date must be after start date). Rules are loaded from versioned configuration without redeployment.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Referential Integrity Checks</h4>
+          <p>For cross-service references where database foreign keys are not applicable, configurable lookup validators verify that referenced IDs exist in the appropriate service's database before accepting a record.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Statistical Anomaly Detection</h4>
+          <p>Rolling baseline statistics (mean, standard deviation, quantiles) computed per metric field. Records with values deviating significantly from recent baselines are flagged for review rather than hard-rejected, preserving genuine outliers while surfacing suspicious entries.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Quarantine & Reprocessing</h4>
+          <p>Rejected records are written to a quarantine table with the original data, validation errors, and submission context. A management interface allows review, manual correction, and resubmission — ensuring no data is permanently lost even when it fails initial validation.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Key Engineering Challenges</h2>
+    <div class="glass section-content">
+      <div class="challenge-grid">
+        <div class="challenge-card">
+          <h4>Rule Maintainability</h4>
+          <p>Challenge: Hardcoded validation logic in Python becomes difficult to audit, review, and update as business rules change.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Declarative YAML rule definitions loaded at runtime, enabling business analysts to review and propose rule changes without reading Python code; versioned in Git for auditability.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Cross-Service Referential Checks</h4>
+          <p>Challenge: Microservice architectures cannot use database foreign keys across service boundaries, allowing orphaned references to persist silently.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Configurable lookup validators querying reference tables or service APIs on record ingestion, with caching for frequently checked values to maintain throughput.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Distinguishing Errors from Legitimate Outliers</h4>
+          <p>Challenge: Statistical anomaly detection must not flag genuine unusual values as errors, while still catching data quality problems.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Soft anomaly flagging (review queue rather than hard rejection) with confidence scoring based on deviation magnitude and recent baseline stability. Confirmed outliers feed back into baseline recalibration.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Validation Throughput</h4>
+          <p>Challenge: Synchronous rule evaluation on every incoming record must not degrade ingestion performance.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Rule evaluation compiled to efficient in-memory predicates at startup. Referential lookups cached with configurable TTL. Async validation mode available for non-blocking batch ingestion paths.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Solutions Implemented</h2>
+    <div class="glass section-content">
+      <ul class="solution-list">
+        <li><strong>Declarative Rule Engine:</strong> YAML-defined validation rules covering field, cross-field, and business logic constraints — maintainable by non-developers.</li>
+        <li><strong>Cross-Service Integrity Checks:</strong> Configurable lookup validators with caching for referential validation across service boundaries.</li>
+        <li><strong>Statistical Baseline Monitoring:</strong> Rolling distributional baselines flagging anomalous values for review without hard-rejecting genuine outliers.</li>
+        <li><strong>Quarantine with Reprocessing:</strong> Rejected record preservation with annotation, correction interfaces, and resubmission workflow.</li>
+        <li><strong>Data Quality Dashboard:</strong> Acceptance rates, rejection breakdown by rule, quarantine queue depth, and anomaly trend charts for continuous quality monitoring.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Outcome & Impact</h2>
+    <div class="glass section-content">
+      <div class="impact-grid">
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">Zero</span>
+          <span class="metric-label">Silent Corruption</span>
+          <p class="metric-desc">All violations surfaced and logged</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">100%</span>
+          <span class="metric-label">Rejected Data Preserved</span>
+          <p class="metric-desc">Quarantine with full context</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">Real-time</span>
+          <span class="metric-label">Validation</span>
+          <p class="metric-desc">At ingestion boundary</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">Config-driven</span>
+          <span class="metric-label">Rules</span>
+          <p class="metric-desc">No deployment to update rules</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</CaseStudyLayout>
+
+<style>
+  .case-section { margin-bottom: var(--space-4xl); }
+  .case-section h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: var(--font-weight-bold); margin-bottom: var(--space-xl); }
+  .section-content { padding: var(--space-2xl); border-radius: var(--radius-xl); }
+  .section-content p { font-size: 1.125rem; line-height: 1.8; color: var(--color-text-secondary); margin-bottom: var(--space-lg); }
+  .challenge-list { margin-top: var(--space-xl); }
+  .challenge-list h3 { font-size: 1.25rem; font-weight: var(--font-weight-semibold); margin-bottom: var(--space-md); }
+  .challenge-list ul, .solution-list { list-style: none; }
+  .challenge-list li, .solution-list li { padding-left: var(--space-lg); margin-bottom: var(--space-md); position: relative; font-size: 1.0625rem; line-height: 1.7; color: var(--color-text-secondary); }
+  .challenge-list li::before, .solution-list li::before { content: '→'; position: absolute; left: 0; color: var(--color-accent-cyan); font-weight: var(--font-weight-bold); }
+  .architecture-points { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .arch-item { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .arch-item h4 { color: var(--color-accent-cyan); margin-bottom: var(--space-sm); font-size: 1.25rem; }
+  .arch-item p { font-size: 1rem; margin-bottom: 0; }
+  .challenge-grid { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .challenge-card { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-left: 3px solid var(--color-accent-indigo); border-radius: var(--radius-lg); }
+  .challenge-card h4 { margin-bottom: var(--space-sm); font-size: 1.25rem; }
+  .challenge-card p { font-size: 1rem; margin-bottom: var(--space-md); }
+  .solution-tag { color: var(--color-text-tertiary); font-size: 0.9375rem; }
+  .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-xl); margin-bottom: var(--space-2xl); }
+  .impact-metric { text-align: center; padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .metric-value { display: block; font-size: clamp(2rem, 4vw, 3rem); font-weight: var(--font-weight-black); margin-bottom: var(--space-sm); }
+  .metric-label { display: block; font-size: 1rem; font-weight: var(--font-weight-semibold); color: var(--color-text-primary); margin-bottom: var(--space-xs); }
+  .metric-desc { font-size: 0.875rem; color: var(--color-text-tertiary); margin-bottom: 0; }
+  @media (max-width: 768px) { .section-content { padding: var(--space-lg); } .impact-grid { grid-template-columns: 1fr; gap: var(--space-md); } }
+</style>

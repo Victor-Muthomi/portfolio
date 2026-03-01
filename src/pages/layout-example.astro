@@ -1,0 +1,52 @@
+---
+// Example component showing how to use MainLayout with custom nav and footer
+import MainLayout from '../layouts/MainLayout.astro';
+---
+
+<MainLayout
+  title="Layout Example | Professional Portfolio"
+  description="Example page demonstrating the MainLayout architecture."
+>
+  <!-- Optional: Custom navigation slot -->
+  <div slot="nav">
+    <!-- Navigation component will go here in Phase 3 -->
+  </div>
+
+  <!-- Main content (default slot) -->
+  <section class="container" style="padding: 4rem 0;">
+    <h1>Layout Architecture</h1>
+    <p>This page demonstrates the MainLayout component structure.</p>
+    
+    <div class="glass" style="padding: 2rem; margin-top: 2rem;">
+      <h2 style="margin-bottom: 1rem;">Features</h2>
+      <ul style="list-style: disc; padding-left: 2rem; color: var(--color-text-secondary);">
+        <li>Proper HTML5 semantic structure</li>
+        <li>SEO optimized meta tags</li>
+        <li>Open Graph support</li>
+        <li>Accessibility features (skip links, ARIA roles)</li>
+        <li>Sticky header support</li>
+        <li>Flexible slot system (nav, main, footer)</li>
+        <li>Responsive design</li>
+      </ul>
+    </div>
+  </section>
+
+  <!-- Optional: Custom footer slot -->
+  <div slot="footer" class="container footer-content">
+    <p class="footer-text">
+      © {new Date().getFullYear()} Custom Footer Content via Slot
+    </p>
+  </div>
+</MainLayout>
+
+<style>
+  .footer-content {
+    padding: var(--space-2xl) 0;
+    text-align: center;
+  }
+
+  .footer-text {
+    font-size: 0.875rem;
+    color: var(--color-text-tertiary);
+  }
+</style>

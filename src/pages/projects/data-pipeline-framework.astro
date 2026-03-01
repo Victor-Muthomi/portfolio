@@ -1,0 +1,156 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+
+const projectData = {
+  title: 'Automated Data Pipeline Framework',
+  description: 'Modular ETL framework ingesting external datasets, validating records, transforming schemas, and loading them into structured storage with scheduling and monitoring.',
+  summary: 'Built a modular ETL framework that ingests external datasets, validates records, transforms schemas, and loads them into structured storage. Includes scheduling, retry handling, and monitoring to maintain data reliability across multiple integrations — reducing data engineering overhead for organisations with diverse data sources.',
+  technologies: ['Python', 'Celery', 'PostgreSQL', 'Redis', 'Data Validation'],
+  year: '2024',
+  category: 'Data Engineering'
+};
+---
+
+<CaseStudyLayout {...projectData}>
+  <section class="case-section">
+    <h2>Problem Statement</h2>
+    <div class="glass section-content">
+      <p>
+        Organisations integrating data from multiple external sources — APIs, flat files, partner feeds, and database exports — often end up with fragile, one-off scripts that break silently when source schemas change or upstream services are unavailable. The goal was a structured ETL framework that enforces data quality at the ingestion boundary, handles failures gracefully with retries, and provides operational visibility so data teams can catch and resolve issues before they corrupt downstream analytics.
+      </p>
+      <div class="challenge-list">
+        <h3>Key Challenges:</h3>
+        <ul>
+          <li>Heterogeneous source formats — REST APIs, CSV, XML, database dumps</li>
+          <li>Schema drift from upstream providers breaking downstream pipelines</li>
+          <li>Silent failures from flaky source connectivity propagating to analytics</li>
+          <li>Scaling to process large datasets within scheduling windows</li>
+          <li>Operational visibility without requiring complex infrastructure</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>System Architecture</h2>
+    <div class="glass section-content">
+      <p>
+        Pipelines are defined as composable Python classes with standardised interfaces for extraction, validation, transformation, and loading. Celery workers execute scheduled and on-demand pipeline runs; Redis tracks state. A web-based operations dashboard displays run history, failure details, and data quality metrics.
+      </p>
+      <div class="architecture-points">
+        <div class="arch-item">
+          <h4>Pipeline Abstractions</h4>
+          <p>Base classes for Extractor, Validator, Transformer, and Loader define clear interfaces. New integrations are built by subclassing and filling in source-specific logic, with the framework handling scheduling, retries, checkpointing, and monitoring automatically.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Validation Layer</h4>
+          <p>Schema declarations define expected field types, nullability, value ranges, and referential constraints. Every ingested record is validated before transformation; invalid records are quarantined with error details rather than silently dropped or passed through.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Scheduling & Execution</h4>
+          <p>Celery Beat manages scheduled pipeline triggers; on-demand runs are dispatched via the API. Worker concurrency is configurable per pipeline, enabling large pipelines to run in parallel across worker nodes.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Monitoring & Alerting</h4>
+          <p>Each run logs start time, duration, record counts (processed / valid / rejected), and failure details to PostgreSQL. Dashboards surface trends, and alert rules notify on failure rates or volume anomalies exceeding thresholds.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Key Engineering Challenges</h2>
+    <div class="glass section-content">
+      <div class="challenge-grid">
+        <div class="challenge-card">
+          <h4>Schema Drift Handling</h4>
+          <p>Challenge: Upstream providers add, rename, or remove fields without notice, silently breaking transformations.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Forward-compatible schema declarations that tolerate unknown extra fields while enforcing required fields, combined with schema change detection alerts notifying the team when upstream structure diverges.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Quarantine Without Data Loss</h4>
+          <p>Challenge: Rejecting invalid records at the boundary prevents corruption, but discarding them loses potentially recoverable data.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Invalid records are written to a quarantine table with full context (raw input, validation errors, run ID) enabling manual review, correction, and re-ingestion without re-fetching from the source.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Exactly-Once Processing</h4>
+          <p>Challenge: Retried pipeline runs risk inserting duplicate records into the destination database.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Idempotent upsert operations using primary key conflict resolution in PostgreSQL, with run-level checkpointing enabling safe resumption from the last successful batch.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Large Dataset Performance</h4>
+          <p>Challenge: Some source feeds contain hundreds of thousands of records that are slow to process row-by-row.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Batch processing with configurable chunk sizes, PostgreSQL COPY for bulk loads, and parallel worker execution across partitioned data slices.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Solutions Implemented</h2>
+    <div class="glass section-content">
+      <ul class="solution-list">
+        <li><strong>Composable Pipeline Classes:</strong> Standardised Extractor / Validator / Transformer / Loader interfaces enabling rapid development of new source integrations.</li>
+        <li><strong>Schema-Declared Validation:</strong> Type, nullability, range, and referential checks enforced at ingestion boundary with quarantine for rejected records.</li>
+        <li><strong>Idempotent Upserts:</strong> Safe re-runs and retries without duplicate records using PostgreSQL conflict handling strategies.</li>
+        <li><strong>Run History Logging:</strong> Structured logs per pipeline run with record counts, timing breakdowns, and failure details queryable for operational analysis.</li>
+        <li><strong>Alert Rules:</strong> Configurable thresholds for failure rates, record volume drops, and processing time anomalies with multi-channel notifications.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Outcome & Impact</h2>
+    <div class="glass section-content">
+      <div class="impact-grid">
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">Zero</span>
+          <span class="metric-label">Silent Failures</span>
+          <p class="metric-desc">All errors surfaced and logged</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">100%</span>
+          <span class="metric-label">Idempotent Runs</span>
+          <p class="metric-desc">Safe to retry any pipeline</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">5x</span>
+          <span class="metric-label">Faster Integration</span>
+          <p class="metric-desc">New sources via framework patterns</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">Full</span>
+          <span class="metric-label">Data Lineage</span>
+          <p class="metric-desc">Every record traceable to source run</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</CaseStudyLayout>
+
+<style>
+  .case-section { margin-bottom: var(--space-4xl); }
+  .case-section h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: var(--font-weight-bold); margin-bottom: var(--space-xl); }
+  .section-content { padding: var(--space-2xl); border-radius: var(--radius-xl); }
+  .section-content p { font-size: 1.125rem; line-height: 1.8; color: var(--color-text-secondary); margin-bottom: var(--space-lg); }
+  .challenge-list { margin-top: var(--space-xl); }
+  .challenge-list h3 { font-size: 1.25rem; font-weight: var(--font-weight-semibold); margin-bottom: var(--space-md); }
+  .challenge-list ul, .solution-list { list-style: none; }
+  .challenge-list li, .solution-list li { padding-left: var(--space-lg); margin-bottom: var(--space-md); position: relative; font-size: 1.0625rem; line-height: 1.7; color: var(--color-text-secondary); }
+  .challenge-list li::before, .solution-list li::before { content: '→'; position: absolute; left: 0; color: var(--color-accent-cyan); font-weight: var(--font-weight-bold); }
+  .architecture-points { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .arch-item { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .arch-item h4 { color: var(--color-accent-cyan); margin-bottom: var(--space-sm); font-size: 1.25rem; }
+  .arch-item p { font-size: 1rem; margin-bottom: 0; }
+  .challenge-grid { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .challenge-card { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-left: 3px solid var(--color-accent-indigo); border-radius: var(--radius-lg); }
+  .challenge-card h4 { margin-bottom: var(--space-sm); font-size: 1.25rem; }
+  .challenge-card p { font-size: 1rem; margin-bottom: var(--space-md); }
+  .solution-tag { color: var(--color-text-tertiary); font-size: 0.9375rem; }
+  .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-xl); margin-bottom: var(--space-2xl); }
+  .impact-metric { text-align: center; padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .metric-value { display: block; font-size: clamp(2rem, 4vw, 3rem); font-weight: var(--font-weight-black); margin-bottom: var(--space-sm); }
+  .metric-label { display: block; font-size: 1rem; font-weight: var(--font-weight-semibold); color: var(--color-text-primary); margin-bottom: var(--space-xs); }
+  .metric-desc { font-size: 0.875rem; color: var(--color-text-tertiary); margin-bottom: 0; }
+  @media (max-width: 768px) { .section-content { padding: var(--space-lg); } .impact-grid { grid-template-columns: 1fr; gap: var(--space-md); } }
+</style>

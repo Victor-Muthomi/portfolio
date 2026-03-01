@@ -1,0 +1,156 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+
+const projectData = {
+  title: 'AI Document Intelligence Platform',
+  description: 'Document processing pipeline converting unstructured business documents into structured, queryable records using OCR, semantic classification, and language models.',
+  summary: 'Designed a document processing pipeline that converts unstructured business documents — invoices, receipts, contracts, and forms — into structured, queryable records. The system combines OCR extraction, semantic classification, and contextual validation using rule engines and language models, with asynchronous background workers and a human-in-the-loop review interface.',
+  technologies: ['Python', 'FastAPI', 'PostgreSQL', 'Redis', 'Celery', 'OCR', 'LLM', 'Vector Search'],
+  year: '2024',
+  category: 'AI/ML'
+};
+---
+
+<CaseStudyLayout {...projectData}>
+  <section class="case-section">
+    <h2>Problem Statement</h2>
+    <div class="glass section-content">
+      <p>
+        Businesses routinely receive thousands of unstructured documents — invoices from vendors, receipts from field staff, contracts from partners, and forms from customers. Manual data entry is slow, error-prone, and creates bottlenecks in approval, auditing, and compliance workflows. The goal was to automate extraction and classification with sufficient accuracy to eliminate routine manual review while still allowing human verification on uncertain records.
+      </p>
+      <div class="challenge-list">
+        <h3>Key Challenges:</h3>
+        <ul>
+          <li>Wide document variability — different layouts, fonts, languages, and quality levels</li>
+          <li>High accuracy requirements for financial and legal data</li>
+          <li>Confidence-aware routing to balance automation with human oversight</li>
+          <li>Scalable asynchronous processing for high document volumes</li>
+          <li>Audit trail requirements for compliance</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>System Architecture</h2>
+    <div class="glass section-content">
+      <p>
+        The platform is built around a multi-stage processing pipeline. Documents are uploaded through a FastAPI service, queued in Redis, and processed by Celery workers that run OCR, classification, extraction, and validation in sequence. Results are stored in PostgreSQL with vector embeddings for semantic search and retrieval.
+      </p>
+      <div class="architecture-points">
+        <div class="arch-item">
+          <h4>Ingestion Layer</h4>
+          <p>FastAPI endpoint accepts document uploads, performs initial format validation, generates a processing job, and pushes it to a Redis-backed Celery queue for asynchronous handling.</p>
+        </div>
+        <div class="arch-item">
+          <h4>OCR & Extraction</h4>
+          <p>OCR engine extracts raw text and bounding box data from images and PDFs. A second-pass LLM extracts structured fields (dates, amounts, parties, line items) with positional awareness from the OCR layout.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Semantic Classification</h4>
+          <p>Each document is classified by type (invoice, receipt, contract, form) using embeddings and a fine-tuned classifier. Classification confidence determines whether the record enters automated or manual review queues.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Validation & Storage</h4>
+          <p>Rule engines validate extracted fields against business constraints (e.g., valid date ranges, VAT calculations, supplier whitelists). Valid records are committed to PostgreSQL with full audit metadata and vector embeddings for future retrieval.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Key Engineering Challenges</h2>
+    <div class="glass section-content">
+      <div class="challenge-grid">
+        <div class="challenge-card">
+          <h4>Document Layout Variability</h4>
+          <p>Challenge: Invoices and forms from different suppliers have radically different visual layouts, making rigid templates unworkable.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Combined positional OCR output with an LLM prompted to locate fields semantically rather than by fixed coordinates, enabling layout-agnostic extraction.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Confidence-Based Routing</h4>
+          <p>Challenge: Determining when the system is reliable enough to fully automate versus when to escalate to a human reviewer.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Implemented per-field confidence scores aggregated into a document-level score. Records below configurable thresholds are routed to a prioritised review queue with pre-filled suggestions for the reviewer.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>OCR Quality on Poor Scans</h4>
+          <p>Challenge: Field documents often arrive as low-resolution photos with skew, shadows, or partial obstruction.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Applied pre-processing steps (deskew, contrast normalisation, denoising) before OCR, with fallback prompts instructing the LLM to reason about partially readable text.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Audit & Compliance Requirements</h4>
+          <p>Challenge: Every extraction decision must be traceable for financial and regulatory audits.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Persisted the full processing trace per document — raw OCR output, LLM prompts and responses, validation rule outcomes, reviewer actions — in an immutable audit log table.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Solutions Implemented</h2>
+    <div class="glass section-content">
+      <ul class="solution-list">
+        <li><strong>Multi-Stage Pipeline:</strong> OCR → LLM extraction → rule validation → confidence routing, all orchestrated by Celery workers with retry and dead-letter handling.</li>
+        <li><strong>Semantic Field Extraction:</strong> LLM prompted with OCR layout context to locate and extract fields without relying on fixed template positions.</li>
+        <li><strong>Human Review Interface:</strong> Web UI presenting low-confidence documents with field suggestions, bounding box highlights, and one-click approve or correct actions feeding back into training data.</li>
+        <li><strong>Vector Search:</strong> Document embeddings enabling semantic retrieval — e.g., find all invoices similar to a flagged duplicate or retrieve contracts mentioning specific clauses.</li>
+        <li><strong>Automated Reporting:</strong> Aggregated extraction metrics, compliance summaries, and vendor-level analytics generated on a scheduled basis from structured PostgreSQL records.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Outcome & Impact</h2>
+    <div class="glass section-content">
+      <div class="impact-grid">
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">85%</span>
+          <span class="metric-label">Automation Rate</span>
+          <p class="metric-desc">Documents processed without human review</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">10x</span>
+          <span class="metric-label">Processing Speed</span>
+          <p class="metric-desc">Compared to manual data entry</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">&lt;3%</span>
+          <span class="metric-label">Error Rate</span>
+          <p class="metric-desc">On automated records</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">100%</span>
+          <span class="metric-label">Audit Coverage</span>
+          <p class="metric-desc">Full trace on every decision</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</CaseStudyLayout>
+
+<style>
+  .case-section { margin-bottom: var(--space-4xl); }
+  .case-section h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: var(--font-weight-bold); margin-bottom: var(--space-xl); }
+  .section-content { padding: var(--space-2xl); border-radius: var(--radius-xl); }
+  .section-content p { font-size: 1.125rem; line-height: 1.8; color: var(--color-text-secondary); margin-bottom: var(--space-lg); }
+  .challenge-list { margin-top: var(--space-xl); }
+  .challenge-list h3 { font-size: 1.25rem; font-weight: var(--font-weight-semibold); margin-bottom: var(--space-md); }
+  .challenge-list ul, .solution-list { list-style: none; }
+  .challenge-list li, .solution-list li { padding-left: var(--space-lg); margin-bottom: var(--space-md); position: relative; font-size: 1.0625rem; line-height: 1.7; color: var(--color-text-secondary); }
+  .challenge-list li::before, .solution-list li::before { content: '→'; position: absolute; left: 0; color: var(--color-accent-cyan); font-weight: var(--font-weight-bold); }
+  .architecture-points { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .arch-item { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .arch-item h4 { color: var(--color-accent-cyan); margin-bottom: var(--space-sm); font-size: 1.25rem; }
+  .arch-item p { font-size: 1rem; margin-bottom: 0; }
+  .challenge-grid { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .challenge-card { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-left: 3px solid var(--color-accent-indigo); border-radius: var(--radius-lg); }
+  .challenge-card h4 { margin-bottom: var(--space-sm); font-size: 1.25rem; }
+  .challenge-card p { font-size: 1rem; margin-bottom: var(--space-md); }
+  .solution-tag { color: var(--color-text-tertiary); font-size: 0.9375rem; }
+  .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-xl); margin-bottom: var(--space-2xl); }
+  .impact-metric { text-align: center; padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .metric-value { display: block; font-size: clamp(2rem, 4vw, 3rem); font-weight: var(--font-weight-black); margin-bottom: var(--space-sm); }
+  .metric-label { display: block; font-size: 1rem; font-weight: var(--font-weight-semibold); color: var(--color-text-primary); margin-bottom: var(--space-xs); }
+  .metric-desc { font-size: 0.875rem; color: var(--color-text-tertiary); margin-bottom: 0; }
+  @media (max-width: 768px) { .section-content { padding: var(--space-lg); } .impact-grid { grid-template-columns: 1fr; gap: var(--space-md); } }
+</style>

@@ -1,0 +1,21 @@
+{
+  "name": "portfolio",
+  "type": "website",
+  "logo": "https://yourportfolio.vercel.app/logo.png",
+  "url": "https://yourportfolio.vercel.app",
+  "description": "Professional portfolio showcasing enterprise-grade software engineering projects and expertise",
+  "sameAs": [
+    "https://github.com/yourusername",
+    "https://linkedin.com/in/yourprofile"
+  ],
+  "author": {
+    "@type": "Person",
+    "name": "Your Name",
+    "jobTitle": "Software Engineer",
+    "url": "https://yourportfolio.vercel.app",
+    "sameAs": [
+      "https://github.com/yourusername",
+      "https://linkedin.com/in/yourprofile"
+    ]
+  }
+}

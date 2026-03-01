@@ -1,0 +1,358 @@
+---
+const skillsData = [
+  {
+    category: 'Languages & Frameworks',
+    icon: '⚙️',
+    skills: [
+      'Python',
+      'JavaScript',
+      'HTML5',
+      'CSS3',
+      'Flask',
+      'Jinja',
+      'React',
+      'Frappe Framework',
+      'ERPNext',
+      'FastAPI',
+      'TypeScript',
+      'Dart',
+      'Kotlin',
+      'Flutter',
+      'Django',
+      'Node.js',
+      'Express.js',
+      'PHP'
+    ]
+  },
+  {
+    category: 'Mobile Development',
+    icon: '📱',
+    skills: [
+      'Flutter',
+      'Kotlin',
+      'React Native',
+      'Dart',
+      'Mobile UI/UX',
+      'Cross-platform Apps',
+      'Android Development',
+      'iOS Development',
+      'Push Notifications',
+      'App Store Deployment'
+    ]
+  },
+  {
+    category: 'Databases',
+    icon: '💾',
+    skills: [
+      'PostgreSQL',
+      'SQLite',
+      'MariaDB',
+      'Database Design',
+      'SQL Optimization',
+      'Data Modeling',
+      'Query Optimization',
+      'Database Administration'
+    ]
+  },
+  {
+    category: 'AI & Machine Learning',
+    icon: '🤖',
+    skills: [
+      'Rasa NLP',
+      'SpaCy',
+      'Scikit-Learn',
+      'PyTorch',
+      'TensorFlow',
+      'NLP',
+      'Custom ML Prototyping',
+      'Machine Learning Models',
+      'Natural Language Processing',
+      'AI Integration'
+    ]
+  },
+  {
+    category: 'DevOps & Deployment',
+    icon: '🚀',
+    skills: [
+      'Docker',
+      'Git',
+      'GitHub',
+      'Linux',
+      'Kubernetes',
+      'Cloud Hosting',
+      'CI/CD',
+      'Nginx',
+      'Gunicorn',
+      'Automated Deployment'
+    ]
+  },
+  {
+    category: 'APIs & Integrations',
+    icon: '🔗',
+    skills: [
+      'REST APIs',
+      'JWT Authentication',
+      'M-Pesa Daraja API',
+      'Google Text-to-Speech',
+      'Google Translate API',
+      'Google Maps API',
+      'ERPNext Modules',
+      'API Development',
+      'Third-party Integrations'
+    ]
+  }
+];
+---
+
+<section id="skills" class="skills-section">
+  <div class="container">
+    <div class="section-header">
+      <h2 class="section-title">
+        <span class="gradient-text">Skills & Expertise</span>
+      </h2>
+      <p class="section-subtitle">
+        Full-stack engineering capabilities across modern technologies and platforms
+      </p>
+    </div>
+
+    <div class="skills-grid" data-animate="stagger" data-stagger-delay="150">
+      {skillsData.map((category) => (
+        <div class="skill-category glass" data-tilt>
+          <div class="category-header">
+            <span class="category-icon">{category.icon}</span>
+            <h3 class="category-title">{category.category}</h3>
+          </div>
+          <div class="skills-container">
+            {category.skills.map((skill) => (
+              <span class="skill-tag">{skill}</span>
+            ))}
+          </div>
+        </div>
+      ))}
+    </div>
+
+    <div class="skills-cta glass" data-animate="fade-up">
+      <p class="cta-text">
+        Looking for expertise in a specific technology? <strong>Let's discuss your project needs.</strong>
+      </p>
+      <a href="#contact" class="btn btn-gradient">
+        Get In Touch
+        <span class="arrow">→</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<style>
+  .skills-section {
+    padding: var(--space-4xl) var(--space-lg);
+    background: var(--color-bg-primary);
+    position: relative;
+  }
+
+  .container {
+    max-width: 1280px;
+    margin: 0 auto;
+  }
+
+  .section-header {
+    text-align: center;
+    margin-bottom: var(--space-3xl);
+  }
+
+  .section-title {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: var(--font-weight-black);
+    margin-bottom: var(--space-md);
+    line-height: 1.1;
+  }
+
+  .section-subtitle {
+    font-size: clamp(1rem, 2vw, 1.25rem);
+    color: var(--color-text-secondary);
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.6;
+  }
+
+  .skills-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 380px), 1fr));
+    gap: var(--space-xl);
+    margin-bottom: var(--space-3xl);
+  }
+
+  .skill-category {
+    padding: var(--space-xl);
+    border-radius: var(--radius-xl);
+    transition: all var(--transition-normal);
+    animation: fadeInUp 0.6s ease-out backwards;
+  }
+
+  .skill-category:nth-child(1) { animation-delay: 0.1s; }
+  .skill-category:nth-child(2) { animation-delay: 0.2s; }
+  .skill-category:nth-child(3) { animation-delay: 0.3s; }
+  .skill-category:nth-child(4) { animation-delay: 0.4s; }
+  .skill-category:nth-child(5) { animation-delay: 0.5s; }
+  .skill-category:nth-child(6) { animation-delay: 0.6s; }
+
+  .skill-category:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-accent-indigo);
+  }
+
+  .category-header {
+    display: flex;
+    align-items: center;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+    padding-bottom: var(--space-md);
+    border-bottom: 1px solid var(--color-border);
+  }
+
+  .category-icon {
+    font-size: 2rem;
+    line-height: 1;
+  }
+
+  .category-title {
+    font-size: 1.5rem;
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    margin: 0;
+  }
+
+  .skills-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .skill-tag {
+    display: inline-block;
+    padding: var(--space-xs) var(--space-md);
+    background: var(--color-bg-secondary);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-full);
+    font-size: 0.9375rem;
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
+    transition: all var(--transition-fast);
+    cursor: default;
+  }
+
+  .skill-tag:hover {
+    background: linear-gradient(
+      135deg,
+      rgba(99, 102, 241, 0.1),
+      rgba(6, 182, 212, 0.1)
+    );
+    border-color: var(--color-accent-indigo);
+    color: var(--color-text-primary);
+    transform: translateY(-2px);
+  }
+
+  .skills-cta {
+    padding: var(--space-2xl);
+    border-radius: var(--radius-xl);
+    text-align: center;
+    animation: fadeInUp 0.6s ease-out 0.7s backwards;
+  }
+
+  .cta-text {
+    font-size: 1.125rem;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-lg);
+    line-height: 1.6;
+  }
+
+  .cta-text strong {
+    color: var(--color-text-primary);
+    font-weight: var(--font-weight-semibold);
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-sm);
+    padding: var(--space-md) var(--space-xl);
+    border-radius: var(--radius-full);
+    font-size: 1rem;
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    transition: all var(--transition-normal);
+    cursor: pointer;
+  }
+
+  .btn-gradient {
+    background: linear-gradient(135deg, var(--color-accent-indigo), var(--color-accent-cyan));
+    color: white;
+    border: none;
+  }
+
+  .btn-gradient:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 10px 30px rgba(99, 102, 241, 0.3);
+  }
+
+  .btn .arrow {
+    transition: transform var(--transition-fast);
+  }
+
+  .btn:hover .arrow {
+    transform: translateX(4px);
+  }
+
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+
+  @media (max-width: 768px) {
+    .skills-section {
+      padding: var(--space-3xl) var(--space-md);
+    }
+
+    .skills-grid {
+      gap: var(--space-lg);
+      margin-bottom: var(--space-2xl);
+    }
+
+    .skill-category {
+      padding: var(--space-lg);
+    }
+
+    .category-title {
+      font-size: 1.25rem;
+    }
+
+    .category-icon {
+      font-size: 1.5rem;
+    }
+
+    .skills-cta {
+      padding: var(--space-xl);
+    }
+
+    .cta-text {
+      font-size: 1rem;
+    }
+  }
+
+  @media (max-width: 480px) {
+    .skill-tag {
+      font-size: 0.875rem;
+      padding: 6px var(--space-sm);
+    }
+
+    .skills-container {
+      gap: 8px;
+    }
+  }
+</style>

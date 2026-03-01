@@ -1,0 +1,156 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+
+const projectData = {
+  title: 'API Gateway & Rate-Limiting Service',
+  description: 'Centralised gateway handling authentication, request routing, throttling, and logging for distributed services with unified security policies.',
+  summary: 'Developed a centralised gateway handling authentication, request routing, throttling, and logging for distributed services. Provides unified security policies and protects internal systems from abusive traffic patterns — allowing backend services to focus on business logic while the gateway handles cross-cutting concerns.',
+  technologies: ['FastAPI', 'Reverse Proxy', 'Redis', 'JWT', 'Logging'],
+  year: '2024',
+  category: 'Backend Engineering'
+};
+---
+
+<CaseStudyLayout {...projectData}>
+  <section class="case-section">
+    <h2>Problem Statement</h2>
+    <div class="glass section-content">
+      <p>
+        As a system grows from a monolith into distributed services, cross-cutting concerns — authentication, authorisation, rate limiting, logging, routing — get duplicated across every service. Each team reimplements them slightly differently, creating inconsistencies and security gaps. A centralised API gateway resolves this by handling all these concerns in one place, presenting a unified surface to external clients while hiding internal service topology.
+      </p>
+      <div class="challenge-list">
+        <h3>Key Challenges:</h3>
+        <ul>
+          <li>Transparent proxying with minimal added latency</li>
+          <li>Rate limiting that is accurate across multiple gateway instances</li>
+          <li>Token validation without adding a synchronous call to the auth service on every request</li>
+          <li>Granular routing rules supporting path, header, and tenant-based dispatch</li>
+          <li>Structured logging capturing enough context for debugging without storing sensitive data</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>System Architecture</h2>
+    <div class="glass section-content">
+      <p>
+        The gateway is a FastAPI application sitting in front of all internal services. Incoming requests pass through a middleware stack: JWT validation → rate limit check → routing → proxying → response logging. Redis holds rate limit counters and a token revocation list. All request/response metadata is logged to a structured store for monitoring.
+      </p>
+      <div class="architecture-points">
+        <div class="arch-item">
+          <h4>JWT Validation</h4>
+          <p>Access tokens are validated locally using the public key — no round-trip to the auth service. A Redis-backed revocation list is checked for explicitly invalidated tokens, providing security without per-request auth service calls.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Rate Limiting</h4>
+          <p>Sliding window counters in Redis track request counts per client (by IP, API key, or user ID) per time window. Limits are configurable per route and per client tier, with burst allowances for legitimate traffic spikes.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Request Routing</h4>
+          <p>Rule-based router matches incoming requests to upstream services by path prefix, HTTP method, header values, and tenant context. Supports load balancing across multiple upstream instances and circuit breaking on repeated failures.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Observability</h4>
+          <p>Structured request logs capture method, path, client identity, upstream service, latency, status code, and rate limit state. Aggregated metrics expose request rates, error rates, and latency percentiles for dashboards and alerting.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Key Engineering Challenges</h2>
+    <div class="glass section-content">
+      <div class="challenge-grid">
+        <div class="challenge-card">
+          <h4>Distributed Rate Limit Accuracy</h4>
+          <p>Challenge: Rate limits enforced locally on each gateway instance are inaccurate when multiple instances share the same client traffic.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Redis atomic increment with expiry values as the shared counter backend — all gateway instances read and write the same counter, ensuring accurate global rate enforcement regardless of instance count.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Token Revocation Without Auth Service Calls</h4>
+          <p>Challenge: JWT tokens are validated locally for performance, but a compromised token needs to be revocable before its expiry.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Short token lifetimes (15 minutes) combined with a Redis revocation list for explicitly invalidated tokens, balancing performance with security without per-request auth service calls.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Circuit Breaking Upstream Failures</h4>
+          <p>Challenge: A failing upstream service causes the gateway to queue requests, exhausting connections and degrading performance for other routes.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Per-upstream circuit breaker tracking error rates over a sliding window. Open circuits return 503 immediately with a Retry-After header, protecting the gateway from connection exhaustion.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Latency Overhead</h4>
+          <p>Challenge: Every request passes through the gateway, making added latency directly visible to end users.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Async FastAPI with connection pooling to upstream services, Redis pipelining for rate limit operations, and response streaming to avoid buffering — keeping gateway overhead under 5ms p99.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Solutions Implemented</h2>
+    <div class="glass section-content">
+      <ul class="solution-list">
+        <li><strong>Local JWT Validation:</strong> Public-key signature verification with Redis revocation list check — no auth service dependency on the hot path.</li>
+        <li><strong>Redis Sliding Window Rate Limiting:</strong> Atomic counter operations ensuring accurate global rate enforcement across gateway instances.</li>
+        <li><strong>Configurable Routing Rules:</strong> Path, method, header, and tenant-based request dispatch with per-upstream load balancing and health checking.</li>
+        <li><strong>Circuit Breaker:</strong> Per-upstream failure tracking with automatic open/half-open/closed state transitions protecting system stability.</li>
+        <li><strong>Structured Request Logging:</strong> Complete request context captured per call with sensitive field redaction and async write to prevent logging from adding latency.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Outcome & Impact</h2>
+    <div class="glass section-content">
+      <div class="impact-grid">
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">&lt;5ms</span>
+          <span class="metric-label">Gateway Overhead</span>
+          <p class="metric-desc">p99 added latency</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">Unified</span>
+          <span class="metric-label">Security Policy</span>
+          <p class="metric-desc">One enforcement point</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">100%</span>
+          <span class="metric-label">Request Observability</span>
+          <p class="metric-desc">Full structured logs</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">Scalable</span>
+          <span class="metric-label">Rate Limiting</span>
+          <p class="metric-desc">Accurate across N instances</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</CaseStudyLayout>
+
+<style>
+  .case-section { margin-bottom: var(--space-4xl); }
+  .case-section h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: var(--font-weight-bold); margin-bottom: var(--space-xl); }
+  .section-content { padding: var(--space-2xl); border-radius: var(--radius-xl); }
+  .section-content p { font-size: 1.125rem; line-height: 1.8; color: var(--color-text-secondary); margin-bottom: var(--space-lg); }
+  .challenge-list { margin-top: var(--space-xl); }
+  .challenge-list h3 { font-size: 1.25rem; font-weight: var(--font-weight-semibold); margin-bottom: var(--space-md); }
+  .challenge-list ul, .solution-list { list-style: none; }
+  .challenge-list li, .solution-list li { padding-left: var(--space-lg); margin-bottom: var(--space-md); position: relative; font-size: 1.0625rem; line-height: 1.7; color: var(--color-text-secondary); }
+  .challenge-list li::before, .solution-list li::before { content: '→'; position: absolute; left: 0; color: var(--color-accent-cyan); font-weight: var(--font-weight-bold); }
+  .architecture-points { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .arch-item { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .arch-item h4 { color: var(--color-accent-cyan); margin-bottom: var(--space-sm); font-size: 1.25rem; }
+  .arch-item p { font-size: 1rem; margin-bottom: 0; }
+  .challenge-grid { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .challenge-card { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-left: 3px solid var(--color-accent-indigo); border-radius: var(--radius-lg); }
+  .challenge-card h4 { margin-bottom: var(--space-sm); font-size: 1.25rem; }
+  .challenge-card p { font-size: 1rem; margin-bottom: var(--space-md); }
+  .solution-tag { color: var(--color-text-tertiary); font-size: 0.9375rem; }
+  .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-xl); margin-bottom: var(--space-2xl); }
+  .impact-metric { text-align: center; padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .metric-value { display: block; font-size: clamp(2rem, 4vw, 3rem); font-weight: var(--font-weight-black); margin-bottom: var(--space-sm); }
+  .metric-label { display: block; font-size: 1rem; font-weight: var(--font-weight-semibold); color: var(--color-text-primary); margin-bottom: var(--space-xs); }
+  .metric-desc { font-size: 0.875rem; color: var(--color-text-tertiary); margin-bottom: 0; }
+  @media (max-width: 768px) { .section-content { padding: var(--space-lg); } .impact-grid { grid-template-columns: 1fr; gap: var(--space-md); } }
+</style>

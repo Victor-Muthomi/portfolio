@@ -1,0 +1,15 @@
+# robots.txt
+# Optimized for SEO - Allow all search engines
+
+User-agent: *
+Allow: /
+
+# Sitemap location
+Sitemap: https://yourportfolio.vercel.app/sitemap.xml
+
+# Crawl-delay for polite crawling
+Crawl-delay: 0
+
+# Disallow admin/private paths (if any in future)
+# Disallow: /admin/
+# Disallow: /private/

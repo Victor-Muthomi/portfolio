@@ -1,0 +1,156 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+
+const projectData = {
+  title: 'Knowledge Retrieval AI (RAG) System',
+  description: 'Retrieval-augmented knowledge engine answering domain-specific questions using private organisational data with minimal hallucinations.',
+  summary: 'Implemented a retrieval-augmented knowledge engine capable of answering domain-specific questions using private organisational data. The system embeds documents into vector space, retrieves relevant context, and guides model responses to minimise hallucinations — designed for internal documentation, policy assistance, and operational knowledge discovery.',
+  technologies: ['Python', 'Embeddings', 'Vector Database', 'LLM', 'API'],
+  year: '2024',
+  category: 'AI/ML'
+};
+---
+
+<CaseStudyLayout {...projectData}>
+  <section class="case-section">
+    <h2>Problem Statement</h2>
+    <div class="glass section-content">
+      <p>
+        Organisations accumulate large volumes of internal knowledge — policies, procedures, technical documentation, meeting notes, and historical decisions — across files, wikis, and email threads. Finding accurate answers requires either knowing exactly where to look or spending time searching through multiple sources. General-purpose language models cannot access this private data and often fabricate answers when asked about domain-specific topics. The challenge was to build an accurate, trustworthy question-answering system grounded in real organisational knowledge.
+      </p>
+      <div class="challenge-list">
+        <h3>Key Challenges:</h3>
+        <ul>
+          <li>Grounding model answers in private data without fine-tuning</li>
+          <li>Effective retrieval from large, heterogeneous document collections</li>
+          <li>Minimising hallucination — ensuring answers cite actual source material</li>
+          <li>Keeping the knowledge base current as documents are updated</li>
+          <li>Handling multi-step questions requiring reasoning over multiple retrieved passages</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>System Architecture</h2>
+    <div class="glass section-content">
+      <p>
+        Documents are ingested, chunked, and embedded into a vector database. At query time, the user's question is embedded and used to retrieve the most semantically relevant chunks. These chunks are injected into an LLM prompt as context, constraining the model to answer only from provided evidence. Source citations are returned alongside the answer for verification.
+      </p>
+      <div class="architecture-points">
+        <div class="arch-item">
+          <h4>Document Ingestion Pipeline</h4>
+          <p>Documents are parsed, split into semantically coherent chunks with overlap, embedded using a sentence embedding model, and stored in the vector database with metadata (source, version, section) for filtering.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Retrieval Engine</h4>
+          <p>Hybrid retrieval combining dense vector search (semantic similarity) with sparse BM25 keyword matching. Retrieval results are re-ranked by relevance to the specific query before being passed to the generation stage.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Grounded Generation</h4>
+          <p>Retrieved chunks are injected into the LLM prompt with explicit instructions to answer only from provided context and to state when the answer is not found — reducing fabrication to near zero for in-scope questions.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Knowledge Base Maintenance</h4>
+          <p>Incremental update pipeline monitors document sources for changes, re-embeds modified documents, and removes stale vectors — keeping retrieval results accurate without full re-indexing.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Key Engineering Challenges</h2>
+    <div class="glass section-content">
+      <div class="challenge-grid">
+        <div class="challenge-card">
+          <h4>Chunking Strategy</h4>
+          <p>Challenge: Poor chunking (too small or splitting across logical boundaries) degrades retrieval quality significantly.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Sentence-boundary-aware chunking with configurable overlap, preserving paragraph structure and section headings as metadata for context-aware retrieval filtering.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Hallucination Suppression</h4>
+          <p>Challenge: LLMs tend to fabricate plausible-sounding answers when retrieved context is insufficient.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Explicit prompt instructions, confidence estimation based on retrieval similarity scores, and fallback responses for low-confidence retrievals directing users to contact a human expert.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Multi-Document Reasoning</h4>
+          <p>Challenge: Some questions require synthesising information across several retrieved passages rather than answering from a single chunk.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Iterative retrieval with a reasoning step that identifies sub-questions, retrieves for each, and synthesises a final answer — implemented using a lightweight agentic loop.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Retrieval Precision vs. Recall</h4>
+          <p>Challenge: Retrieving too few results misses relevant content; too many introduces noise that confuses the model.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Hybrid dense + sparse retrieval followed by a cross-encoder re-ranker selecting the top-k most relevant passages, balancing precision and coverage.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Solutions Implemented</h2>
+    <div class="glass section-content">
+      <ul class="solution-list">
+        <li><strong>Hybrid Retrieval:</strong> Combined vector similarity search with BM25 keyword matching for robust coverage across semantic and lexical query types.</li>
+        <li><strong>Cross-Encoder Re-ranking:</strong> Secondary relevance model scoring each retrieved passage against the query before passing to the LLM, improving answer grounding.</li>
+        <li><strong>Source Attribution:</strong> Every answer includes citations to the source documents and sections used, enabling users to verify and explore further.</li>
+        <li><strong>Incremental Indexing:</strong> Change-detection pipeline that re-embeds only modified documents, keeping the knowledge base fresh without expensive full re-indexing.</li>
+        <li><strong>API Layer:</strong> REST API exposing query, document ingestion, and knowledge base management endpoints for integration with internal tools and portals.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Outcome & Impact</h2>
+    <div class="glass section-content">
+      <div class="impact-grid">
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">&lt;5%</span>
+          <span class="metric-label">Hallucination Rate</span>
+          <p class="metric-desc">On in-scope queries</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">80%</span>
+          <span class="metric-label">Query Resolution</span>
+          <p class="metric-desc">Without human escalation</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">Minutes</span>
+          <span class="metric-label">vs. Hours</span>
+          <p class="metric-desc">Knowledge discovery time</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">100%</span>
+          <span class="metric-label">Source Cited</span>
+          <p class="metric-desc">On every answer returned</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</CaseStudyLayout>
+
+<style>
+  .case-section { margin-bottom: var(--space-4xl); }
+  .case-section h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: var(--font-weight-bold); margin-bottom: var(--space-xl); }
+  .section-content { padding: var(--space-2xl); border-radius: var(--radius-xl); }
+  .section-content p { font-size: 1.125rem; line-height: 1.8; color: var(--color-text-secondary); margin-bottom: var(--space-lg); }
+  .challenge-list { margin-top: var(--space-xl); }
+  .challenge-list h3 { font-size: 1.25rem; font-weight: var(--font-weight-semibold); margin-bottom: var(--space-md); }
+  .challenge-list ul, .solution-list { list-style: none; }
+  .challenge-list li, .solution-list li { padding-left: var(--space-lg); margin-bottom: var(--space-md); position: relative; font-size: 1.0625rem; line-height: 1.7; color: var(--color-text-secondary); }
+  .challenge-list li::before, .solution-list li::before { content: '→'; position: absolute; left: 0; color: var(--color-accent-cyan); font-weight: var(--font-weight-bold); }
+  .architecture-points { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .arch-item { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .arch-item h4 { color: var(--color-accent-cyan); margin-bottom: var(--space-sm); font-size: 1.25rem; }
+  .arch-item p { font-size: 1rem; margin-bottom: 0; }
+  .challenge-grid { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .challenge-card { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-left: 3px solid var(--color-accent-indigo); border-radius: var(--radius-lg); }
+  .challenge-card h4 { margin-bottom: var(--space-sm); font-size: 1.25rem; }
+  .challenge-card p { font-size: 1rem; margin-bottom: var(--space-md); }
+  .solution-tag { color: var(--color-text-tertiary); font-size: 0.9375rem; }
+  .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-xl); margin-bottom: var(--space-2xl); }
+  .impact-metric { text-align: center; padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .metric-value { display: block; font-size: clamp(2rem, 4vw, 3rem); font-weight: var(--font-weight-black); margin-bottom: var(--space-sm); }
+  .metric-label { display: block; font-size: 1rem; font-weight: var(--font-weight-semibold); color: var(--color-text-primary); margin-bottom: var(--space-xs); }
+  .metric-desc { font-size: 0.875rem; color: var(--color-text-tertiary); margin-bottom: 0; }
+  @media (max-width: 768px) { .section-content { padding: var(--space-lg); } .impact-grid { grid-template-columns: 1fr; gap: var(--space-md); } }
+</style>

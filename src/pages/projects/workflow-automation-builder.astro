@@ -1,0 +1,156 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+
+const projectData = {
+  title: 'Workflow Automation Builder',
+  description: 'Configurable automation engine where non-technical users define triggers and actions to automate operational processes such as approvals, notifications, and record updates.',
+  summary: 'Developed a configurable automation engine where non-technical users can define triggers and actions — if-this-then-that style — to automate operational processes such as approvals, notifications, and record updates. Reduces dependency on engineering for repetitive workflow changes while maintaining auditability and reliability.',
+  technologies: ['Python', 'Event System', 'Background Jobs', 'UI Integration'],
+  year: '2024',
+  category: 'Enterprise Software'
+};
+---
+
+<CaseStudyLayout {...projectData}>
+  <section class="case-section">
+    <h2>Problem Statement</h2>
+    <div class="glass section-content">
+      <p>
+        Operations teams in businesses repeatedly request small workflow automations from engineering: "when a new order is submitted, send an approval email", "when a payment is received, update the contract status and notify the account manager". These requests are individually simple but collectively consume significant engineering time. Building each automation as a one-off script creates unmaintainable fragmentation. The goal was a general automation platform where business users could build and maintain these workflows themselves, without requiring engineering involvement for standard automation patterns.
+      </p>
+      <div class="challenge-list">
+        <h3>Key Challenges:</h3>
+        <ul>
+          <li>Designing a trigger-action model expressive enough for real workflows but simple enough for non-technical users</li>
+          <li>Reliable, ordered execution of multi-step action chains</li>
+          <li>Conditional logic and branching without requiring users to write code</li>
+          <li>Audit trail for compliance — who created which workflow, when it ran, what it did</li>
+          <li>Preventing infinite loops from circular trigger-action relationships</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>System Architecture</h2>
+    <div class="glass section-content">
+      <p>
+        Workflows are defined through a UI as a trigger event + optional filter conditions + an ordered list of actions. Definitions are stored in the database and loaded by a workflow engine that subscribes to the application's event bus. When a matching event fires, the engine evaluates filters and executes the action chain via background workers.
+      </p>
+      <div class="architecture-points">
+        <div class="arch-item">
+          <h4>Workflow Definition Model</h4>
+          <p>Each workflow has a trigger event type (e.g., "order.created", "payment.received"), optional filter conditions (e.g., "order.amount > 10000"), and an action sequence. Action types are a predefined catalogue: send email, send SMS, update record field, call webhook, create task, notify user.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Event Engine</h4>
+          <p>Application services publish typed events to an internal event bus when significant state changes occur. The workflow engine subscribes to all event types and evaluates which active workflows match each incoming event, dispatching matched workflows for execution.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Action Execution</h4>
+          <p>Action chains execute via background workers supporting parallel or sequential ordering per workflow design. Each action result is logged, and conditional branches are evaluated against action outputs or event data using the filter expression engine.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Workflow Builder UI</h4>
+          <p>Drag-and-drop interface for composing trigger-condition-action workflows with a live preview of what data is available at each step. Configuration fields for each action type are rendered dynamically based on the action catalogue definition.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Key Engineering Challenges</h2>
+    <div class="glass section-content">
+      <div class="challenge-grid">
+        <div class="challenge-card">
+          <h4>Infinite Loop Prevention</h4>
+          <p>Challenge: A workflow that updates a record can trigger itself if the same record update fires the trigger event, creating an infinite execution loop.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Execution context propagation — each workflow run carries an originating event ID and workflow ID chain, and the engine rejects triggering a workflow from within its own execution chain or from events it has already produced in the current run.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Safe User-Defined Conditions</h4>
+          <p>Challenge: Allowing users to write arbitrary filter expressions risks execution of malicious code or expressions that crash the engine.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Restricted expression language — a safe subset of condition operators (comparisons, logical AND/OR, string matching, numeric ranges) evaluated by a sandboxed interpreter with no access to the file system, network, or application internals.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Action Reliability</h4>
+          <p>Challenge: A multi-step action chain may partially fail — completing the first two actions but failing the third — leaving the workflow in an inconsistent intermediate state.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Each action step is idempotent and checkpointed individually. Failed actions are retried from the failed step; successfully completed steps are not re-executed on resume, preventing duplicate side effects.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Workflow Versioning</h4>
+          <p>Challenge: Editing an active workflow mid-execution can change the logic for a run that has already started, producing inconsistent behaviour.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Workflow definitions are versioned on every save. In-flight executions use the version snapshot captured at trigger time; new versions activate only for subsequent trigger events.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Solutions Implemented</h2>
+    <div class="glass section-content">
+      <ul class="solution-list">
+        <li><strong>Event-Driven Execution:</strong> Application event bus triggering workflow evaluation on every significant state change across the platform.</li>
+        <li><strong>Safe Expression Engine:</strong> Restricted condition evaluator preventing arbitrary code execution while supporting flexible filter logic.</li>
+        <li><strong>Idempotent Checkpointed Actions:</strong> Per-step execution checkpoints enabling reliable retry from failure point without duplicating completed actions.</li>
+        <li><strong>Workflow Versioning:</strong> Snapshot-at-trigger execution ensuring workflow edits don't affect in-flight runs.</li>
+        <li><strong>Execution Audit Log:</strong> Complete log per workflow run — trigger event, filter evaluation result, each action outcome, timing, and errors — accessible to admins for debugging and compliance review.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Outcome & Impact</h2>
+    <div class="glass section-content">
+      <div class="impact-grid">
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">0 Code</span>
+          <span class="metric-label">Required</span>
+          <p class="metric-desc">Business users build automations</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">Zero</span>
+          <span class="metric-label">Infinite Loops</span>
+          <p class="metric-desc">Structural prevention enforced</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">100%</span>
+          <span class="metric-label">Execution Audited</span>
+          <p class="metric-desc">Every run fully logged</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">Reliable</span>
+          <span class="metric-label">Multi-Step Chains</span>
+          <p class="metric-desc">Idempotent retry from failure point</p>
+        </div>
+      </div>
+    </div>
+  </section>
+</CaseStudyLayout>
+
+<style>
+  .case-section { margin-bottom: var(--space-4xl); }
+  .case-section h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: var(--font-weight-bold); margin-bottom: var(--space-xl); }
+  .section-content { padding: var(--space-2xl); border-radius: var(--radius-xl); }
+  .section-content p { font-size: 1.125rem; line-height: 1.8; color: var(--color-text-secondary); margin-bottom: var(--space-lg); }
+  .challenge-list { margin-top: var(--space-xl); }
+  .challenge-list h3 { font-size: 1.25rem; font-weight: var(--font-weight-semibold); margin-bottom: var(--space-md); }
+  .challenge-list ul, .solution-list { list-style: none; }
+  .challenge-list li, .solution-list li { padding-left: var(--space-lg); margin-bottom: var(--space-md); position: relative; font-size: 1.0625rem; line-height: 1.7; color: var(--color-text-secondary); }
+  .challenge-list li::before, .solution-list li::before { content: '→'; position: absolute; left: 0; color: var(--color-accent-cyan); font-weight: var(--font-weight-bold); }
+  .architecture-points { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .arch-item { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .arch-item h4 { color: var(--color-accent-cyan); margin-bottom: var(--space-sm); font-size: 1.25rem; }
+  .arch-item p { font-size: 1rem; margin-bottom: 0; }
+  .challenge-grid { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .challenge-card { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-left: 3px solid var(--color-accent-indigo); border-radius: var(--radius-lg); }
+  .challenge-card h4 { margin-bottom: var(--space-sm); font-size: 1.25rem; }
+  .challenge-card p { font-size: 1rem; margin-bottom: var(--space-md); }
+  .solution-tag { color: var(--color-text-tertiary); font-size: 0.9375rem; }
+  .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-xl); margin-bottom: var(--space-2xl); }
+  .impact-metric { text-align: center; padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .metric-value { display: block; font-size: clamp(2rem, 4vw, 3rem); font-weight: var(--font-weight-black); margin-bottom: var(--space-sm); }
+  .metric-label { display: block; font-size: 1rem; font-weight: var(--font-weight-semibold); color: var(--color-text-primary); margin-bottom: var(--space-xs); }
+  .metric-desc { font-size: 0.875rem; color: var(--color-text-tertiary); margin-bottom: 0; }
+  @media (max-width: 768px) { .section-content { padding: var(--space-lg); } .impact-grid { grid-template-columns: 1fr; gap: var(--space-md); } }
+</style>

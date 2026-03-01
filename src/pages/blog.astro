@@ -1,0 +1,626 @@
+---
+import { getCollection } from 'astro:content';
+import MainLayout from '../layouts/MainLayout.astro';
+import Navbar from '../components/Navbar.astro';
+
+// Category → emoji mapping
+const categoryEmoji: Record<string, string> = {
+  'Frappe/ERPNext': '🏗️',
+  'Machine Learning': '🤖',
+  'Data Science': '📊',
+  'Web Development': '🌐',
+  'Python': '🐍',
+  'Python Programming': '🐍',
+  'Programming Tutorials': '📚',
+  'Tech Industry': '💡',
+  'Personal': '✍️',
+  'Tutorial': '🎓',
+  'General': '📝',
+};
+
+const getEmoji = (category?: string) =>
+  (category && categoryEmoji[category]) ?? '📝';
+
+const formatDate = (date: Date) =>
+  date.toLocaleDateString('en-US', {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+  });
+
+const readingTime = (body: string | undefined) =>
+  `${Math.max(1, Math.ceil((body?.split(/\s+/).length ?? 100) / 200))} min read`;
+
+// Sort newest first
+const posts = (await getCollection('blog')).sort(
+  (a, b) => b.data.date.valueOf() - a.data.date.valueOf()
+);
+
+// Unique categories for filter buttons
+const categories = ['All', ...Array.from(new Set(posts.map((p) => p.data.category ?? 'General'))).sort()];
+---
+
+<MainLayout
+  title="Blog | Victor Muthomi"
+  description="Thoughts, tutorials, and deep dives on software engineering, ERP systems, AI/ML, and full-stack development."
+>
+  <!-- Navigation -->
+  <Navbar slot="nav" developerName="Victor Muthomi" currentPath="/blog" />
+
+  <!-- Blog Hero -->
+  <section class="blog-hero">
+    <div class="container">
+      <div class="hero-content">
+        <h1>
+          <span class="title-emoji">✍️</span>
+          The <span class="gradient-text">Blog</span>
+        </h1>
+        <p class="hero-description">
+          Thoughts, tutorials, and deep dives on software engineering, ERP systems, AI/ML
+          integration, and the craft of building production-ready applications.
+        </p>
+        <div class="hero-stats">
+          <div class="stat-item">
+            <span class="stat-value gradient-text">{posts.length}</span>
+            <span class="stat-label">Articles</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-value gradient-text">{new Set(posts.map((p) => p.data.category)).size}</span>
+            <span class="stat-label">Topics</span>
+          </div>
+          <div class="stat-divider"></div>
+          <div class="stat-item">
+            <span class="stat-value gradient-text">Public</span>
+            <span class="stat-label">Always</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Search + Filter Toolbar -->
+  <section class="search-section">
+    <div class="container">
+      <div class="toolbar">
+        <!-- Search input -->
+        <div class="search-wrapper">
+          <span class="search-icon">🔍</span>
+          <input
+            id="blog-search"
+            type="search"
+            placeholder="Search articles…"
+            class="search-input glass"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button id="clear-search" class="clear-btn" aria-label="Clear search" hidden>✕</button>
+        </div>
+
+        <!-- Category filter chips -->
+        <div class="filter-chips" id="filter-chips" role="group" aria-label="Filter by category">
+          {categories.map((cat) => (
+            <button
+              class={`chip${cat === 'All' ? ' active' : ''}`}
+              data-category={cat}
+              type="button"
+            >
+              {cat === 'All' ? '✨ All' : `${getEmoji(cat)} ${cat}`}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <!-- Results count -->
+      <p id="results-count" class="results-count" aria-live="polite"></p>
+    </div>
+  </section>
+
+  <!-- Blog Posts -->
+  <section class="posts-section">
+    <div class="container">
+      {posts.length === 0 ? (
+        <div class="empty-state glass">
+          <span class="empty-emoji">📝</span>
+          <p>No posts yet — check back soon!</p>
+        </div>
+      ) : (
+        <div class="posts-list" id="posts-list" data-animate="stagger" data-stagger-delay="100">
+          {posts.map((post) => (
+            <a
+              href={`/blog/${post.id.replace(/\.md$/, '')}`}
+              class="post-card glass"
+              data-magnetic
+              data-title={post.data.title.toLowerCase()}
+              data-category={post.data.category ?? 'General'}
+              data-tags={(post.data.tags as string[]).join(' ').toLowerCase()}
+              data-excerpt={(post.data.excerpt ?? post.data.description ?? '').toLowerCase()}
+            >
+
+              <div class="post-card-emoji">{getEmoji(post.data.category)}</div>
+              <div class="post-card-body">
+                <div class="post-card-tags">
+                  {(post.data.tags as string[]).map((tag: string) => (
+                    <span class="tag">{tag}</span>
+                  ))}
+                </div>
+                <h2 class="post-card-title">{post.data.title}</h2>
+                <p class="post-card-description">{post.data.excerpt ?? post.data.description ?? ''}</p>
+                <div class="post-card-meta">
+                  <span class="meta-item">
+                    <span class="meta-icon">📅</span>
+                    {formatDate(post.data.date)}
+                  </span>
+                  <span class="meta-divider">·</span>
+                  <span class="meta-item">
+                    <span class="meta-icon">⏱️</span>
+                    {readingTime(post.body)}
+                  </span>
+                </div>
+              </div>
+              <span class="post-card-arrow">Read More →</span>
+            </a>
+          ))}
+        </div>
+        <p id="no-results" class="no-results">
+          😕 No articles match your search. Try different keywords or clear the filter.
+        </p>
+      )}
+    </div>
+  </section>
+</MainLayout>
+
+<style>
+  /* ─── Hero ─────────────────────────────────────────────────────────── */
+  .blog-hero {
+    padding: var(--space-4xl) 0 var(--space-lg);
+    background: radial-gradient(
+      ellipse 80% 60% at 50% -10%,
+      rgba(99, 102, 241, 0.12) 0%,
+      transparent 70%
+    );
+    text-align: center;
+  }
+
+  .hero-content {
+    max-width: 720px;
+    margin: 0 auto;
+  }
+
+  .title-emoji {
+    font-size: clamp(2rem, 5vw, 3rem);
+    display: block;
+    margin-bottom: var(--space-md);
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 6vw, 4rem);
+    font-weight: var(--font-weight-bold);
+    line-height: 1.1;
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-lg);
+  }
+
+  .gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+
+  .hero-description {
+    font-size: 1.15rem;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    margin-bottom: var(--space-2xl);
+  }
+
+  /* Stats strip */
+  .hero-stats {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: var(--space-xl);
+    flex-wrap: wrap;
+  }
+
+  .stat-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 0.25rem;
+  }
+
+  .stat-value {
+    font-size: 1.75rem;
+    font-weight: var(--font-weight-bold);
+  }
+
+  .stat-label {
+    font-size: 0.8rem;
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+  }
+
+  .stat-divider {
+    width: 1px;
+    height: 2.5rem;
+    background: var(--color-border);
+  }
+
+  /* ─── Posts List ─────────────────────────────────────────────────────── */
+  .posts-section {
+    padding: 0 0 var(--space-5xl);
+  }
+
+  .posts-list {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-xl);
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* Post Card */
+  .post-card {
+    display: grid;
+    grid-template-columns: auto 1fr auto;
+    align-items: start;
+    gap: var(--space-xl);
+    padding: var(--space-xl);
+    border-radius: var(--radius-xl);
+    text-decoration: none;
+    transition: transform var(--transition-base), box-shadow var(--transition-base),
+      border-color var(--transition-base);
+  }
+
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+  }
+
+  .post-card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-xl), var(--glow-indigo);
+    border-color: var(--color-accent-indigo);
+  }
+
+  .post-card-emoji {
+    font-size: 2.5rem;
+    line-height: 1;
+    user-select: none;
+    padding-top: 0.15rem;
+  }
+
+  .post-card-body {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-sm);
+  }
+
+  /* Tags */
+  .post-card-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-xs);
+  }
+
+  .tag {
+    padding: 0.2rem 0.65rem;
+    background: rgba(99, 102, 241, 0.12);
+    border: 1px solid rgba(99, 102, 241, 0.25);
+    border-radius: var(--radius-full);
+    font-size: 0.75rem;
+    font-weight: var(--font-weight-medium);
+    color: var(--color-accent-indigo);
+    letter-spacing: 0.03em;
+  }
+
+  .post-card-title {
+    font-size: 1.25rem;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    line-height: 1.35;
+    transition: color var(--transition-fast);
+  }
+
+  .post-card:hover .post-card-title {
+    color: var(--color-accent-indigo);
+  }
+
+  .post-card-description {
+    font-size: 0.95rem;
+    color: var(--color-text-secondary);
+    line-height: 1.65;
+  }
+
+  .post-card-meta {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    font-size: 0.85rem;
+    color: var(--color-text-tertiary);
+    margin-top: var(--space-xs);
+  }
+
+  .meta-item {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+
+  .meta-icon {
+    font-size: 0.9rem;
+  }
+
+  .meta-divider {
+    color: var(--color-text-muted);
+  }
+
+  .post-card-arrow {
+    font-size: 0.85rem;
+    font-weight: var(--font-weight-medium);
+    color: var(--color-accent-indigo);
+    white-space: nowrap;
+    align-self: center;
+    opacity: 0;
+    transform: translateX(-6px);
+    transition: opacity var(--transition-base), transform var(--transition-base);
+  }
+
+  .post-card:hover .post-card-arrow {
+    opacity: 1;
+    transform: translateX(0);
+  }
+
+  /* Empty state */
+  .empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: var(--space-lg);
+    padding: var(--space-4xl);
+    border-radius: var(--radius-xl);
+    text-align: center;
+    color: var(--color-text-secondary);
+    max-width: 480px;
+    margin: 0 auto;
+  }
+
+  .empty-emoji {
+    font-size: 3rem;
+  }
+
+  /* ─── Search & Filter Toolbar ───────────────────────────────────────── */
+  .search-section {
+    padding: var(--space-md) 0 var(--space-2xl);
+  }
+
+  .toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    max-width: 860px;
+    margin: 0 auto;
+  }
+
+  /* Search input */
+  .search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: var(--space-md);
+    font-size: 1rem;
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 0.8rem var(--space-3xl) 0.8rem 2.8rem;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    color: var(--color-text-primary);
+    font-size: 1rem;
+    font-family: var(--font-sans);
+    outline: none;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .search-input::placeholder {
+    color: var(--color-text-muted);
+  }
+
+  .search-input:focus {
+    border-color: var(--color-accent-indigo);
+    box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.15);
+  }
+
+  /* Native search clear button reset */
+  .search-input::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  .clear-btn {
+    position: absolute;
+    right: var(--space-md);
+    background: none;
+    border: none;
+    color: var(--color-text-tertiary);
+    cursor: pointer;
+    font-size: 0.85rem;
+    padding: 0.25rem;
+    border-radius: var(--radius-full);
+    line-height: 1;
+    transition: color var(--transition-fast);
+  }
+
+  .clear-btn:hover {
+    color: var(--color-text-primary);
+  }
+
+  /* Category chips */
+  .filter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .chip {
+    padding: 0.35rem 0.9rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-full);
+    font-size: 0.82rem;
+    font-family: var(--font-sans);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: background var(--transition-fast), border-color var(--transition-fast),
+      color var(--transition-fast);
+    white-space: nowrap;
+  }
+
+  .chip:hover {
+    border-color: var(--color-accent-indigo);
+    color: var(--color-text-primary);
+  }
+
+  .chip.active {
+    background: rgba(99, 102, 241, 0.18);
+    border-color: var(--color-accent-indigo);
+    color: var(--color-accent-indigo);
+  }
+
+  /* Results count */
+  .results-count {
+    max-width: 860px;
+    margin: var(--space-md) auto 0;
+    font-size: 0.85rem;
+    color: var(--color-text-tertiary);
+    min-height: 1.2em;
+  }
+
+  /* Hidden post cards */
+  .post-card[hidden] {
+    display: none;
+  }
+
+  /* No-results message */
+  .no-results {
+    max-width: 860px;
+    margin: 0 auto;
+    padding: var(--space-3xl) var(--space-xl);
+    text-align: center;
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+    display: none;
+  }
+
+  .no-results.visible {
+    display: block;
+  }
+
+  /* ─── Responsive ─────────────────────────────────────────────────────── */
+  @media (max-width: 640px) {
+    .post-card {
+      grid-template-columns: auto 1fr;
+      grid-template-rows: auto auto;
+    }
+
+    .post-card-arrow {
+      grid-column: 2;
+      grid-row: 2;
+      opacity: 1;
+      transform: none;
+    }
+
+    .post-card-emoji {
+      font-size: 2rem;
+    }
+
+    .toolbar {
+      gap: var(--space-md);
+    }
+  }
+</style>
+
+<script>
+  const searchInput = document.getElementById('blog-search') as HTMLInputElement;
+  const clearBtn   = document.getElementById('clear-search') as HTMLButtonElement;
+  const chipGroup  = document.getElementById('filter-chips') as HTMLElement;
+  const postsList  = document.getElementById('posts-list') as HTMLElement;
+  const countEl    = document.getElementById('results-count') as HTMLElement;
+  const noResults  = document.getElementById('no-results') as HTMLElement | null;
+
+  const cards = Array.from(
+    document.querySelectorAll<HTMLAnchorElement>('#posts-list .post-card')
+  );
+
+  let activeCategory = 'All';
+  let query = '';
+
+  function filter() {
+    let visible = 0;
+    for (const card of cards) {
+      const matchesQuery =
+        !query ||
+        (card.dataset.title ?? '').includes(query) ||
+        (card.dataset.tags ?? '').includes(query) ||
+        (card.dataset.excerpt ?? '').includes(query) ||
+        (card.dataset.category ?? '').toLowerCase().includes(query);
+
+      const matchesCategory =
+        activeCategory === 'All' || card.dataset.category === activeCategory;
+
+      const show = matchesQuery && matchesCategory;
+      card.hidden = !show;
+      if (show) visible++;
+    }
+
+    // Update count
+    const total = cards.length;
+    countEl.textContent =
+      visible === total
+        ? ''
+        : `Showing ${visible} of ${total} article${total !== 1 ? 's' : ''}`;
+
+    // No-results state
+    if (noResults) noResults.classList.toggle('visible', visible === 0);
+  }
+
+  // Search input
+  searchInput?.addEventListener('input', () => {
+    query = searchInput.value.trim().toLowerCase();
+    clearBtn.hidden = query === '';
+    filter();
+  });
+
+  // Clear button
+  clearBtn?.addEventListener('click', () => {
+    searchInput.value = '';
+    query = '';
+    clearBtn.hidden = true;
+    searchInput.focus();
+    filter();
+  });
+
+  // Category chips
+  chipGroup?.addEventListener('click', (e) => {
+    const btn = (e.target as HTMLElement).closest('.chip') as HTMLButtonElement | null;
+    if (!btn) return;
+    activeCategory = btn.dataset.category ?? 'All';
+    chipGroup.querySelectorAll('.chip').forEach((c) => c.classList.remove('active'));
+    btn.classList.add('active');
+    filter();
+  });
+</script>

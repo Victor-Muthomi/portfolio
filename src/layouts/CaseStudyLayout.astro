@@ -1,0 +1,306 @@
+---
+import MainLayout from './MainLayout.astro';
+import Navbar from '../components/Navbar.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  summary: string;
+  technologies: string[];
+  image?: string;
+  liveUrl?: string;
+  githubUrl?: string;
+  year?: string;
+  category?: string;
+}
+
+const {
+  title,
+  description,
+  summary,
+  technologies,
+  image,
+  liveUrl,
+  githubUrl,
+  year = '2024',
+  category = 'Enterprise Software'
+} = Astro.props;
+---
+
+<MainLayout title={`${title} | Case Study`} description={description}>
+  <!-- Navigation -->
+  <Navbar slot="nav" developerName="Victor Muthomi" />
+
+  <!-- Case Study Hero -->
+  <section class="case-study-hero">
+    <div class="container">
+      <!-- Breadcrumb -->
+      <nav class="breadcrumb" aria-label="Breadcrumb">
+        <ol>
+          <li><a href="/">Home</a></li>
+          <li><a href="/projects">Projects</a></li>
+          <li aria-current="page">{title}</li>
+        </ol>
+      </nav>
+
+      <!-- Hero Content -->
+      <div class="hero-content">
+        <div class="hero-meta">
+          <span class="category">{category}</span>
+          <span class="year">{year}</span>
+        </div>
+        
+        <h1>{title}</h1>
+        
+        <p class="summary">{summary}</p>
+
+        <!-- Tech Stack -->
+        <div class="tech-stack">
+          <span class="tech-label">Technology Stack:</span>
+          <div class="tech-tags">
+            {technologies.map((tech) => (
+              <span class="tech-tag">{tech}</span>
+            ))}
+          </div>
+        </div>
+
+        <!-- Action Links -->
+        {(liveUrl || githubUrl) && (
+          <div class="hero-actions">
+            {liveUrl && (
+              <a href={liveUrl} class="btn btn-primary" target="_blank" rel="noopener noreferrer">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+                  <polyline points="15 3 21 3 21 9" />
+                  <line x1="10" y1="14" x2="21" y2="3" />
+                </svg>
+                View Live Site
+              </a>
+            )}
+            {githubUrl && (
+              <a href={githubUrl} class="btn btn-secondary" target="_blank" rel="noopener noreferrer">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+                </svg>
+                View Code
+              </a>
+            )}
+          </div>
+        )}
+      </div>
+
+      <!-- Hero Image -->
+      {image && (
+        <div class="hero-image-container">
+          <img src={image} alt={`${title} preview`} class="hero-image" />
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Case Study Content -->
+  <article class="case-study-content">
+    <div class="container content-wrapper">
+      <slot />
+    </div>
+  </article>
+
+  <!-- Back to Projects -->
+  <section class="back-section">
+    <div class="container">
+      <a href="/projects" class="btn btn-ghost back-link">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+          <path d="M19 12H5" />
+          <polyline points="12 19 5 12 12 5" />
+        </svg>
+        Back to All Projects
+      </a>
+    </div>
+  </section>
+</MainLayout>
+
+<style>
+  /* Hero Section */
+  .case-study-hero {
+    padding: calc(var(--space-4xl) + 80px) 0 var(--space-4xl);
+    background: 
+      radial-gradient(circle at 30% 20%, rgba(99, 102, 241, 0.08) 0%, transparent 50%),
+      radial-gradient(circle at 70% 80%, rgba(6, 182, 212, 0.08) 0%, transparent 50%);
+  }
+
+  /* Breadcrumb */
+  .breadcrumb {
+    margin-bottom: var(--space-xl);
+  }
+
+  .breadcrumb ol {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+    list-style: none;
+    font-size: 0.875rem;
+    color: var(--color-text-tertiary);
+  }
+
+  .breadcrumb li:not(:last-child)::after {
+    content: '/';
+    margin-left: var(--space-sm);
+    color: var(--color-text-muted);
+  }
+
+  .breadcrumb a {
+    color: var(--color-text-tertiary);
+    transition: color var(--transition-fast);
+  }
+
+  .breadcrumb a:hover {
+    color: var(--color-accent-cyan);
+  }
+
+  .breadcrumb li[aria-current="page"] {
+    color: var(--color-text-primary);
+  }
+
+  /* Hero Content */
+  .hero-content {
+    max-width: 900px;
+  }
+
+  .hero-meta {
+    display: flex;
+    gap: var(--space-md);
+    margin-bottom: var(--space-lg);
+  }
+
+  .category,
+  .year {
+    font-size: 0.875rem;
+    font-weight: var(--font-weight-medium);
+    padding: var(--space-xs) var(--space-md);
+    border-radius: var(--radius-full);
+    background: var(--glass-bg);
+    border: 1px solid var(--color-border);
+  }
+
+  .category {
+    color: var(--color-accent-cyan);
+  }
+
+  .year {
+    color: var(--color-text-secondary);
+  }
+
+  .hero-content h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    font-weight: var(--font-weight-black);
+    margin-bottom: var(--space-lg);
+    line-height: 1.1;
+  }
+
+  .summary {
+    font-size: clamp(1.125rem, 2.5vw, 1.375rem);
+    line-height: 1.6;
+    color: var(--color-text-secondary);
+    margin-bottom: var(--space-xl);
+  }
+
+  /* Tech Stack */
+  .tech-stack {
+    margin-bottom: var(--space-xl);
+  }
+
+  .tech-label {
+    display: block;
+    font-size: 0.875rem;
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-tertiary);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: var(--space-sm);
+  }
+
+  .tech-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .tech-tag {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+    font-weight: var(--font-weight-medium);
+    color: var(--color-accent-cyan);
+    background: rgba(6, 182, 212, 0.1);
+    border: 1px solid rgba(6, 182, 212, 0.2);
+    border-radius: var(--radius-full);
+  }
+
+  /* Hero Actions */
+  .hero-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-bottom: var(--space-2xl);
+  }
+
+  /* Hero Image */
+  .hero-image-container {
+    margin-top: var(--space-3xl);
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-2xl);
+  }
+
+  .hero-image {
+    width: 100%;
+    height: auto;
+    display: block;
+  }
+
+  /* Case Study Content */
+  .case-study-content {
+    padding: var(--space-4xl) 0;
+    background: var(--color-bg-secondary);
+  }
+
+  .content-wrapper {
+    max-width: 800px;
+  }
+
+  /* Back Section */
+  .back-section {
+    padding: var(--space-3xl) 0;
+  }
+
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .case-study-hero {
+      padding: calc(var(--space-3xl) + 60px) 0 var(--space-3xl);
+    }
+
+    .hero-meta {
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .hero-actions {
+      flex-direction: column;
+      width: 100%;
+    }
+
+    .hero-actions .btn {
+      width: 100%;
+      justify-content: center;
+    }
+
+    .case-study-content {
+      padding: var(--space-3xl) 0;
+    }
+  }
+</style>

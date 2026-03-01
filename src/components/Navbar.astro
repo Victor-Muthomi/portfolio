@@ -1,0 +1,401 @@
+---
+interface Props {
+  currentPath?: string;
+  developerName?: string;
+}
+
+const { 
+  currentPath = '/',
+  developerName = 'Victor Muthomi'
+} = Astro.props;
+
+const navLinks = [
+  { label: 'Home', href: '/', emoji: '🏠' },
+  { label: 'Projects', href: '/projects', emoji: '🚀' },
+  { label: 'Skills', href: '/skills', emoji: '⚒️' },
+  { label: 'Blog', href: '/blog', emoji: '✍️' },
+  // { label: 'Downloads', href: '/downloads', emoji: '📥' },
+];
+---
+
+<nav class="navbar" role="navigation" aria-label="Main navigation">
+  <div class="container navbar-content">
+    <!-- Logo / Developer Name -->
+    <a href="/" class="navbar-brand" aria-label="Home">
+      <span class="brand-emoji">👨‍💻</span>
+      <span class="brand-name gradient-text">{developerName}</span>
+    </a>
+
+    <!-- Mobile Menu Toggle -->
+    <button 
+      class="mobile-toggle" 
+      aria-label="Toggle navigation menu"
+      aria-expanded="false"
+      id="mobile-menu-toggle"
+    >
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+
+    <!-- Desktop nav links (inside nav for layout) -->
+    <div class="nav-links-desktop" id="nav-links-desktop">
+      {navLinks.map((link) => (
+        <a 
+          href={link.href} 
+          class:list={['nav-link', { active: currentPath === link.href }]}
+          aria-current={currentPath === link.href ? 'page' : undefined}
+        >
+          <span class="nav-emoji">{link.emoji}</span>
+          <span>{link.label}</span>
+        </a>
+      ))}
+      {/* <a 
+        href="/files/resume.pdf" 
+        class="btn btn-outline btn-sm resume-btn"
+        download
+        aria-label="Download resume"
+      >
+        <span class="btn-emoji">📄</span>
+        Resume
+      </a> */}
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile nav panel — outside <nav> to avoid backdrop-filter compositing -->
+<div class="nav-links" id="nav-links" aria-hidden="true">
+  {navLinks.map((link) => (
+    <a 
+      href={link.href} 
+      class:list={['nav-link', { active: currentPath === link.href }]}
+      aria-current={currentPath === link.href ? 'page' : undefined}
+    >
+      <span class="nav-emoji">{link.emoji}</span>
+      <span>{link.label}</span>
+    </a>
+  ))}
+  {/* <a 
+    href="/files/resume.pdf" 
+    class="btn btn-outline btn-sm resume-btn"
+    download
+    aria-label="Download resume"
+  >
+    <span class="btn-emoji">📄</span>
+    Resume
+  </a> */}
+</div>
+<div class="nav-overlay" id="nav-overlay"></div>
+
+<script>
+  const toggleButton = document.getElementById('mobile-menu-toggle');
+  const navLinks = document.getElementById('nav-links');
+  const navOverlay = document.getElementById('nav-overlay');
+
+  function openMenu() {
+    toggleButton?.setAttribute('aria-expanded', 'true');
+    toggleButton?.classList.add('active');
+    navLinks?.classList.add('active');
+    navLinks?.setAttribute('aria-hidden', 'false');
+    navOverlay?.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeMenu() {
+    toggleButton?.setAttribute('aria-expanded', 'false');
+    toggleButton?.classList.remove('active');
+    navLinks?.classList.remove('active');
+    navLinks?.setAttribute('aria-hidden', 'true');
+    navOverlay?.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  toggleButton?.addEventListener('click', () => {
+    const isExpanded = toggleButton.getAttribute('aria-expanded') === 'true';
+    isExpanded ? closeMenu() : openMenu();
+  });
+
+  navLinks?.querySelectorAll('.nav-link').forEach((link) => {
+    link.addEventListener('click', closeMenu);
+  });
+
+  navOverlay?.addEventListener('click', closeMenu);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') closeMenu();
+  });
+</script>
+
+<style>
+  .navbar {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: var(--z-sticky);
+    background: rgba(10, 10, 15, 0.7);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--color-border);
+    transition: all var(--transition-base);
+  }
+
+  .navbar::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: var(--gradient-primary);
+    opacity: 0;
+    transition: opacity var(--transition-base);
+  }
+
+  .navbar:hover::before {
+    opacity: 0.5;
+  }
+
+  .navbar-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding-top: var(--space-lg);
+    padding-bottom: var(--space-lg);
+    gap: var(--space-lg);
+  }
+
+  /* Brand / Logo */
+  .navbar-brand {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    text-decoration: none;
+    z-index: calc(var(--z-sticky) + 10);
+  }
+
+  .brand-emoji {
+    font-size: 1.5rem;
+    transition: transform var(--transition-base);
+  }
+
+  .navbar-brand:hover .brand-emoji {
+    transform: rotate(-10deg) scale(1.1);
+  }
+
+  .brand-name {
+    font-size: 1.25rem;
+    font-weight: var(--font-weight-bold);
+    letter-spacing: -0.02em;
+    transition: all var(--transition-base);
+  }
+
+  .navbar-brand:hover .brand-name {
+    transform: scale(1.02);
+  }
+
+  /* Mobile Toggle */
+  .mobile-toggle {
+    display: none;
+    flex-direction: column;
+    gap: 5px;
+    padding: var(--space-sm);
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    z-index: calc(var(--z-sticky) + 10);
+  }
+
+  .hamburger-line {
+    width: 24px;
+    height: 2px;
+    background: var(--color-text-primary);
+    border-radius: var(--radius-full);
+    transition: all var(--transition-base);
+  }
+
+  .mobile-toggle.active .hamburger-line:nth-child(1) {
+    transform: rotate(45deg) translate(7px, 7px);
+  }
+
+  .mobile-toggle.active .hamburger-line:nth-child(2) {
+    opacity: 0;
+  }
+
+  .mobile-toggle.active .hamburger-line:nth-child(3) {
+    transform: rotate(-45deg) translate(7px, -7px);
+  }
+
+  /* Desktop nav links (inside nav) */
+  .nav-links-desktop {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+  }
+
+  /* Mobile nav panel (outside nav, independent stacking context) */
+  .nav-links {
+    display: none;
+  }
+
+  /* Overlay backdrop for mobile menu */
+  .nav-overlay {
+    display: none;
+  }
+
+  .nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+    padding: var(--space-sm) var(--space-md);
+    font-size: 0.9375rem;
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    transition: all var(--transition-base);
+    border-radius: var(--radius-md);
+  }
+
+  .nav-emoji {
+    font-size: 1rem;
+    transition: transform var(--transition-base);
+  }
+
+  .nav-link:hover .nav-emoji {
+    transform: scale(1.2);
+  }
+
+  .nav-link::before {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    width: 0;
+    height: 2px;
+    background: var(--gradient-primary);
+    transform: translateX(-50%);
+    transition: width var(--transition-base);
+    border-radius: var(--radius-full);
+  }
+
+  .nav-link:hover,
+  .nav-link:focus-visible {
+    color: var(--color-text-primary);
+    background: var(--glass-bg);
+  }
+
+  .nav-link:hover::before {
+    width: 80%;
+  }
+
+  .nav-link.active {
+    color: var(--color-text-primary);
+  }
+
+  .nav-link.active::before {
+    width: 80%;
+  }
+
+  /* Resume Button */
+  .resume-btn {
+    margin-left: var(--space-sm);
+    display: inline-flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+
+  .btn-emoji {
+    font-size: 1rem;
+    transition: transform var(--transition-base);
+  }
+
+  .resume-btn:hover .btn-emoji {
+    transform: translateY(2px);
+  }
+
+  /* Responsive Design */
+  @media (max-width: 768px) {
+    .mobile-toggle {
+      display: flex;
+    }
+
+    .nav-links-desktop {
+      display: none;
+    }
+
+    .nav-links {
+      display: flex;
+      position: fixed;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      width: min(300px, 80vw);
+      z-index: calc(var(--z-sticky) + 50);
+      flex-direction: column;
+      align-items: stretch;
+      gap: var(--space-xs);
+      padding: calc(var(--space-3xl) + var(--space-lg)) var(--space-lg) var(--space-lg);
+      background-color: #13131a;
+      border-left: 1px solid var(--color-border);
+      box-shadow: -8px 0 32px rgba(0, 0, 0, 0.6);
+      transform: translateX(100%);
+      transition: transform var(--transition-base);
+    }
+
+    .nav-links.active {
+      transform: translateX(0);
+    }
+
+    .nav-overlay {
+      display: block;
+      position: fixed;
+      inset: 0;
+      z-index: calc(var(--z-sticky) + 40);
+      background: rgba(0, 0, 0, 0.5);
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity var(--transition-base);
+    }
+
+    .nav-overlay.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .nav-link {
+      padding: var(--space-md);
+      font-size: 1rem;
+    }
+
+    .nav-link::before {
+      left: 0;
+      transform: none;
+      height: 100%;
+      width: 3px;
+    }
+
+    .nav-link:hover::before,
+    .nav-link.active::before {
+      width: 3px;
+    }
+
+    .resume-btn {
+      margin-left: 0;
+      margin-top: var(--space-md);
+      justify-content: center;
+    }
+  }
+
+  /* Tablet adjustments */
+  @media (min-width: 769px) and (max-width: 1024px) {
+    .nav-links-desktop {
+      gap: var(--space-xs);
+    }
+
+    .nav-link {
+      padding: var(--space-sm);
+      font-size: 0.875rem;
+    }
+  }
+</style>
