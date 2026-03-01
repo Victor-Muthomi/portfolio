@@ -1,10 +1,12 @@
 // @ts-check
 import { defineConfig } from 'astro/config';
+import vercel from '@astrojs/vercel';
 
 // https://astro.build/config
 export default defineConfig({
   output: 'static',
-  site: 'https://yourportfolio.vercel.app', // Update with your actual domain
+  adapter: vercel(),
+  site: 'https://victor-muthomi.vercel.app', // Update with your actual domain
   
   // Performance optimizations
   compressHTML: true,
