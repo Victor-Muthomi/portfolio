@@ -1,0 +1,204 @@
+---
+import CaseStudyLayout from '../../layouts/CaseStudyLayout.astro';
+
+const projectData = {
+  title: 'Iris Species Classification using Machine Learning',
+  description: 'Multi-class classification system predicting iris flower species using supervised learning with logistic regression trained on morphological measurements.',
+  summary: 'Built a complete machine learning classification pipeline using the Iris dataset to predict flower species from physical measurements. The project demonstrates the full lifecycle of supervised learning including data exploration, visualization, feature engineering, model training with logistic regression, and evaluation — achieving over 95% accuracy on species prediction.',
+  technologies: ['Python', 'Scikit-learn', 'Pandas', 'NumPy', 'Matplotlib', 'Seaborn'],
+  year: '2024',
+  category: 'Data Science'
+};
+---
+
+<CaseStudyLayout {...projectData}>
+  <section class="case-section">
+    <h2>Problem Statement</h2>
+    <div class="glass section-content">
+      <p>
+        Species identification in biology traditionally requires expert knowledge and manual inspection of physical characteristics. The Iris dataset, introduced by statistician Ronald Fisher in 1936, presents a classic multi-class classification problem: can we automate species identification based on measurable flower characteristics? The dataset contains 150 samples across three iris species (Setosa, Versicolor, and Virginica), each described by four numerical features: sepal length, sepal width, petal length, and petal width.
+      </p>
+      <div class="challenge-list">
+        <h3>Key Challenges:</h3>
+        <ul>
+          <li>Building a robust classification model that generalizes to unseen flower samples</li>
+          <li>Understanding which morphological features provide the strongest predictive signals</li>
+          <li>Handling potential class overlap where species measurements are similar</li>
+          <li>Validating model performance beyond simple accuracy metrics</li>
+          <li>Creating an interpretable model that explains classification decisions</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>System Architecture</h2>
+    <div class="glass section-content">
+      <p>
+        The project follows a structured machine learning pipeline from data ingestion through prediction. Data is loaded using Pandas, explored through statistical analysis and visualization, split into training and testing sets, and fed into a logistic regression classifier. The trained model is evaluated using multiple metrics and then deployed for making predictions on new flower measurements.
+      </p>
+      <div class="architecture-points">
+        <div class="arch-item">
+          <h4>Data Loading & Preparation</h4>
+          <p>Pandas DataFrame storing 150 samples with 4 numerical features and 1 categorical target. Data validation ensures no missing values and correct data types. Initial inspection reveals feature ranges, distributions, and class balance across the three species.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Exploratory Data Analysis</h4>
+          <p>Statistical summaries using describe() providing min/max values, mean, standard deviation, and quartiles for each feature. Analysis reveals petal measurements show wider variance than sepal measurements, suggesting stronger discriminative power for classification.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Data Visualization</h4>
+          <p>Pair plots displaying scatter matrices for all feature combinations colored by species, revealing linear separability of Setosa. Correlation heatmaps showing strong relationships between petal length and petal width, indicating these features carry significant predictive information.</p>
+        </div>
+        <div class="arch-item">
+          <h4>Model Training & Evaluation</h4>
+          <p>80/20 train-test split ensuring reproducible evaluation on held-out data. Logistic regression with One-vs-Rest strategy for multi-class classification. Comprehensive evaluation using accuracy, confusion matrix, precision, recall, and F1-score metrics.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Key Engineering Challenges</h2>
+    <div class="glass section-content">
+      <div class="challenge-grid">
+        <div class="challenge-card">
+          <h4>Feature Selection & Importance</h4>
+          <p>Challenge: Determining which of the four morphological measurements contribute most to classification accuracy without overfitting.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Correlation analysis and pair plot visualization revealed petal length and petal width as the strongest discriminators, particularly for separating Setosa from other species, while all four features remained in the model for maximum robustness.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Class Separability</h4>
+          <p>Challenge: Versicolor and Virginica species show measurement overlap in certain feature ranges, making them harder to distinguish than Setosa.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Logistic regression's probabilistic output provides confidence scores rather than hard classifications, allowing identification of borderline cases where measurements fall in ambiguous ranges between species.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Model Interpretability</h4>
+          <p>Challenge: Ensuring the classification model remains interpretable for biological researchers who need to understand why a prediction was made.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Chose logistic regression over black-box models like neural networks, providing explicit mathematical relationships between features and predictions via learned coefficients that can be directly inspected.</p>
+        </div>
+        <div class="challenge-card">
+          <h4>Evaluation Rigor</h4>
+          <p>Challenge: Accuracy alone masks model weaknesses, particularly class-specific performance disparities and types of misclassification errors.</p>
+          <p class="solution-tag"><strong>Solution:</strong> Multi-metric evaluation including confusion matrix revealing exact misclassification patterns, plus precision/recall/F1-score per class showing per-species model performance, not just aggregate accuracy.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Solutions Implemented</h2>
+    <div class="glass section-content">
+      <ul class="solution-list">
+        <li><strong>Structured ML Pipeline:</strong> End-to-end workflow from data loading through prediction following best practices: exploration → visualization → splitting → training → evaluation → deployment.</li>
+        <li><strong>Statistical Data Exploration:</strong> Comprehensive descriptive statistics revealing feature distributions, ranges, and variability patterns guiding modeling decisions and feature interpretation.</li>
+        <li><strong>Visual Analysis:</strong> Pair plots and correlation heatmaps exposing class relationships and feature correlations, demonstrating that Setosa is linearly separable while Versicolor and Virginica overlap.</li>
+        <li><strong>Train-Test Split:</strong> 80/20 split with fixed random seed ensuring reproducible evaluation on held-out data the model never saw during training, measuring true generalization capability.</li>
+        <li><strong>Logistic Regression Classifier:</strong> One-vs-Rest multi-class strategy converting binary classifiers into three-class predictions using sigmoid function for probabilistic outputs.</li>
+        <li><strong>Comprehensive Evaluation:</strong> Multi-faceted assessment using accuracy (95%+), confusion matrix (exact error patterns), and classification report (precision/recall/F1 per species).</li>
+        <li><strong>Prediction Interface:</strong> Trained model accepting new four-dimensional feature vectors [sepal_length, sepal_width, petal_length, petal_width] and returning species predictions for real-world flower classification.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Technical Implementation</h2>
+    <div class="glass section-content">
+      <p>
+        The mathematical foundation of the classification model relies on the logistic function for converting linear combinations of features into probabilities:
+      </p>
+      <div class="technical-detail">
+        <h4>Classification Function</h4>
+        <p>The model learns a mapping from four-dimensional input space to species labels:</p>
+        <p class="formula">f(x₁, x₂, x₃, x₄) → y</p>
+        <p>Where x₁ = sepal length, x₂ = sepal width, x₃ = petal length, x₄ = petal width, and y ∈ &#123;Setosa, Versicolor, Virginica&#125;</p>
+      </div>
+      <div class="technical-detail">
+        <h4>Logistic Sigmoid Function</h4>
+        <p>Probability estimation using the sigmoid transformation:</p>
+        <p class="formula">σ(z) = 1 / (1 + e⁻ᶻ)</p>
+        <p>This converts unbounded linear outputs into probabilities between 0 and 1, enabling probabilistic classification with confidence scores.</p>
+      </div>
+      <div class="technical-detail">
+        <h4>Accuracy Calculation</h4>
+        <p>Model performance measured using the accuracy metric:</p>
+        <p class="formula">Accuracy = Correct Predictions / Total Predictions</p>
+        <p>Supplemented by precision, recall, and F1-score for detailed per-class performance analysis.</p>
+      </div>
+    </div>
+  </section>
+
+  <section class="case-section">
+    <h2>Outcome & Impact</h2>
+    <div class="glass section-content">
+      <div class="impact-grid">
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">95%+</span>
+          <span class="metric-label">Classification Accuracy</span>
+          <p class="metric-desc">On unseen test data</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">3</span>
+          <span class="metric-label">Species Classes</span>
+          <p class="metric-desc">Multi-class prediction</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">4</span>
+          <span class="metric-label">Input Features</span>
+          <p class="metric-desc">Morphological measurements</p>
+        </div>
+        <div class="impact-metric">
+          <span class="metric-value gradient-text">150</span>
+          <span class="metric-label">Training Samples</span>
+          <p class="metric-desc">Balanced across species</p>
+        </div>
+      </div>
+      <div class="impact-narrative">
+        <h3>Project Outcomes</h3>
+        <p>
+          This project demonstrates the complete lifecycle of a supervised machine learning classification task. The high accuracy (95%+) validates that morphological measurements alone can reliably distinguish iris species, with Setosa achieving perfect separation while Versicolor and Virginica show slight overlap requiring more sophisticated decision boundaries.
+        </p>
+        <p>
+          The interpretable nature of logistic regression allows biological researchers to understand which features drive classification decisions — petal measurements prove more discriminative than sepal measurements, aligning with botanical knowledge about species differentiation. The confusion matrix reveals that most errors occur between Versicolor and Virginica, the two species with closer evolutionary relationships.
+        </p>
+        <p>
+          This foundation extends to more complex classification problems: feature engineering techniques, hyperparameter tuning, cross-validation for robust evaluation, ensemble methods combining multiple classifiers, and deep learning approaches for high-dimensional data. The structured pipeline demonstrated here — exploration, visualization, training, evaluation — remains consistent across machine learning domains from biology to finance to computer vision.
+        </p>
+      </div>
+    </div>
+  </section>
+</CaseStudyLayout>
+
+<style>
+  .case-section { margin-bottom: var(--space-4xl); }
+  .case-section h2 { font-size: clamp(1.75rem, 4vw, 2.5rem); font-weight: var(--font-weight-bold); margin-bottom: var(--space-xl); }
+  .section-content { padding: var(--space-2xl); border-radius: var(--radius-xl); }
+  .section-content p { font-size: 1.125rem; line-height: 1.8; color: var(--color-text-secondary); margin-bottom: var(--space-lg); }
+  .challenge-list { margin-top: var(--space-xl); }
+  .challenge-list h3 { font-size: 1.25rem; font-weight: var(--font-weight-semibold); margin-bottom: var(--space-md); }
+  .challenge-list ul, .solution-list { list-style: none; }
+  .challenge-list li, .solution-list li { padding-left: var(--space-lg); margin-bottom: var(--space-md); position: relative; font-size: 1.0625rem; line-height: 1.7; color: var(--color-text-secondary); }
+  .challenge-list li::before, .solution-list li::before { content: '→'; position: absolute; left: 0; color: var(--color-accent-cyan); font-weight: var(--font-weight-bold); }
+  .architecture-points { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .arch-item { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .arch-item h4 { color: var(--color-accent-cyan); margin-bottom: var(--space-sm); font-size: 1.25rem; }
+  .arch-item p { font-size: 1rem; margin-bottom: 0; }
+  .challenge-grid { display: grid; gap: var(--space-lg); margin-top: var(--space-xl); }
+  .challenge-card { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-left: 3px solid var(--color-accent-indigo); border-radius: var(--radius-lg); }
+  .challenge-card h4 { margin-bottom: var(--space-sm); font-size: 1.25rem; }
+  .challenge-card p { font-size: 1rem; margin-bottom: var(--space-md); }
+  .solution-tag { color: var(--color-text-tertiary); font-size: 0.9375rem; }
+  .technical-detail { padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); margin-bottom: var(--space-lg); }
+  .technical-detail h4 { color: var(--color-accent-purple); margin-bottom: var(--space-sm); font-size: 1.125rem; }
+  .technical-detail p { font-size: 1rem; margin-bottom: var(--space-sm); }
+  .technical-detail .formula { font-family: 'Courier New', monospace; background: var(--color-bg-tertiary); padding: var(--space-sm) var(--space-md); border-radius: var(--radius-md); font-size: 1.0625rem; color: var(--color-accent-cyan); }
+  .impact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: var(--space-xl); margin-bottom: var(--space-2xl); }
+  .impact-metric { text-align: center; padding: var(--space-lg); background: var(--color-bg-secondary); border: 1px solid var(--color-border); border-radius: var(--radius-lg); }
+  .metric-value { display: block; font-size: 2.5rem; font-weight: var(--font-weight-black); margin-bottom: var(--space-sm); }
+  .metric-label { display: block; font-size: 1rem; font-weight: var(--font-weight-semibold); margin-bottom: var(--space-xs); color: var(--color-text-primary); }
+  .metric-desc { font-size: 0.875rem; color: var(--color-text-tertiary); margin: 0; }
+  .impact-narrative { margin-top: var(--space-2xl); }
+  .impact-narrative h3 { font-size: 1.5rem; font-weight: var(--font-weight-bold); margin-bottom: var(--space-lg); color: var(--color-accent-cyan); }
+  .impact-narrative p { font-size: 1.0625rem; line-height: 1.8; color: var(--color-text-secondary); margin-bottom: var(--space-lg); }
+  .gradient-text { background: linear-gradient(135deg, var(--color-accent-cyan) 0%, var(--color-accent-purple) 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text; }
+</style>

@@ -1,0 +1,617 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.2"><!-- Primary Meta Tags --><title>Comprehensive Guide To Frappe and ERPNext Installation - With D | Blog — Victor Muthomi</title><meta name="title" content="Comprehensive Guide To Frappe and ERPNext Installation - With D | Blog — Victor Muthomi"><meta name="description" content="Learn how to build powerful web applications with Django, Python's most popular web framework. This guide covers installation, project setup, models, views, templates, and more."><meta name="robots" content="index, follow"><link rel="canonical" href="https://victor-muthomi.vercel.app/blog/guide_to_frappe_erpnext_installation/"><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://victor-muthomi.vercel.app/blog/guide_to_frappe_erpnext_installation/"><meta property="og:title" content="Comprehensive Guide To Frappe and ERPNext Installation - With D | Blog — Victor Muthomi"><meta property="og:description" content="Learn how to build powerful web applications with Django, Python's most popular web framework. This guide covers installation, project setup, models, views, templates, and more."><meta property="og:image" content="https://victor-muthomi.vercel.app/og-image.jpg"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://victor-muthomi.vercel.app/blog/guide_to_frappe_erpnext_installation/"><meta property="twitter:title" content="Comprehensive Guide To Frappe and ERPNext Installation - With D | Blog — Victor Muthomi"><meta property="twitter:description" content="Learn how to build powerful web applications with Django, Python's most popular web framework. This guide covers installation, project setup, models, views, templates, and more."><meta property="twitter:image" content="https://victor-muthomi.vercel.app/og-image.jpg"><!-- Preload Critical Assets --><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><link rel="dns-prefetch" href="https://fonts.googleapis.com"><!-- Prefetch important pages --><link rel="prefetch" href="/projects"><!-- Performance & Security --><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="theme-color" content="#0a0a0f"><meta name="format-detection" content="telephone=no"><!-- Additional SEO --><meta name="author" content="Your Name"><meta name="keywords" content="software engineer, full-stack developer, enterprise architecture, AI/ML, cloud computing, portfolio"><link rel="sitemap" type="application/xml" href="/sitemap.xml"><!-- JSON-LD Structured Data --><script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Your Name",
+        "jobTitle": "Software Engineer",
+        "url": "{Astro.site}",
+        "image": "{new URL(image, Astro.site)}",
+        "description": "{description}",
+        "sameAs": [
+          "https://github.com/yourusername",
+          "https://linkedin.com/in/yourprofile"
+        ]
+      }
+    </script><link rel="stylesheet" href="/_assets/_slug_.BWXAMBk-.css">
+<link rel="stylesheet" href="/_assets/_slug_.nMykh7F7.css">
+<link rel="stylesheet" href="/_assets/_slug_.Bcds1w5A.css"><script type="module" src="/_assets/page.DjtUvP_i.js"></script></head> <body>  <div class="main-wrapper" data-astro-cid-ouamjn2i> <!-- Skip to main content for accessibility --> <a href="#main-content" class="skip-link" data-astro-cid-ouamjn2i>
+Skip to main content
+</a> <!-- Navigation (will be implemented in Phase 3) --> <header id="site-header" role="banner" data-astro-cid-ouamjn2i> <nav class="navbar" role="navigation" aria-label="Main navigation" data-astro-cid-5blmo7yk> <div class="container navbar-content" data-astro-cid-5blmo7yk> <!-- Logo / Developer Name --> <a href="/" class="navbar-brand" aria-label="Home" data-astro-cid-5blmo7yk> <span class="brand-emoji" data-astro-cid-5blmo7yk>👨‍💻</span> <span class="brand-name gradient-text" data-astro-cid-5blmo7yk>Victor Muthomi</span> </a> <!-- Mobile Menu Toggle --> <button class="mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false" id="mobile-menu-toggle" data-astro-cid-5blmo7yk> <span class="hamburger-line" data-astro-cid-5blmo7yk></span> <span class="hamburger-line" data-astro-cid-5blmo7yk></span> <span class="hamburger-line" data-astro-cid-5blmo7yk></span> </button> <!-- Desktop nav links (inside nav for layout) --> <div class="nav-links-desktop" id="nav-links-desktop" data-astro-cid-5blmo7yk> <a href="/" class="nav-link" data-astro-cid-5blmo7yk> <span class="nav-emoji" data-astro-cid-5blmo7yk>🏠</span> <span data-astro-cid-5blmo7yk>Home</span> </a><a href="/projects" class="nav-link" data-astro-cid-5blmo7yk> <span class="nav-emoji" data-astro-cid-5blmo7yk>🚀</span> <span data-astro-cid-5blmo7yk>Projects</span> </a><a href="/skills" class="nav-link" data-astro-cid-5blmo7yk> <span class="nav-emoji" data-astro-cid-5blmo7yk>⚒️</span> <span data-astro-cid-5blmo7yk>Skills</span> </a><a href="/blog" class="nav-link active" aria-current="page" data-astro-cid-5blmo7yk> <span class="nav-emoji" data-astro-cid-5blmo7yk>✍️</span> <span data-astro-cid-5blmo7yk>Blog</span> </a>  </div> </div> </nav> <!-- Mobile nav panel — outside <nav> to avoid backdrop-filter compositing --> <div class="nav-links" id="nav-links" aria-hidden="true" data-astro-cid-5blmo7yk> <a href="/" class="nav-link" data-astro-cid-5blmo7yk> <span class="nav-emoji" data-astro-cid-5blmo7yk>🏠</span> <span data-astro-cid-5blmo7yk>Home</span> </a><a href="/projects" class="nav-link" data-astro-cid-5blmo7yk> <span class="nav-emoji" data-astro-cid-5blmo7yk>🚀</span> <span data-astro-cid-5blmo7yk>Projects</span> </a><a href="/skills" class="nav-link" data-astro-cid-5blmo7yk> <span class="nav-emoji" data-astro-cid-5blmo7yk>⚒️</span> <span data-astro-cid-5blmo7yk>Skills</span> </a><a href="/blog" class="nav-link active" aria-current="page" data-astro-cid-5blmo7yk> <span class="nav-emoji" data-astro-cid-5blmo7yk>✍️</span> <span data-astro-cid-5blmo7yk>Blog</span> </a>  </div> <div class="nav-overlay" id="nav-overlay" data-astro-cid-5blmo7yk></div> <script type="module">const e=document.getElementById("mobile-menu-toggle"),t=document.getElementById("nav-links"),a=document.getElementById("nav-overlay");function d(){e?.setAttribute("aria-expanded","false"),e?.classList.remove("active"),t?.classList.remove("active"),t?.setAttribute("aria-hidden","true"),a?.classList.remove("active"),document.body.style.overflow=""}e?.addEventListener("click",()=>{"true"===e.getAttribute("aria-expanded")?d():(e?.setAttribute("aria-expanded","true"),e?.classList.add("active"),t?.classList.add("active"),t?.setAttribute("aria-hidden","false"),a?.classList.add("active"),document.body.style.overflow="hidden")}),t?.querySelectorAll(".nav-link").forEach(e=>{e.addEventListener("click",d)}),a?.addEventListener("click",d),document.addEventListener("keydown",e=>{"Escape"===e.key&&d()});</script>  </header> <!-- Main Content Area --> <main id="main-content" role="main" tabindex="-1" data-astro-cid-ouamjn2i>     <section class="post-hero" data-astro-cid-2q5oecfc> <div class="container" data-astro-cid-2q5oecfc> <!-- Breadcrumb --> <nav class="breadcrumb" aria-label="Breadcrumb" data-astro-cid-2q5oecfc> <ol data-astro-cid-2q5oecfc> <li data-astro-cid-2q5oecfc><a href="/" data-astro-cid-2q5oecfc>Home</a></li> <li data-astro-cid-2q5oecfc><a href="/blog" data-astro-cid-2q5oecfc>Blog</a></li> <li aria-current="page" data-astro-cid-2q5oecfc>Comprehensive Guide To Frappe and ERPNext Installation - With D</li> </ol> </nav> <!-- Tags --> <div class="post-tags" data-astro-cid-2q5oecfc> <span class="tag" data-astro-cid-2q5oecfc>ERPNext</span><span class="tag" data-astro-cid-2q5oecfc>Frappe</span> </div> <h1 class="post-title" data-astro-cid-2q5oecfc>Comprehensive Guide To Frappe and ERPNext Installation - With D</h1> <p class="post-description" data-astro-cid-2q5oecfc>Learn how to build powerful web applications with Django, Python&#39;s most popular web framework. This guide covers installation, project setup, models, views, templates, and more.</p> <div class="post-meta" data-astro-cid-2q5oecfc> <span class="meta-item" data-astro-cid-2q5oecfc> <span class="meta-icon" data-astro-cid-2q5oecfc>📅</span> August 30, 2025 </span> <span class="meta-divider" data-astro-cid-2q5oecfc>·</span> <span class="meta-item" data-astro-cid-2q5oecfc> <span class="meta-icon" data-astro-cid-2q5oecfc>⏱️</span> 12 min read </span> <span class="meta-divider" data-astro-cid-2q5oecfc>·</span> <span class="meta-item" data-astro-cid-2q5oecfc> <span class="meta-icon" data-astro-cid-2q5oecfc>✍️</span>
+Victor Muthomi
+</span> </div> </div> </section>  <article class="blog-article" data-astro-cid-2q5oecfc> <div class="container" data-astro-cid-2q5oecfc> <div class="prose" data-astro-cid-2q5oecfc>  <h1 id="complete-frappe--erpnext-installation-guide">Complete Frappe &#x26; ERPNext Installation Guide</h1>
+<p>Welcome to the most comprehensive guide for installing Frappe and ERPNext! Whether you’re a complete beginner or an experienced developer, this guide will walk you through every step of the installation process.</p>
+<h2 id="-what-youll-learn">🎯 What You’ll Learn</h2>
+<p>By the end of this guide, you’ll have:</p>
+<ul>
+<li>A fully functional Frappe framework installation</li>
+<li>ERPNext up and running</li>
+<li>Understanding of the architecture</li>
+<li>Knowledge to troubleshoot common issues</li>
+</ul>
+<h2 id="-prerequisites">📋 Prerequisites</h2>
+<h3 id="system-requirements">System Requirements</h3>
+<ul>
+<li><strong>Operating System</strong>: Ubuntu 20.04+ (recommended), Debian 10+, or macOS</li>
+<li><strong>RAM</strong>: Minimum 4GB (8GB+ recommended for production)</li>
+<li><strong>Storage</strong>: At least 10GB free space</li>
+<li><strong>Python</strong>: 3.8+ (will be installed in this guide)</li>
+<li><strong>Node.js</strong>: 18+ (will be installed)</li>
+</ul>
+<h3 id="what-is-frappe-and-erpnext">What is Frappe and ERPNext?</h3>
+<ul>
+<li><strong>Frappe</strong>: A full-stack web application framework written in Python and JavaScript</li>
+<li><strong>ERPNext</strong>: An open-source ERP system built on the Frappe framework</li>
+<li>Think of Frappe as the foundation and ERPNext as the house built on top</li>
+</ul>
+<h2 id="-installation-methods">🚀 Installation Methods</h2>
+<p>We’ll cover three installation methods:</p>
+<ol>
+<li><strong>Easy Install Script</strong> (Recommended for beginners)</li>
+<li><strong>Manual Installation</strong> (For learning and customization)</li>
+<li><strong>Docker Installation</strong> (For development and testing)</li>
+</ol>
+<hr>
+<h2 id="method-1-easy-install-script-recommended">Method 1: Easy Install Script (Recommended)</h2>
+<p>This is the fastest way to get started and is perfect for beginners.</p>
+<h3 id="step-1-update-your-system">Step 1: Update Your System</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Update package lists</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> apt</span><span style="color:#9ECBFF"> update</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Upgrade existing packages</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> apt</span><span style="color:#9ECBFF"> upgrade</span><span style="color:#79B8FF"> -y</span></span></code></pre>
+<h3 id="step-2-install-git">Step 2: Install Git</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> apt</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> git</span><span style="color:#79B8FF"> -y</span></span></code></pre>
+<h3 id="step-3-download-and-run-the-install-script">Step 3: Download and Run the Install Script</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Download the installation script</span></span>
+<span class="line"><span style="color:#B392F0">wget</span><span style="color:#9ECBFF"> https://raw.githubusercontent.com/frappe/bench/develop/install.py</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Run the installation script</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> python3</span><span style="color:#9ECBFF"> install.py</span><span style="color:#79B8FF"> --production</span><span style="color:#79B8FF"> --user</span><span style="color:#E1E4E8"> $(</span><span style="color:#B392F0">whoami</span><span style="color:#E1E4E8">)</span></span></code></pre>
+<p><strong>What this script does:</strong></p>
+<ul>
+<li>Installs all required dependencies (Python, Node.js, MariaDB, etc.)</li>
+<li>Sets up the bench environment</li>
+<li>Creates a new site</li>
+<li>Installs ERPNext</li>
+</ul>
+<h3 id="step-4-wait-for-installation">Step 4: Wait for Installation</h3>
+<p>The installation can take 15-30 minutes depending on your internet speed and system performance. Grab a coffee! ☕</p>
+<h3 id="step-5-access-your-erpnext-installation">Step 5: Access Your ERPNext Installation</h3>
+<p>Once installation is complete:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Start the development server</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#9ECBFF"> start</span></span></code></pre>
+<p>Open your browser and go to: <code>http://localhost:8000</code></p>
+<p><strong>Default credentials:</strong></p>
+<ul>
+<li>Username: <code>Administrator</code></li>
+<li>Password: (You’ll set this during the setup wizard)</li>
+</ul>
+<hr>
+<h2 id="method-2-manual-installation-detailed-learning-approach">Method 2: Manual Installation (Detailed Learning Approach)</h2>
+<p>This method gives you complete control and understanding of each component.</p>
+<h3 id="step-1-install-system-dependencies">Step 1: Install System Dependencies</h3>
+<h4 id="update-system">Update System</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> apt</span><span style="color:#9ECBFF"> update</span><span style="color:#E1E4E8"> &#x26;&#x26; </span><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> apt</span><span style="color:#9ECBFF"> upgrade</span><span style="color:#79B8FF"> -y</span></span></code></pre>
+<h4 id="install-essential-packages">Install Essential Packages</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> apt</span><span style="color:#9ECBFF"> install</span><span style="color:#79B8FF"> -y</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#9ECBFF">    python3-dev</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#9ECBFF">    python3-pip</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#9ECBFF">    python3-setuptools</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#9ECBFF">    python3-distutils</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#9ECBFF">    software-properties-common</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#9ECBFF">    mariadb-server</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#9ECBFF">    mariadb-client</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#9ECBFF">    redis-server</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#9ECBFF">    xvfb</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#9ECBFF">    libfontconfig</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#9ECBFF">    wkhtmltopdf</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#9ECBFF">    libmysqlclient-dev</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#9ECBFF">    curl</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#9ECBFF">    build-essential</span><span style="color:#79B8FF"> \</span></span>
+<span class="line"><span style="color:#9ECBFF">    git</span></span></code></pre>
+<h3 id="step-2-install-nodejs-and-npm">Step 2: Install Node.js and npm</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Install Node.js 18.x</span></span>
+<span class="line"><span style="color:#B392F0">curl</span><span style="color:#79B8FF"> -fsSL</span><span style="color:#9ECBFF"> https://deb.nodesource.com/setup_18.x</span><span style="color:#F97583"> |</span><span style="color:#B392F0"> sudo</span><span style="color:#79B8FF"> -E</span><span style="color:#9ECBFF"> bash</span><span style="color:#9ECBFF"> -</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> apt-get</span><span style="color:#9ECBFF"> install</span><span style="color:#79B8FF"> -y</span><span style="color:#9ECBFF"> nodejs</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Verify installation</span></span>
+<span class="line"><span style="color:#B392F0">node</span><span style="color:#79B8FF"> --version</span></span>
+<span class="line"><span style="color:#B392F0">npm</span><span style="color:#79B8FF"> --version</span></span></code></pre>
+<h3 id="step-3-install-yarn">Step 3: Install Yarn</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> npm</span><span style="color:#9ECBFF"> install</span><span style="color:#79B8FF"> -g</span><span style="color:#9ECBFF"> yarn</span></span></code></pre>
+<h3 id="step-4-configure-mariadb">Step 4: Configure MariaDB</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Secure MariaDB installation</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> mysql_secure_installation</span></span></code></pre>
+<p><strong>During the security setup:</strong></p>
+<ul>
+<li>Set root password: Choose a strong password</li>
+<li>Remove anonymous users: Y</li>
+<li>Disallow root login remotely: Y</li>
+<li>Remove test database: Y</li>
+<li>Reload privilege tables: Y</li>
+</ul>
+<h4 id="configure-mariadb-for-frappe">Configure MariaDB for Frappe</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> mysql</span><span style="color:#79B8FF"> -u</span><span style="color:#9ECBFF"> root</span><span style="color:#79B8FF"> -p</span></span></code></pre>
+<p>Execute these SQL commands:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="sql"><code><span class="line"><span style="color:#6A737D">-- Create the my.cnf configuration</span></span></code></pre>
+<p>Create the MariaDB configuration file:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> tee</span><span style="color:#9ECBFF"> /etc/mysql/mariadb.conf.d/frappe.cnf</span><span style="color:#F97583"> ></span><span style="color:#9ECBFF"> /dev/null</span><span style="color:#F97583"> &#x3C;&#x3C;</span><span style="color:#9ECBFF">EOF</span></span>
+<span class="line"><span style="color:#9ECBFF">[mysqld]</span></span>
+<span class="line"><span style="color:#9ECBFF">character-set-client-handshake = FALSE</span></span>
+<span class="line"><span style="color:#9ECBFF">character-set-server = utf8mb4</span></span>
+<span class="line"><span style="color:#9ECBFF">collation-server = utf8mb4_unicode_ci</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#9ECBFF">[mysql]</span></span>
+<span class="line"><span style="color:#9ECBFF">default-character-set = utf8mb4</span></span>
+<span class="line"><span style="color:#9ECBFF">EOF</span></span></code></pre>
+<p>Restart MariaDB:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> systemctl</span><span style="color:#9ECBFF"> restart</span><span style="color:#9ECBFF"> mariadb</span></span></code></pre>
+<h3 id="step-5-install-bench">Step 5: Install Bench</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Install bench using pip</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> pip3</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> frappe-bench</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Verify installation</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#79B8FF"> --version</span></span></code></pre>
+<h3 id="step-6-initialize-bench">Step 6: Initialize Bench</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Create a new bench directory</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#9ECBFF"> init</span><span style="color:#9ECBFF"> frappe-bench</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Change to the bench directory</span></span>
+<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> frappe-bench</span></span></code></pre>
+<p><strong>What happened here:</strong></p>
+<ul>
+<li>Created a new directory structure</li>
+<li>Set up virtual environment</li>
+<li>Downloaded Frappe framework</li>
+</ul>
+<h3 id="step-7-create-a-new-site">Step 7: Create a New Site</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Create a new site (replace 'mysite.local' with your preferred name)</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#9ECBFF"> new-site</span><span style="color:#9ECBFF"> mysite.local</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># You'll be prompted to set:</span></span>
+<span class="line"><span style="color:#6A737D"># - MariaDB root password</span></span>
+<span class="line"><span style="color:#6A737D"># - Administrator password for the site</span></span></code></pre>
+<h3 id="step-8-install-erpnext">Step 8: Install ERPNext</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Download ERPNext app</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#9ECBFF"> get-app</span><span style="color:#9ECBFF"> erpnext</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Install ERPNext on your site</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#79B8FF"> --site</span><span style="color:#9ECBFF"> mysite.local</span><span style="color:#9ECBFF"> install-app</span><span style="color:#9ECBFF"> erpnext</span></span></code></pre>
+<h3 id="step-9-start-the-development-server">Step 9: Start the Development Server</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Start all services</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#9ECBFF"> start</span></span></code></pre>
+<p>Access your installation at: <code>http://mysite.local:8000</code></p>
+<p><strong>Note</strong>: You may need to add <code>127.0.0.1 mysite.local</code> to your <code>/etc/hosts</code> file.</p>
+<hr>
+<h2 id="method-3-docker-installation-development--testing">Method 3: Docker Installation (Development &#x26; Testing)</h2>
+<p>Perfect for development environments and quick testing.</p>
+<h3 id="step-1-install-docker-and-docker-compose">Step 1: Install Docker and Docker Compose</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Install Docker</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> apt</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> docker.io</span><span style="color:#9ECBFF"> docker-compose</span><span style="color:#79B8FF"> -y</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Add your user to docker group</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> usermod</span><span style="color:#79B8FF"> -aG</span><span style="color:#9ECBFF"> docker</span><span style="color:#E1E4E8"> $USER</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Log out and log back in for group changes to take effect</span></span></code></pre>
+<h3 id="step-2-clone-erpnext-docker-repository">Step 2: Clone ERPNext Docker Repository</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">git</span><span style="color:#9ECBFF"> clone</span><span style="color:#9ECBFF"> https://github.com/frappe/frappe_docker.git</span></span>
+<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> frappe_docker</span></span></code></pre>
+<h3 id="step-3-copy-environment-file">Step 3: Copy Environment File</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">cp</span><span style="color:#9ECBFF"> example.env</span><span style="color:#9ECBFF"> .env</span></span></code></pre>
+<h3 id="step-4-edit-environment-variables-optional">Step 4: Edit Environment Variables (Optional)</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">nano</span><span style="color:#9ECBFF"> .env</span></span></code></pre>
+<p>Key variables to consider:</p>
+<ul>
+<li><code>ERPNEXT_VERSION=version-14</code> (or latest)</li>
+<li><code>FRAPPE_VERSION=version-14</code></li>
+</ul>
+<h3 id="step-5-start-the-containers">Step 5: Start the Containers</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Start in development mode</span></span>
+<span class="line"><span style="color:#B392F0">docker-compose</span><span style="color:#79B8FF"> -f</span><span style="color:#9ECBFF"> compose.yaml</span><span style="color:#79B8FF"> -f</span><span style="color:#9ECBFF"> overrides/compose.noproxy.yaml</span><span style="color:#79B8FF"> -f</span><span style="color:#9ECBFF"> overrides/compose.erpnext.yaml</span><span style="color:#9ECBFF"> up</span><span style="color:#79B8FF"> -d</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Or for a simpler setup</span></span>
+<span class="line"><span style="color:#B392F0">docker-compose</span><span style="color:#9ECBFF"> up</span><span style="color:#79B8FF"> -d</span></span></code></pre>
+<h3 id="step-6-create-a-new-site">Step 6: Create a New Site</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Execute into the backend container</span></span>
+<span class="line"><span style="color:#B392F0">docker</span><span style="color:#9ECBFF"> exec</span><span style="color:#79B8FF"> -it</span><span style="color:#9ECBFF"> frappe_docker_erpnext-python_1</span><span style="color:#9ECBFF"> bash</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Create a new site</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#9ECBFF"> new-site</span><span style="color:#9ECBFF"> frontend</span><span style="color:#79B8FF"> --mariadb-root-password</span><span style="color:#9ECBFF"> admin</span><span style="color:#79B8FF"> --admin-password</span><span style="color:#9ECBFF"> admin</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Install ERPNext</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#79B8FF"> --site</span><span style="color:#9ECBFF"> frontend</span><span style="color:#9ECBFF"> install-app</span><span style="color:#9ECBFF"> erpnext</span></span></code></pre>
+<p>Access at: <code>http://localhost:8080</code></p>
+<hr>
+<h2 id="-post-installation-configuration">🛠 Post-Installation Configuration</h2>
+<h3 id="setting-up-development-environment">Setting Up Development Environment</h3>
+<h4 id="enable-developer-mode">Enable Developer Mode</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Navigate to your bench directory</span></span>
+<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> frappe-bench</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Enable developer mode for your site</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#79B8FF"> --site</span><span style="color:#9ECBFF"> mysite.local</span><span style="color:#9ECBFF"> set-config</span><span style="color:#9ECBFF"> developer_mode</span><span style="color:#79B8FF"> 1</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Clear cache</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#79B8FF"> --site</span><span style="color:#9ECBFF"> mysite.local</span><span style="color:#9ECBFF"> clear-cache</span></span></code></pre>
+<h4 id="install-additional-useful-apps">Install Additional Useful Apps</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Frappe Insights (Business Intelligence)</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#9ECBFF"> get-app</span><span style="color:#9ECBFF"> insights</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#79B8FF"> --site</span><span style="color:#9ECBFF"> mysite.local</span><span style="color:#9ECBFF"> install-app</span><span style="color:#9ECBFF"> insights</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Frappe HR</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#9ECBFF"> get-app</span><span style="color:#9ECBFF"> hrms</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#79B8FF"> --site</span><span style="color:#9ECBFF"> mysite.local</span><span style="color:#9ECBFF"> install-app</span><span style="color:#9ECBFF"> hrms</span></span></code></pre>
+<h3 id="production-setup-advanced">Production Setup (Advanced)</h3>
+<h4 id="set-up-nginx-and-supervisor">Set Up Nginx and Supervisor</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Install nginx and supervisor</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> apt</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> nginx</span><span style="color:#9ECBFF"> supervisor</span><span style="color:#79B8FF"> -y</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Setup production configuration</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> bench</span><span style="color:#9ECBFF"> setup</span><span style="color:#9ECBFF"> production</span><span style="color:#E1E4E8"> $(</span><span style="color:#B392F0">whoami</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Enable and start services</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> systemctl</span><span style="color:#9ECBFF"> enable</span><span style="color:#9ECBFF"> nginx</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> systemctl</span><span style="color:#9ECBFF"> enable</span><span style="color:#9ECBFF"> supervisor</span></span></code></pre>
+<h4 id="enable-ssl-optional-but-recommended">Enable SSL (Optional but Recommended)</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Install certbot</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> apt</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> certbot</span><span style="color:#9ECBFF"> python3-certbot-nginx</span><span style="color:#79B8FF"> -y</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Get SSL certificate (replace with your domain)</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> certbot</span><span style="color:#79B8FF"> --nginx</span><span style="color:#79B8FF"> -d</span><span style="color:#9ECBFF"> yourdomain.com</span></span></code></pre>
+<hr>
+<h2 id="-essential-bench-commands">🔧 Essential Bench Commands</h2>
+<p>Here are the most important commands you’ll use regularly:</p>
+<h3 id="site-management">Site Management</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Create a new site</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#9ECBFF"> new-site</span><span style="color:#9ECBFF"> sitename</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Drop a site (be careful!)</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#9ECBFF"> drop-site</span><span style="color:#9ECBFF"> sitename</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Backup a site</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#79B8FF"> --site</span><span style="color:#9ECBFF"> sitename</span><span style="color:#9ECBFF"> backup</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Restore from backup</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#79B8FF"> --site</span><span style="color:#9ECBFF"> sitename</span><span style="color:#9ECBFF"> restore</span><span style="color:#9ECBFF"> /path/to/backup.sql</span></span></code></pre>
+<h3 id="app-management">App Management</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Get an app from GitHub</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#9ECBFF"> get-app</span><span style="color:#9ECBFF"> appname</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Install app on a site</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#79B8FF"> --site</span><span style="color:#9ECBFF"> sitename</span><span style="color:#9ECBFF"> install-app</span><span style="color:#9ECBFF"> appname</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Uninstall app from site</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#79B8FF"> --site</span><span style="color:#9ECBFF"> sitename</span><span style="color:#9ECBFF"> uninstall-app</span><span style="color:#9ECBFF"> appname</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Update all apps</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#9ECBFF"> update</span></span></code></pre>
+<h3 id="development-commands">Development Commands</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Start development server</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#9ECBFF"> start</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Watch for changes and rebuild</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#9ECBFF"> watch</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Run in console mode</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#79B8FF"> --site</span><span style="color:#9ECBFF"> sitename</span><span style="color:#9ECBFF"> console</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Clear cache</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#79B8FF"> --site</span><span style="color:#9ECBFF"> sitename</span><span style="color:#9ECBFF"> clear-cache</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Migrate database</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#79B8FF"> --site</span><span style="color:#9ECBFF"> sitename</span><span style="color:#9ECBFF"> migrate</span></span></code></pre>
+<h3 id="system-commands">System Commands</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Restart all services</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#9ECBFF"> restart</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Update bench itself</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#9ECBFF"> update</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Switch to a specific branch</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#9ECBFF"> switch-to-branch</span><span style="color:#9ECBFF"> version-14</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Setup production</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> bench</span><span style="color:#9ECBFF"> setup</span><span style="color:#9ECBFF"> production</span><span style="color:#9ECBFF"> username</span></span></code></pre>
+<hr>
+<h2 id="-troubleshooting-common-issues">🐛 Troubleshooting Common Issues</h2>
+<h3 id="issue-1-permission-denied-errors">Issue 1: Permission Denied Errors</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Fix ownership issues</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> chown</span><span style="color:#79B8FF"> -R</span><span style="color:#E1E4E8"> $(</span><span style="color:#B392F0">whoami</span><span style="color:#E1E4E8">)</span><span style="color:#9ECBFF">:</span><span style="color:#E1E4E8">$(</span><span style="color:#B392F0">whoami</span><span style="color:#E1E4E8">) </span><span style="color:#9ECBFF">/path/to/frappe-bench</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Fix permissions</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> chmod</span><span style="color:#79B8FF"> -R</span><span style="color:#79B8FF"> 755</span><span style="color:#9ECBFF"> /path/to/frappe-bench</span></span></code></pre>
+<h3 id="issue-2-mariadb-connection-issues">Issue 2: MariaDB Connection Issues</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Check MariaDB status</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> systemctl</span><span style="color:#9ECBFF"> status</span><span style="color:#9ECBFF"> mariadb</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Restart MariaDB</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> systemctl</span><span style="color:#9ECBFF"> restart</span><span style="color:#9ECBFF"> mariadb</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Check MariaDB logs</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> tail</span><span style="color:#79B8FF"> -f</span><span style="color:#9ECBFF"> /var/log/mysql/error.log</span></span></code></pre>
+<h3 id="issue-3-port-already-in-use">Issue 3: Port Already in Use</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Check what's using port 8000</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> lsof</span><span style="color:#79B8FF"> -i</span><span style="color:#9ECBFF"> :8000</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Kill the process (replace PID with actual process ID)</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> kill</span><span style="color:#79B8FF"> -9</span><span style="color:#9ECBFF"> PID</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Or use a different port</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#9ECBFF"> start</span><span style="color:#79B8FF"> --port</span><span style="color:#79B8FF"> 8001</span></span></code></pre>
+<h3 id="issue-4-nodejsnpm-issues">Issue 4: Node.js/npm Issues</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Clear npm cache</span></span>
+<span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> cache</span><span style="color:#9ECBFF"> clean</span><span style="color:#79B8FF"> --force</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Reinstall node modules</span></span>
+<span class="line"><span style="color:#79B8FF">cd</span><span style="color:#9ECBFF"> frappe-bench/apps/frappe</span></span>
+<span class="line"><span style="color:#B392F0">npm</span><span style="color:#9ECBFF"> install</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># If you get permission errors</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> chown</span><span style="color:#79B8FF"> -R</span><span style="color:#E1E4E8"> $(</span><span style="color:#B392F0">whoami</span><span style="color:#E1E4E8">) </span><span style="color:#9ECBFF">~/.npm</span></span></code></pre>
+<h3 id="issue-5-redis-connection-issues">Issue 5: Redis Connection Issues</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Check Redis status</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> systemctl</span><span style="color:#9ECBFF"> status</span><span style="color:#9ECBFF"> redis-server</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Restart Redis</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> systemctl</span><span style="color:#9ECBFF"> restart</span><span style="color:#9ECBFF"> redis-server</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Test Redis connection</span></span>
+<span class="line"><span style="color:#B392F0">redis-cli</span><span style="color:#9ECBFF"> ping</span></span></code></pre>
+<hr>
+<h2 id="-customization-and-development">🎨 Customization and Development</h2>
+<h3 id="creating-your-first-custom-app">Creating Your First Custom App</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Create a new app</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#9ECBFF"> new-app</span><span style="color:#9ECBFF"> myapp</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Install it on your site</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#79B8FF"> --site</span><span style="color:#9ECBFF"> mysite.local</span><span style="color:#9ECBFF"> install-app</span><span style="color:#9ECBFF"> myapp</span></span></code></pre>
+<h3 id="understanding-the-directory-structure">Understanding the Directory Structure</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>frappe-bench/</span></span>
+<span class="line"><span>├── apps/                 # All Frappe apps</span></span>
+<span class="line"><span>│   ├── frappe/          # Core Frappe framework</span></span>
+<span class="line"><span>│   ├── erpnext/         # ERPNext application</span></span>
+<span class="line"><span>│   └── myapp/           # Your custom apps</span></span>
+<span class="line"><span>├── sites/               # Site-specific files</span></span>
+<span class="line"><span>│   ├── mysite.local/    # Your site directory</span></span>
+<span class="line"><span>│   └── common_site_config.json</span></span>
+<span class="line"><span>├── config/              # Configuration files</span></span>
+<span class="line"><span>├── logs/                # Log files</span></span>
+<span class="line"><span>└── env/                 # Python virtual environment</span></span></code></pre>
+<h3 id="development-best-practices">Development Best Practices</h3>
+<ol>
+<li><strong>Always work in developer mode</strong> for custom development</li>
+<li><strong>Use version control</strong> for your custom apps</li>
+<li><strong>Follow Frappe’s coding standards</strong></li>
+<li><strong>Test thoroughly</strong> before deploying to production</li>
+<li><strong>Keep regular backups</strong></li>
+</ol>
+<hr>
+<h2 id="-security-best-practices">🔒 Security Best Practices</h2>
+<h3 id="for-development">For Development</h3>
+<ul>
+<li>Never use default passwords</li>
+<li>Keep your system updated</li>
+<li>Use strong administrator passwords</li>
+<li>Enable firewall if needed</li>
+</ul>
+<h3 id="for-production">For Production</h3>
+<ul>
+<li>Set up SSL certificates</li>
+<li>Configure proper firewall rules</li>
+<li>Regular security updates</li>
+<li>Monitor logs regularly</li>
+<li>Set up automated backups</li>
+</ul>
+<hr>
+<h2 id="-performance-optimization">📊 Performance Optimization</h2>
+<h3 id="basic-optimizations">Basic Optimizations</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Enable production mode</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#79B8FF"> --site</span><span style="color:#9ECBFF"> mysite.local</span><span style="color:#9ECBFF"> set-config</span><span style="color:#9ECBFF"> developer_mode</span><span style="color:#79B8FF"> 0</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Clear cache</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#79B8FF"> --site</span><span style="color:#9ECBFF"> mysite.local</span><span style="color:#9ECBFF"> clear-cache</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Optimize database</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#79B8FF"> --site</span><span style="color:#9ECBFF"> mysite.local</span><span style="color:#9ECBFF"> optimize-database</span></span></code></pre>
+<h3 id="advanced-optimizations">Advanced Optimizations</h3>
+<ul>
+<li>Configure Redis properly</li>
+<li>Set up proper caching</li>
+<li>Optimize MariaDB configuration</li>
+<li>Use a CDN for static files</li>
+<li>Implement proper monitoring</li>
+</ul>
+<hr>
+<h2 id="-getting-help">🆘 Getting Help</h2>
+<h3 id="official-resources">Official Resources</h3>
+<ul>
+<li><strong>Documentation</strong>: <a href="https://frappeframework.com/docs">https://frappeframework.com/docs</a></li>
+<li><strong>ERPNext Documentation</strong>: <a href="https://docs.erpnext.com">https://docs.erpnext.com</a></li>
+<li><strong>Community Forum</strong>: <a href="https://discuss.frappe.io">https://discuss.frappe.io</a></li>
+<li><strong>GitHub Issues</strong>:
+<ul>
+<li>Frappe: <a href="https://github.com/frappe/frappe">https://github.com/frappe/frappe</a></li>
+<li>ERPNext: <a href="https://github.com/frappe/erpnext">https://github.com/frappe/erpnext</a></li>
+</ul>
+</li>
+</ul>
+<h3 id="community-support">Community Support</h3>
+<ul>
+<li>Join the Frappe Discord server</li>
+<li>Follow Frappe on Twitter</li>
+<li>Check Stack Overflow for common issues</li>
+</ul>
+<h3 id="professional-support">Professional Support</h3>
+<ul>
+<li>Frappe Cloud (hosted solution)</li>
+<li>Certified Frappe Partners</li>
+<li>Custom development services</li>
+</ul>
+<hr>
+<h2 id="-next-steps">🎉 Next Steps</h2>
+<p>Congratulations! You now have Frappe and ERPNext installed. Here’s what to do next:</p>
+<h3 id="for-beginners">For Beginners</h3>
+<ol>
+<li><strong>Complete the Setup Wizard</strong>: Set up your company, chart of accounts, and basic settings</li>
+<li><strong>Explore the User Interface</strong>: Navigate through different modules</li>
+<li><strong>Try Basic Operations</strong>: Create customers, items, and sales invoices</li>
+<li><strong>Watch Tutorials</strong>: Check out ERPNext’s YouTube channel</li>
+<li><strong>Join the Community</strong>: Ask questions on the forum</li>
+</ol>
+<h3 id="for-developers">For Developers</h3>
+<ol>
+<li><strong>Study the Framework</strong>: Understand DocTypes, Controllers, and Hooks</li>
+<li><strong>Create Custom Apps</strong>: Build your first custom application</li>
+<li><strong>Learn the API</strong>: Explore REST and RPC APIs</li>
+<li><strong>Contribute</strong>: Fix bugs or add features to the core</li>
+<li><strong>Build Solutions</strong>: Create industry-specific customizations</li>
+</ol>
+<h3 id="production-deployment">Production Deployment</h3>
+<ol>
+<li><strong>Security Hardening</strong>: Implement proper security measures</li>
+<li><strong>Performance Tuning</strong>: Optimize for your specific use case</li>
+<li><strong>Monitoring Setup</strong>: Implement logging and monitoring</li>
+<li><strong>Backup Strategy</strong>: Set up automated backups</li>
+<li><strong>Update Process</strong>: Plan for regular updates</li>
+</ol>
+<hr>
+<h2 id="-maintenance-commands">🔄 Maintenance Commands</h2>
+<h3 id="daily-operations">Daily Operations</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Check site status</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#9ECBFF"> doctor</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Update all apps</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#9ECBFF"> update</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Backup important sites</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#79B8FF"> --site</span><span style="color:#9ECBFF"> mysite.local</span><span style="color:#9ECBFF"> backup</span><span style="color:#79B8FF"> --with-files</span></span></code></pre>
+<h3 id="weekly-maintenance">Weekly Maintenance</h3>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#6A737D"># Clear old logs</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#9ECBFF"> clear-cache</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#79B8FF"> --site</span><span style="color:#9ECBFF"> mysite.local</span><span style="color:#9ECBFF"> clear-website-cache</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Optimize database</span></span>
+<span class="line"><span style="color:#B392F0">bench</span><span style="color:#79B8FF"> --site</span><span style="color:#9ECBFF"> mysite.local</span><span style="color:#9ECBFF"> optimize-database</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Check for security updates</span></span>
+<span class="line"><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> apt</span><span style="color:#9ECBFF"> update</span><span style="color:#E1E4E8"> &#x26;&#x26; </span><span style="color:#B392F0">sudo</span><span style="color:#9ECBFF"> apt</span><span style="color:#9ECBFF"> list</span><span style="color:#79B8FF"> --upgradable</span></span></code></pre>
+<hr>
+<h2 id="-quick-reference">🎯 Quick Reference</h2>
+<h3 id="most-used-commands">Most Used Commands</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>Command</th><th>Description</th></tr></thead><tbody><tr><td><code>bench start</code></td><td>Start development server</td></tr><tr><td><code>bench restart</code></td><td>Restart all services</td></tr><tr><td><code>bench update</code></td><td>Update all apps</td></tr><tr><td><code>bench migrate</code></td><td>Run database migrations</td></tr><tr><td><code>bench console</code></td><td>Open Python console</td></tr><tr><td><code>bench clear-cache</code></td><td>Clear all caches</td></tr></tbody></table>
+<h3 id="important-file-locations">Important File Locations</h3>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<table><thead><tr><th>File/Directory</th><th>Purpose</th></tr></thead><tbody><tr><td><code>sites/site.local/site_config.json</code></td><td>Site configuration</td></tr><tr><td><code>sites/common_site_config.json</code></td><td>Common configuration</td></tr><tr><td><code>logs/</code></td><td>Application logs</td></tr><tr><td><code>config/supervisor.conf</code></td><td>Supervisor configuration</td></tr></tbody></table>
+<hr>
+<h2 id="-pro-tips">💡 Pro Tips</h2>
+<h3 id="for-beginners-1">For Beginners</h3>
+<ul>
+<li><strong>Start Small</strong>: Don’t try to configure everything at once</li>
+<li><strong>Use the Forum</strong>: The community is very helpful</li>
+<li><strong>Follow Tutorials</strong>: Video tutorials are great for visual learners</li>
+<li><strong>Practice</strong>: Set up a development environment to experiment</li>
+</ul>
+<h3 id="for-advanced-users">For Advanced Users</h3>
+<ul>
+<li><strong>Custom Apps</strong>: Learn to create custom applications</li>
+<li><strong>API Integration</strong>: Explore integration possibilities</li>
+<li><strong>Performance</strong>: Monitor and optimize performance</li>
+<li><strong>Automation</strong>: Use hooks and scheduled jobs effectively</li>
+</ul>
+<hr>
+<h2 id="-important-notes">🚨 Important Notes</h2>
+<h3 id="data-safety">Data Safety</h3>
+<ul>
+<li><strong>Always backup</strong> before major changes</li>
+<li><strong>Test in development</strong> before applying to production</li>
+<li><strong>Version control</strong> your customizations</li>
+</ul>
+<h3 id="updates">Updates</h3>
+<ul>
+<li><strong>Read release notes</strong> before updating</li>
+<li><strong>Test updates</strong> in a staging environment</li>
+<li><strong>Plan downtime</strong> for production updates</li>
+</ul>
+<h3 id="support">Support</h3>
+<ul>
+<li><strong>Community first</strong>: Try the forum before paid support</li>
+<li><strong>Document issues</strong>: Provide detailed error messages</li>
+<li><strong>Version info</strong>: Always mention your Frappe/ERPNext versions</li>
+</ul>
+<hr>
+<h2 id="-conclusion">🎊 Conclusion</h2>
+<p>You’ve successfully installed Frappe and ERPNext! This is just the beginning of your journey with this powerful framework. Whether you’re planning to use ERPNext for your business or develop custom applications on Frappe, you now have a solid foundation to build upon.</p>
+<p>Remember:</p>
+<ul>
+<li><strong>Take it step by step</strong> - Don’t rush the learning process</li>
+<li><strong>Experiment safely</strong> - Use development environments for testing</li>
+<li><strong>Engage with the community</strong> - The Frappe community is welcoming and helpful</li>
+<li><strong>Keep learning</strong> - Both frameworks are constantly evolving</li>
+</ul>
+<p>Happy coding, and welcome to the Frappe family! 🎉</p>
+<hr>
+<p><em>Last updated: August 2025</em>
+<em>Guide maintained by the Frappe community</em></p>  </div> <!-- Back to Blog --> <div class="back-link-wrapper" data-astro-cid-2q5oecfc> <a href="/blog" class="back-link" data-astro-cid-2q5oecfc> <span data-astro-cid-2q5oecfc>←</span> Back to Blog
+</a> </div> </div> </article>  </main> <!-- Footer --> <footer class="modern-footer" data-astro-cid-sz7xmlte> <div class="footer-glow" data-astro-cid-sz7xmlte></div> <div class="footer-container" data-astro-cid-sz7xmlte> <!-- Main Footer Content --> <div class="footer-grid" data-astro-cid-sz7xmlte> <!-- Brand Section --> <div class="footer-brand" data-astro-cid-sz7xmlte> <a href="/" class="brand-link" data-astro-cid-sz7xmlte> <span class="brand-emoji" data-astro-cid-sz7xmlte>👨‍💻</span> <span class="brand-name" data-astro-cid-sz7xmlte>Victor Muthomi</span> </a> <p class="brand-tagline" data-astro-cid-sz7xmlte>
+Software Engineer crafting elegant solutions for complex problems.
+</p> <div class="availability-badge" data-astro-cid-sz7xmlte> <span class="pulse-dot" data-astro-cid-sz7xmlte></span> <span data-astro-cid-sz7xmlte>Available for opportunities</span> </div> </div> <!-- Quick Links --> <div class="footer-section" data-astro-cid-sz7xmlte> <h4 class="section-title" data-astro-cid-sz7xmlte> <span data-astro-cid-sz7xmlte>🔗</span> Quick Links
+</h4> <nav class="footer-nav" data-astro-cid-sz7xmlte> <a href="/" class="footer-link" data-astro-cid-sz7xmlte> <span class="link-emoji" data-astro-cid-sz7xmlte>🏠</span> <span data-astro-cid-sz7xmlte>Home</span> </a><a href="/projects" class="footer-link" data-astro-cid-sz7xmlte> <span class="link-emoji" data-astro-cid-sz7xmlte>🚀</span> <span data-astro-cid-sz7xmlte>Projects</span> </a><a href="/skills" class="footer-link" data-astro-cid-sz7xmlte> <span class="link-emoji" data-astro-cid-sz7xmlte>⚒️</span> <span data-astro-cid-sz7xmlte>Skills</span> </a> </nav> </div> <!-- Contact Section --> <div class="footer-section" data-astro-cid-sz7xmlte> <h4 class="section-title" data-astro-cid-sz7xmlte> <span data-astro-cid-sz7xmlte>📬</span> Get In Touch
+</h4> <div class="contact-links" data-astro-cid-sz7xmlte> <a href="https://github.com/Victor-Muthomi" class="contact-link" target="_blank" rel="noopener noreferrer" aria-label="Contact via GitHub" data-astro-cid-sz7xmlte> <span class="contact-emoji" data-astro-cid-sz7xmlte>  <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" data-astro-cid-sz7xmlte><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" data-astro-cid-sz7xmlte></path></svg>   </span> <div class="contact-info" data-astro-cid-sz7xmlte> <span class="contact-label" data-astro-cid-sz7xmlte>GitHub</span> <span class="contact-value" data-astro-cid-sz7xmlte>@Victor-Muthomi</span> </div> </a><a href="https://www.linkedin.com/in/victor-muthomi-497b173a4/" class="contact-link" target="_blank" rel="noopener noreferrer" aria-label="Contact via LinkedIn" data-astro-cid-sz7xmlte> <span class="contact-emoji" data-astro-cid-sz7xmlte>   <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" data-astro-cid-sz7xmlte><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" data-astro-cid-sz7xmlte></path></svg>  </span> <div class="contact-info" data-astro-cid-sz7xmlte> <span class="contact-label" data-astro-cid-sz7xmlte>LinkedIn</span> <span class="contact-value" data-astro-cid-sz7xmlte>Victor Muthomi</span> </div> </a><a href="mailto:muthomivictor367@gmail.com" class="contact-link" aria-label="Contact via Email" data-astro-cid-sz7xmlte> <span class="contact-emoji" data-astro-cid-sz7xmlte> 📧    </span> <div class="contact-info" data-astro-cid-sz7xmlte> <span class="contact-label" data-astro-cid-sz7xmlte>Email</span> <span class="contact-value" data-astro-cid-sz7xmlte>muthomivictor367@gmail.com</span> </div> </a><a href="https://wa.me/254712550618" class="contact-link" target="_blank" rel="noopener noreferrer" aria-label="Contact via WhatsApp" data-astro-cid-sz7xmlte> <span class="contact-emoji" data-astro-cid-sz7xmlte>    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" data-astro-cid-sz7xmlte><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" data-astro-cid-sz7xmlte></path></svg> </span> <div class="contact-info" data-astro-cid-sz7xmlte> <span class="contact-label" data-astro-cid-sz7xmlte>WhatsApp</span> <span class="contact-value" data-astro-cid-sz7xmlte>+254 712 550 618</span> </div> </a> </div> </div> </div> <!-- Footer Bottom --> <div class="footer-bottom" data-astro-cid-sz7xmlte> <div class="footer-divider" data-astro-cid-sz7xmlte></div> <div class="footer-bottom-content" data-astro-cid-sz7xmlte> <p class="copyright" data-astro-cid-sz7xmlte> <span data-astro-cid-sz7xmlte>✨</span> 2026 Victor Muthomi. Build with passion.
+</p> <div class="footer-badges" data-astro-cid-sz7xmlte> <span class="tech-badge" data-astro-cid-sz7xmlte>⚡ Fast</span> <span class="tech-badge" data-astro-cid-sz7xmlte>🎨 Modern</span> <span class="tech-badge" data-astro-cid-sz7xmlte>📱 Responsive</span> </div> </div> </div> </div> </footer>  </div>  <!-- Animation System --> <script src="/scripts/animations.js"></script> </body> </html>  

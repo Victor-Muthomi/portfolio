@@ -1,0 +1,232 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.2"><!-- Primary Meta Tags --><title>Learning Python: A Friendly Guide for Absolute Beginners | Blog — Victor Muthomi</title><meta name="title" content="Learning Python: A Friendly Guide for Absolute Beginners | Blog — Victor Muthomi"><meta name="description" content="A gentle introduction to Python programming designed for complete beginners, covering all the essential concepts to get you started."><meta name="robots" content="index, follow"><link rel="canonical" href="https://victor-muthomi.vercel.app/blog/python/"><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://victor-muthomi.vercel.app/blog/python/"><meta property="og:title" content="Learning Python: A Friendly Guide for Absolute Beginners | Blog — Victor Muthomi"><meta property="og:description" content="A gentle introduction to Python programming designed for complete beginners, covering all the essential concepts to get you started."><meta property="og:image" content="https://victor-muthomi.vercel.app/og-image.jpg"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://victor-muthomi.vercel.app/blog/python/"><meta property="twitter:title" content="Learning Python: A Friendly Guide for Absolute Beginners | Blog — Victor Muthomi"><meta property="twitter:description" content="A gentle introduction to Python programming designed for complete beginners, covering all the essential concepts to get you started."><meta property="twitter:image" content="https://victor-muthomi.vercel.app/og-image.jpg"><!-- Preload Critical Assets --><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><link rel="dns-prefetch" href="https://fonts.googleapis.com"><!-- Prefetch important pages --><link rel="prefetch" href="/projects"><!-- Performance & Security --><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="theme-color" content="#0a0a0f"><meta name="format-detection" content="telephone=no"><!-- Additional SEO --><meta name="author" content="Your Name"><meta name="keywords" content="software engineer, full-stack developer, enterprise architecture, AI/ML, cloud computing, portfolio"><link rel="sitemap" type="application/xml" href="/sitemap.xml"><!-- JSON-LD Structured Data --><script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Your Name",
+        "jobTitle": "Software Engineer",
+        "url": "{Astro.site}",
+        "image": "{new URL(image, Astro.site)}",
+        "description": "{description}",
+        "sameAs": [
+          "https://github.com/yourusername",
+          "https://linkedin.com/in/yourprofile"
+        ]
+      }
+    </script><link rel="stylesheet" href="/_assets/_slug_.BWXAMBk-.css">
+<link rel="stylesheet" href="/_assets/_slug_.nMykh7F7.css">
+<link rel="stylesheet" href="/_assets/_slug_.Bcds1w5A.css"><script type="module" src="/_assets/page.DjtUvP_i.js"></script></head> <body>  <div class="main-wrapper" data-astro-cid-ouamjn2i> <!-- Skip to main content for accessibility --> <a href="#main-content" class="skip-link" data-astro-cid-ouamjn2i>
+Skip to main content
+</a> <!-- Navigation (will be implemented in Phase 3) --> <header id="site-header" role="banner" data-astro-cid-ouamjn2i> <nav class="navbar" role="navigation" aria-label="Main navigation" data-astro-cid-5blmo7yk> <div class="container navbar-content" data-astro-cid-5blmo7yk> <!-- Logo / Developer Name --> <a href="/" class="navbar-brand" aria-label="Home" data-astro-cid-5blmo7yk> <span class="brand-emoji" data-astro-cid-5blmo7yk>👨‍💻</span> <span class="brand-name gradient-text" data-astro-cid-5blmo7yk>Victor Muthomi</span> </a> <!-- Mobile Menu Toggle --> <button class="mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false" id="mobile-menu-toggle" data-astro-cid-5blmo7yk> <span class="hamburger-line" data-astro-cid-5blmo7yk></span> <span class="hamburger-line" data-astro-cid-5blmo7yk></span> <span class="hamburger-line" data-astro-cid-5blmo7yk></span> </button> <!-- Desktop nav links (inside nav for layout) --> <div class="nav-links-desktop" id="nav-links-desktop" data-astro-cid-5blmo7yk> <a href="/" class="nav-link" data-astro-cid-5blmo7yk> <span class="nav-emoji" data-astro-cid-5blmo7yk>🏠</span> <span data-astro-cid-5blmo7yk>Home</span> </a><a href="/projects" class="nav-link" data-astro-cid-5blmo7yk> <span class="nav-emoji" data-astro-cid-5blmo7yk>🚀</span> <span data-astro-cid-5blmo7yk>Projects</span> </a><a href="/skills" class="nav-link" data-astro-cid-5blmo7yk> <span class="nav-emoji" data-astro-cid-5blmo7yk>⚒️</span> <span data-astro-cid-5blmo7yk>Skills</span> </a><a href="/blog" class="nav-link active" aria-current="page" data-astro-cid-5blmo7yk> <span class="nav-emoji" data-astro-cid-5blmo7yk>✍️</span> <span data-astro-cid-5blmo7yk>Blog</span> </a>  </div> </div> </nav> <!-- Mobile nav panel — outside <nav> to avoid backdrop-filter compositing --> <div class="nav-links" id="nav-links" aria-hidden="true" data-astro-cid-5blmo7yk> <a href="/" class="nav-link" data-astro-cid-5blmo7yk> <span class="nav-emoji" data-astro-cid-5blmo7yk>🏠</span> <span data-astro-cid-5blmo7yk>Home</span> </a><a href="/projects" class="nav-link" data-astro-cid-5blmo7yk> <span class="nav-emoji" data-astro-cid-5blmo7yk>🚀</span> <span data-astro-cid-5blmo7yk>Projects</span> </a><a href="/skills" class="nav-link" data-astro-cid-5blmo7yk> <span class="nav-emoji" data-astro-cid-5blmo7yk>⚒️</span> <span data-astro-cid-5blmo7yk>Skills</span> </a><a href="/blog" class="nav-link active" aria-current="page" data-astro-cid-5blmo7yk> <span class="nav-emoji" data-astro-cid-5blmo7yk>✍️</span> <span data-astro-cid-5blmo7yk>Blog</span> </a>  </div> <div class="nav-overlay" id="nav-overlay" data-astro-cid-5blmo7yk></div> <script type="module">const e=document.getElementById("mobile-menu-toggle"),t=document.getElementById("nav-links"),a=document.getElementById("nav-overlay");function d(){e?.setAttribute("aria-expanded","false"),e?.classList.remove("active"),t?.classList.remove("active"),t?.setAttribute("aria-hidden","true"),a?.classList.remove("active"),document.body.style.overflow=""}e?.addEventListener("click",()=>{"true"===e.getAttribute("aria-expanded")?d():(e?.setAttribute("aria-expanded","true"),e?.classList.add("active"),t?.classList.add("active"),t?.setAttribute("aria-hidden","false"),a?.classList.add("active"),document.body.style.overflow="hidden")}),t?.querySelectorAll(".nav-link").forEach(e=>{e.addEventListener("click",d)}),a?.addEventListener("click",d),document.addEventListener("keydown",e=>{"Escape"===e.key&&d()});</script>  </header> <!-- Main Content Area --> <main id="main-content" role="main" tabindex="-1" data-astro-cid-ouamjn2i>     <section class="post-hero" data-astro-cid-2q5oecfc> <div class="container" data-astro-cid-2q5oecfc> <!-- Breadcrumb --> <nav class="breadcrumb" aria-label="Breadcrumb" data-astro-cid-2q5oecfc> <ol data-astro-cid-2q5oecfc> <li data-astro-cid-2q5oecfc><a href="/" data-astro-cid-2q5oecfc>Home</a></li> <li data-astro-cid-2q5oecfc><a href="/blog" data-astro-cid-2q5oecfc>Blog</a></li> <li aria-current="page" data-astro-cid-2q5oecfc>Learning Python: A Friendly Guide for Absolute Beginners</li> </ol> </nav> <!-- Tags --> <div class="post-tags" data-astro-cid-2q5oecfc> <span class="tag" data-astro-cid-2q5oecfc>python</span><span class="tag" data-astro-cid-2q5oecfc>programming</span><span class="tag" data-astro-cid-2q5oecfc>tutorial</span><span class="tag" data-astro-cid-2q5oecfc>beginners</span> </div> <h1 class="post-title" data-astro-cid-2q5oecfc>Learning Python: A Friendly Guide for Absolute Beginners</h1> <p class="post-description" data-astro-cid-2q5oecfc>A gentle introduction to Python programming designed for complete beginners, covering all the essential concepts to get you started.</p> <div class="post-meta" data-astro-cid-2q5oecfc> <span class="meta-item" data-astro-cid-2q5oecfc> <span class="meta-icon" data-astro-cid-2q5oecfc>📅</span> August 10, 2025 </span> <span class="meta-divider" data-astro-cid-2q5oecfc>·</span> <span class="meta-item" data-astro-cid-2q5oecfc> <span class="meta-icon" data-astro-cid-2q5oecfc>⏱️</span> 8 min read </span> <span class="meta-divider" data-astro-cid-2q5oecfc>·</span> <span class="meta-item" data-astro-cid-2q5oecfc> <span class="meta-icon" data-astro-cid-2q5oecfc>✍️</span>
+Victor Muthomi
+</span> </div> </div> </section>  <article class="blog-article" data-astro-cid-2q5oecfc> <div class="container" data-astro-cid-2q5oecfc> <div class="prose" data-astro-cid-2q5oecfc>  <h1 id="learning-python-a-friendly-guide-for-absolute-beginners">Learning Python: A Friendly Guide for Absolute Beginners</h1>
+<p>Welcome, aspiring coder! 👋 You’ve made an excellent choice by deciding to learn Python. It’s a fantastic language for beginners because it’s known for its clear, readable syntax and a powerful community. Think of it as a friendly and helpful guide that can take you from “Hello, World!” to building amazing things.</p>
+<p>This guide is designed to be your first step. We’ll cover the core concepts of Python in a friendly, conversational way, with lots of examples to help you understand. Let’s get started!</p>
+<h2 id="1-setting-up-your-python-environment">1. Setting Up Your Python Environment</h2>
+<p>Before we can start coding, we need to get Python on your computer.</p>
+<h3 id="step-1-install-python">Step 1: Install Python</h3>
+<p>Check my pre-posted seamless guide on how to install Python3 (latest Python version) from scratch. For absolute beginners.</p>
+<p><a href="python-installation-guide">Learn how to install Python</a>.</p>
+<h3 id="step-2-choose-a-code-editor">Step 2: Choose a Code Editor</h3>
+<p>A code editor is a program where you’ll write and save your Python code. While you can use a simple text editor, a good code editor will make your life much easier with features like syntax highlighting and autocompletion.</p>
+<p>My top recommendation for beginners is the Microsoft Visual Studio Code (VS Code). It’s free, popular, and has excellent support for Python.</p>
+<ul>
+<li>Download VS Code from code.visualstudio.com.</li>
+<li>Install it and open it up.</li>
+<li>Go to the “Extensions” tab (the icon with four squares on the left sidebar) and search for “Python.” Install the one from Microsoft.</li>
+</ul>
+<h2 id="2-your-first-python-program-hello-world">2. Your First Python Program: “Hello, World!”</h2>
+<p>Now that we’re all set up, let’s write our very first program.</p>
+<ul>
+<li>In VS Code, go to File > New Text File.</li>
+<li>Save it as hello.py. The .py extension tells the computer that this is a Python file.</li>
+<li>Type the following line of code:</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"Hello, World!"</span><span style="color:#E1E4E8">)</span></span></code></pre>
+<ul>
+<li>Now, to run it, you can either click the green “Run” button in the top right corner of VS Code, or open the integrated terminal (View > Terminal) and type:</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">python</span><span style="color:#9ECBFF"> hello.py</span></span></code></pre>
+<p>You should see Hello, World! printed in the terminal. Congratulations, you’re a programmer! 🎉</p>
+<h3 id="what-just-happened">What just happened?</h3>
+<ul>
+<li><code>print()</code> is a built-in Python function. Think of a function as a mini-program that does a specific job. The print() function’s job is to display things on the screen.</li>
+<li>The <code>()</code> after print are where we put the information we want the function to use.</li>
+<li><code>"Hello, World!"</code> is a string. A string is just text. In Python, you use single quotes (’) or double quotes (”) to tell the program that this is a string.</li>
+</ul>
+<h2 id="3-the-building-blocks-of-python">3. The Building Blocks of Python</h2>
+<p>Now that you’ve got a taste, let’s dive into the core concepts.</p>
+<h3 id="31-variables-your-labeled-boxes">3.1. Variables: Your Labeled Boxes</h3>
+<p>Imagine a variable as a box with a label on it. You can put a value inside the box and refer to it later using its label.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">name </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "Alice"</span></span>
+<span class="line"><span style="color:#E1E4E8">age </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 30</span></span>
+<span class="line"><span style="color:#E1E4E8">is_student </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> False</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(name)</span></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(age)</span></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(is_student)</span></span></code></pre>
+<ul>
+<li><code>name</code>, <code>age</code>, and <code>is_student</code> are our variable names.</li>
+<li><code>=</code> is the assignment operator. It assigns the value on the right to the variable on the left.</li>
+<li>Python is dynamically typed, which means you don’t have to specify the type of data a variable will hold. Python figures it out for you.</li>
+</ul>
+<h3 id="32-data-types-whats-in-the-box">3.2. Data Types: What’s in the Box?</h3>
+<p>Python has several built-in data types. We’ve already seen a few!</p>
+<ul>
+<li>Strings (str): Text data, enclosed in quotes.</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">greeting </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "Hello"</span></span></code></pre>
+<ul>
+<li>Integers (int): Whole numbers (positive, negative, or zero).</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">my_number </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 100</span></span></code></pre>
+<ul>
+<li>Floats (float): Numbers with a decimal point.</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">pi </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 3.14159</span></span></code></pre>
+<ul>
+<li>Booleans (bool): Represents one of two values: True or False.</li>
+</ul>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">is_raining </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> True</span></span></code></pre>
+<h3 id="33-basic-operations">3.3. Basic Operations</h3>
+<p>You can perform operations on your data types.</p>
+<h4 id="arithmetic-operations">Arithmetic Operations:</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">x </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 10</span></span>
+<span class="line"><span style="color:#E1E4E8">y </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 5</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(x </span><span style="color:#F97583">+</span><span style="color:#E1E4E8"> y)  </span><span style="color:#6A737D"># Addition: 15</span></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(x </span><span style="color:#F97583">-</span><span style="color:#E1E4E8"> y)  </span><span style="color:#6A737D"># Subtraction: 5</span></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(x </span><span style="color:#F97583">*</span><span style="color:#E1E4E8"> y)  </span><span style="color:#6A737D"># Multiplication: 50</span></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(x </span><span style="color:#F97583">/</span><span style="color:#E1E4E8"> y)  </span><span style="color:#6A737D"># Division: 2.0 (returns a float)</span></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(x </span><span style="color:#F97583">%</span><span style="color:#E1E4E8"> y)  </span><span style="color:#6A737D"># Modulus (remainder): 0</span></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(x </span><span style="color:#F97583">**</span><span style="color:#E1E4E8"> y) </span><span style="color:#6A737D"># Exponentiation: 100000</span></span></code></pre>
+<h4 id="string-operations">String Operations:</h4>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">first_name </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "John"</span></span>
+<span class="line"><span style="color:#E1E4E8">last_name </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "Doe"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">full_name </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> first_name </span><span style="color:#F97583">+</span><span style="color:#9ECBFF"> " "</span><span style="color:#F97583"> +</span><span style="color:#E1E4E8"> last_name  </span><span style="color:#6A737D"># Concatenation (joining strings)</span></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(full_name) </span><span style="color:#6A737D"># "John Doe"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">message </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "Python "</span><span style="color:#F97583"> *</span><span style="color:#79B8FF"> 3</span></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(message) </span><span style="color:#6A737D"># "Python Python Python "</span></span></code></pre>
+<h2 id="4-control-flow-making-decisions">4. Control Flow: Making Decisions</h2>
+<p>Code isn’t very useful if it just runs the same way every time. Control flow statements allow your program to make decisions and execute different code based on certain conditions.</p>
+<h3 id="41-if-elif-else-statements">4.1. If, Elif, Else Statements</h3>
+<p>The if statement is how you tell your program, “If this condition is true, do this.”</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">age </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 18</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">if</span><span style="color:#E1E4E8"> age </span><span style="color:#F97583">>=</span><span style="color:#79B8FF"> 18</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#79B8FF">    print</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"You are an adult."</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">else</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#79B8FF">    print</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"You are a minor."</span><span style="color:#E1E4E8">)</span></span></code></pre>
+<ul>
+<li>The code inside the if block only runs if the condition <code>age >= 18</code> is True.</li>
+<li>The else block is a catch-all. It runs if the if condition is False.</li>
+<li>Indentation is crucial in Python! The spaces at the beginning of a line tell Python that a block of code belongs together.</li>
+</ul>
+<p>You can add more conditions with elif (short for “else if”):</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">score </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 85</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">if</span><span style="color:#E1E4E8"> score </span><span style="color:#F97583">>=</span><span style="color:#79B8FF"> 90</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#79B8FF">    print</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"Grade: A"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">elif</span><span style="color:#E1E4E8"> score </span><span style="color:#F97583">>=</span><span style="color:#79B8FF"> 80</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#79B8FF">    print</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"Grade: B"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">elif</span><span style="color:#E1E4E8"> score </span><span style="color:#F97583">>=</span><span style="color:#79B8FF"> 70</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#79B8FF">    print</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"Grade: C"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#F97583">else</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#79B8FF">    print</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"Grade: F"</span><span style="color:#E1E4E8">)</span></span></code></pre>
+<h2 id="5-collections-storing-multiple-items">5. Collections: Storing Multiple Items</h2>
+<p>Sometimes you need to store more than one value. Python has several built-in data structures for this.</p>
+<h3 id="51-lists-ordered-and-changeable">5.1. Lists: Ordered and Changeable</h3>
+<p>A list is like a shopping list. It holds a collection of items in a specific order, and you can add, remove, or change items.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">fruits </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [</span><span style="color:#9ECBFF">"apple"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"banana"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"cherry"</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">numbers </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">4</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Accessing items</span></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(fruits[</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">]) </span><span style="color:#6A737D"># "apple" (Lists are 0-indexed, meaning the first item is at index 0)</span></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(fruits[</span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">]) </span><span style="color:#6A737D"># "cherry"</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Changing an item</span></span>
+<span class="line"><span style="color:#E1E4E8">fruits[</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "orange"</span></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(fruits) </span><span style="color:#6A737D"># ["apple", "orange", "cherry"]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Adding an item</span></span>
+<span class="line"><span style="color:#E1E4E8">fruits.append(</span><span style="color:#9ECBFF">"grape"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(fruits) </span><span style="color:#6A737D"># ["apple", "orange", "cherry", "grape"]</span></span></code></pre>
+<h3 id="52-tuples-ordered-and-unchangeable">5.2. Tuples: Ordered and Unchangeable</h3>
+<p>A tuple is similar to a list but is immutable, meaning you cannot change its contents after creation. This makes them useful for data that shouldn’t be altered.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">coordinates </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> (</span><span style="color:#79B8FF">10.0</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">20.0</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(coordinates[</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">]) </span><span style="color:#6A737D"># 10.0</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># This would cause an error:</span></span>
+<span class="line"><span style="color:#6A737D"># coordinates[0] = 5.0</span></span></code></pre>
+<h3 id="53-dictionaries-key-value-pairs">5.3. Dictionaries: Key-Value Pairs</h3>
+<p>A dictionary is a collection of key-value pairs. Think of it like a real dictionary, where you look up a word (the key) to find its definition (the value).</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">person </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#9ECBFF">    "name"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"Bob"</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    "age"</span><span style="color:#E1E4E8">: </span><span style="color:#79B8FF">25</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    "city"</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">"New York"</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Accessing a value by its key</span></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(person[</span><span style="color:#9ECBFF">"name"</span><span style="color:#E1E4E8">]) </span><span style="color:#6A737D"># "Bob"</span></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(person[</span><span style="color:#9ECBFF">"age"</span><span style="color:#E1E4E8">])  </span><span style="color:#6A737D"># 25</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Changing a value</span></span>
+<span class="line"><span style="color:#E1E4E8">person[</span><span style="color:#9ECBFF">"age"</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 26</span></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(person) </span><span style="color:#6A737D"># {'name': 'Bob', 'age': 26, 'city': 'New York'}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Adding a new key-value pair</span></span>
+<span class="line"><span style="color:#E1E4E8">person[</span><span style="color:#9ECBFF">"occupation"</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> "Engineer"</span></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(person)</span></span></code></pre>
+<h2 id="6-loops-doing-things-repetitively">6. Loops: Doing Things Repetitively</h2>
+<p>Loops are used to execute a block of code repeatedly.</p>
+<h3 id="61-for-loops">6.1. For Loops</h3>
+<p>A for loop is used to iterate over a sequence (like a list, tuple, or string).</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">fruits </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> [</span><span style="color:#9ECBFF">"apple"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"banana"</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">"cherry"</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> fruit </span><span style="color:#F97583">in</span><span style="color:#E1E4E8"> fruits:</span></span>
+<span class="line"><span style="color:#79B8FF">    print</span><span style="color:#E1E4E8">(fruit)</span></span></code></pre>
+<p>This will print each fruit on a new line.</p>
+<h3 id="62-while-loops">6.2. While Loops</h3>
+<p>A while loop executes as long as a certain condition is True. Be careful to avoid infinite loops!</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">count </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 0</span></span>
+<span class="line"><span style="color:#F97583">while</span><span style="color:#E1E4E8"> count </span><span style="color:#F97583">&#x3C;</span><span style="color:#79B8FF"> 5</span><span style="color:#E1E4E8">:</span></span>
+<span class="line"><span style="color:#79B8FF">    print</span><span style="color:#E1E4E8">(count)</span></span>
+<span class="line"><span style="color:#E1E4E8">    count </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> count </span><span style="color:#F97583">+</span><span style="color:#79B8FF"> 1</span><span style="color:#6A737D"> # or count += 1</span></span></code></pre>
+<p>This will print the numbers 0 through 4.</p>
+<h2 id="7-functions-creating-your-own-mini-programs">7. Functions: Creating Your Own Mini-Programs</h2>
+<p>We’ve already used a built-in function (print()). Now let’s learn how to create our own! Functions help us organize our code and reuse it without having to write it all again.</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6A737D"># Defining a function</span></span>
+<span class="line"><span style="color:#F97583">def</span><span style="color:#B392F0"> greet</span><span style="color:#E1E4E8">(name):</span></span>
+<span class="line"><span style="color:#79B8FF">    print</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">f</span><span style="color:#9ECBFF">"Hello, </span><span style="color:#79B8FF">{</span><span style="color:#E1E4E8">name</span><span style="color:#79B8FF">}</span><span style="color:#9ECBFF">!"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Calling the function</span></span>
+<span class="line"><span style="color:#E1E4E8">greet(</span><span style="color:#9ECBFF">"Charlie"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">greet(</span><span style="color:#9ECBFF">"David"</span><span style="color:#E1E4E8">)</span></span></code></pre>
+<ul>
+<li><code>def</code> is the keyword to define a function.</li>
+<li><code>greet</code> is the function’s name.</li>
+<li><code>(name)</code> is the parameter, a variable that the function can use.</li>
+<li>The <code>f"..."</code> is an f-string, a super useful way to embed variables directly into a string.</li>
+</ul>
+<p>Functions can also return values:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">def</span><span style="color:#B392F0"> add</span><span style="color:#E1E4E8">(x, y):</span></span>
+<span class="line"><span style="color:#F97583">    return</span><span style="color:#E1E4E8"> x </span><span style="color:#F97583">+</span><span style="color:#E1E4E8"> y</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">sum_result </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> add(</span><span style="color:#79B8FF">10</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">5</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(sum_result) </span><span style="color:#6A737D"># 15</span></span></code></pre>
+<h2 id="8-whats-next">8. What’s Next?</h2>
+<p>This guide is just the beginning! Here are some next steps you can take:</p>
+<ul>
+<li>Practice, practice, practice! The best way to learn is by doing. Try to write small programs that use the concepts you’ve learned.</li>
+<li>Explore more topics: File I/O (reading and writing files), modules and libraries (like math or random), and error handling.</li>
+<li>Join a community: Websites like Stack Overflow and subreddits like r/learnpython are great places to ask questions and learn from others.</li>
+</ul>
+<p>You’ve taken the first big step into the world of programming. Keep going, and you’ll be amazed at what you can create with Python! Happy coding! 😊</p>
+<hr>  </div> <!-- Back to Blog --> <div class="back-link-wrapper" data-astro-cid-2q5oecfc> <a href="/blog" class="back-link" data-astro-cid-2q5oecfc> <span data-astro-cid-2q5oecfc>←</span> Back to Blog
+</a> </div> </div> </article>  </main> <!-- Footer --> <footer class="modern-footer" data-astro-cid-sz7xmlte> <div class="footer-glow" data-astro-cid-sz7xmlte></div> <div class="footer-container" data-astro-cid-sz7xmlte> <!-- Main Footer Content --> <div class="footer-grid" data-astro-cid-sz7xmlte> <!-- Brand Section --> <div class="footer-brand" data-astro-cid-sz7xmlte> <a href="/" class="brand-link" data-astro-cid-sz7xmlte> <span class="brand-emoji" data-astro-cid-sz7xmlte>👨‍💻</span> <span class="brand-name" data-astro-cid-sz7xmlte>Victor Muthomi</span> </a> <p class="brand-tagline" data-astro-cid-sz7xmlte>
+Software Engineer crafting elegant solutions for complex problems.
+</p> <div class="availability-badge" data-astro-cid-sz7xmlte> <span class="pulse-dot" data-astro-cid-sz7xmlte></span> <span data-astro-cid-sz7xmlte>Available for opportunities</span> </div> </div> <!-- Quick Links --> <div class="footer-section" data-astro-cid-sz7xmlte> <h4 class="section-title" data-astro-cid-sz7xmlte> <span data-astro-cid-sz7xmlte>🔗</span> Quick Links
+</h4> <nav class="footer-nav" data-astro-cid-sz7xmlte> <a href="/" class="footer-link" data-astro-cid-sz7xmlte> <span class="link-emoji" data-astro-cid-sz7xmlte>🏠</span> <span data-astro-cid-sz7xmlte>Home</span> </a><a href="/projects" class="footer-link" data-astro-cid-sz7xmlte> <span class="link-emoji" data-astro-cid-sz7xmlte>🚀</span> <span data-astro-cid-sz7xmlte>Projects</span> </a><a href="/skills" class="footer-link" data-astro-cid-sz7xmlte> <span class="link-emoji" data-astro-cid-sz7xmlte>⚒️</span> <span data-astro-cid-sz7xmlte>Skills</span> </a> </nav> </div> <!-- Contact Section --> <div class="footer-section" data-astro-cid-sz7xmlte> <h4 class="section-title" data-astro-cid-sz7xmlte> <span data-astro-cid-sz7xmlte>📬</span> Get In Touch
+</h4> <div class="contact-links" data-astro-cid-sz7xmlte> <a href="https://github.com/Victor-Muthomi" class="contact-link" target="_blank" rel="noopener noreferrer" aria-label="Contact via GitHub" data-astro-cid-sz7xmlte> <span class="contact-emoji" data-astro-cid-sz7xmlte>  <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" data-astro-cid-sz7xmlte><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" data-astro-cid-sz7xmlte></path></svg>   </span> <div class="contact-info" data-astro-cid-sz7xmlte> <span class="contact-label" data-astro-cid-sz7xmlte>GitHub</span> <span class="contact-value" data-astro-cid-sz7xmlte>@Victor-Muthomi</span> </div> </a><a href="https://www.linkedin.com/in/victor-muthomi-497b173a4/" class="contact-link" target="_blank" rel="noopener noreferrer" aria-label="Contact via LinkedIn" data-astro-cid-sz7xmlte> <span class="contact-emoji" data-astro-cid-sz7xmlte>   <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" data-astro-cid-sz7xmlte><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" data-astro-cid-sz7xmlte></path></svg>  </span> <div class="contact-info" data-astro-cid-sz7xmlte> <span class="contact-label" data-astro-cid-sz7xmlte>LinkedIn</span> <span class="contact-value" data-astro-cid-sz7xmlte>Victor Muthomi</span> </div> </a><a href="mailto:muthomivictor367@gmail.com" class="contact-link" aria-label="Contact via Email" data-astro-cid-sz7xmlte> <span class="contact-emoji" data-astro-cid-sz7xmlte> 📧    </span> <div class="contact-info" data-astro-cid-sz7xmlte> <span class="contact-label" data-astro-cid-sz7xmlte>Email</span> <span class="contact-value" data-astro-cid-sz7xmlte>muthomivictor367@gmail.com</span> </div> </a><a href="https://wa.me/254712550618" class="contact-link" target="_blank" rel="noopener noreferrer" aria-label="Contact via WhatsApp" data-astro-cid-sz7xmlte> <span class="contact-emoji" data-astro-cid-sz7xmlte>    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" data-astro-cid-sz7xmlte><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" data-astro-cid-sz7xmlte></path></svg> </span> <div class="contact-info" data-astro-cid-sz7xmlte> <span class="contact-label" data-astro-cid-sz7xmlte>WhatsApp</span> <span class="contact-value" data-astro-cid-sz7xmlte>+254 712 550 618</span> </div> </a> </div> </div> </div> <!-- Footer Bottom --> <div class="footer-bottom" data-astro-cid-sz7xmlte> <div class="footer-divider" data-astro-cid-sz7xmlte></div> <div class="footer-bottom-content" data-astro-cid-sz7xmlte> <p class="copyright" data-astro-cid-sz7xmlte> <span data-astro-cid-sz7xmlte>✨</span> 2026 Victor Muthomi. Build with passion.
+</p> <div class="footer-badges" data-astro-cid-sz7xmlte> <span class="tech-badge" data-astro-cid-sz7xmlte>⚡ Fast</span> <span class="tech-badge" data-astro-cid-sz7xmlte>🎨 Modern</span> <span class="tech-badge" data-astro-cid-sz7xmlte>📱 Responsive</span> </div> </div> </div> </div> </footer>  </div>  <!-- Animation System --> <script src="/scripts/animations.js"></script> </body> </html>  

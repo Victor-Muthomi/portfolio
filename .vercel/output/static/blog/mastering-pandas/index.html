@@ -1,0 +1,322 @@
+<!DOCTYPE html><html lang="en"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link rel="icon" href="/favicon.ico" sizes="48x48"><link rel="icon" type="image/svg+xml" href="/favicon.svg"><meta name="generator" content="Astro v5.17.2"><!-- Primary Meta Tags --><title>Mastering Data Analysis with Pandas: The Swiss Army Knife of Python | Blog — Victor Muthomi</title><meta name="title" content="Mastering Data Analysis with Pandas: The Swiss Army Knife of Python | Blog — Victor Muthomi"><meta name="description" content="A comprehensive guide to Pandas, the powerful Python library that revolutionizes how we work with data, featuring practical examples and best practices."><meta name="robots" content="index, follow"><link rel="canonical" href="https://victor-muthomi.vercel.app/blog/mastering-pandas/"><!-- Open Graph / Facebook --><meta property="og:type" content="website"><meta property="og:url" content="https://victor-muthomi.vercel.app/blog/mastering-pandas/"><meta property="og:title" content="Mastering Data Analysis with Pandas: The Swiss Army Knife of Python | Blog — Victor Muthomi"><meta property="og:description" content="A comprehensive guide to Pandas, the powerful Python library that revolutionizes how we work with data, featuring practical examples and best practices."><meta property="og:image" content="https://victor-muthomi.vercel.app/og-image.jpg"><!-- Twitter --><meta property="twitter:card" content="summary_large_image"><meta property="twitter:url" content="https://victor-muthomi.vercel.app/blog/mastering-pandas/"><meta property="twitter:title" content="Mastering Data Analysis with Pandas: The Swiss Army Knife of Python | Blog — Victor Muthomi"><meta property="twitter:description" content="A comprehensive guide to Pandas, the powerful Python library that revolutionizes how we work with data, featuring practical examples and best practices."><meta property="twitter:image" content="https://victor-muthomi.vercel.app/og-image.jpg"><!-- Preload Critical Assets --><link rel="preconnect" href="https://fonts.googleapis.com" crossorigin><link rel="dns-prefetch" href="https://fonts.googleapis.com"><!-- Prefetch important pages --><link rel="prefetch" href="/projects"><!-- Performance & Security --><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="theme-color" content="#0a0a0f"><meta name="format-detection" content="telephone=no"><!-- Additional SEO --><meta name="author" content="Your Name"><meta name="keywords" content="software engineer, full-stack developer, enterprise architecture, AI/ML, cloud computing, portfolio"><link rel="sitemap" type="application/xml" href="/sitemap.xml"><!-- JSON-LD Structured Data --><script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "Person",
+        "name": "Your Name",
+        "jobTitle": "Software Engineer",
+        "url": "{Astro.site}",
+        "image": "{new URL(image, Astro.site)}",
+        "description": "{description}",
+        "sameAs": [
+          "https://github.com/yourusername",
+          "https://linkedin.com/in/yourprofile"
+        ]
+      }
+    </script><link rel="stylesheet" href="/_assets/_slug_.BWXAMBk-.css">
+<link rel="stylesheet" href="/_assets/_slug_.nMykh7F7.css">
+<link rel="stylesheet" href="/_assets/_slug_.Bcds1w5A.css"><script type="module" src="/_assets/page.DjtUvP_i.js"></script></head> <body>  <div class="main-wrapper" data-astro-cid-ouamjn2i> <!-- Skip to main content for accessibility --> <a href="#main-content" class="skip-link" data-astro-cid-ouamjn2i>
+Skip to main content
+</a> <!-- Navigation (will be implemented in Phase 3) --> <header id="site-header" role="banner" data-astro-cid-ouamjn2i> <nav class="navbar" role="navigation" aria-label="Main navigation" data-astro-cid-5blmo7yk> <div class="container navbar-content" data-astro-cid-5blmo7yk> <!-- Logo / Developer Name --> <a href="/" class="navbar-brand" aria-label="Home" data-astro-cid-5blmo7yk> <span class="brand-emoji" data-astro-cid-5blmo7yk>👨‍💻</span> <span class="brand-name gradient-text" data-astro-cid-5blmo7yk>Victor Muthomi</span> </a> <!-- Mobile Menu Toggle --> <button class="mobile-toggle" aria-label="Toggle navigation menu" aria-expanded="false" id="mobile-menu-toggle" data-astro-cid-5blmo7yk> <span class="hamburger-line" data-astro-cid-5blmo7yk></span> <span class="hamburger-line" data-astro-cid-5blmo7yk></span> <span class="hamburger-line" data-astro-cid-5blmo7yk></span> </button> <!-- Desktop nav links (inside nav for layout) --> <div class="nav-links-desktop" id="nav-links-desktop" data-astro-cid-5blmo7yk> <a href="/" class="nav-link" data-astro-cid-5blmo7yk> <span class="nav-emoji" data-astro-cid-5blmo7yk>🏠</span> <span data-astro-cid-5blmo7yk>Home</span> </a><a href="/projects" class="nav-link" data-astro-cid-5blmo7yk> <span class="nav-emoji" data-astro-cid-5blmo7yk>🚀</span> <span data-astro-cid-5blmo7yk>Projects</span> </a><a href="/skills" class="nav-link" data-astro-cid-5blmo7yk> <span class="nav-emoji" data-astro-cid-5blmo7yk>⚒️</span> <span data-astro-cid-5blmo7yk>Skills</span> </a><a href="/blog" class="nav-link active" aria-current="page" data-astro-cid-5blmo7yk> <span class="nav-emoji" data-astro-cid-5blmo7yk>✍️</span> <span data-astro-cid-5blmo7yk>Blog</span> </a>  </div> </div> </nav> <!-- Mobile nav panel — outside <nav> to avoid backdrop-filter compositing --> <div class="nav-links" id="nav-links" aria-hidden="true" data-astro-cid-5blmo7yk> <a href="/" class="nav-link" data-astro-cid-5blmo7yk> <span class="nav-emoji" data-astro-cid-5blmo7yk>🏠</span> <span data-astro-cid-5blmo7yk>Home</span> </a><a href="/projects" class="nav-link" data-astro-cid-5blmo7yk> <span class="nav-emoji" data-astro-cid-5blmo7yk>🚀</span> <span data-astro-cid-5blmo7yk>Projects</span> </a><a href="/skills" class="nav-link" data-astro-cid-5blmo7yk> <span class="nav-emoji" data-astro-cid-5blmo7yk>⚒️</span> <span data-astro-cid-5blmo7yk>Skills</span> </a><a href="/blog" class="nav-link active" aria-current="page" data-astro-cid-5blmo7yk> <span class="nav-emoji" data-astro-cid-5blmo7yk>✍️</span> <span data-astro-cid-5blmo7yk>Blog</span> </a>  </div> <div class="nav-overlay" id="nav-overlay" data-astro-cid-5blmo7yk></div> <script type="module">const e=document.getElementById("mobile-menu-toggle"),t=document.getElementById("nav-links"),a=document.getElementById("nav-overlay");function d(){e?.setAttribute("aria-expanded","false"),e?.classList.remove("active"),t?.classList.remove("active"),t?.setAttribute("aria-hidden","true"),a?.classList.remove("active"),document.body.style.overflow=""}e?.addEventListener("click",()=>{"true"===e.getAttribute("aria-expanded")?d():(e?.setAttribute("aria-expanded","true"),e?.classList.add("active"),t?.classList.add("active"),t?.setAttribute("aria-hidden","false"),a?.classList.add("active"),document.body.style.overflow="hidden")}),t?.querySelectorAll(".nav-link").forEach(e=>{e.addEventListener("click",d)}),a?.addEventListener("click",d),document.addEventListener("keydown",e=>{"Escape"===e.key&&d()});</script>  </header> <!-- Main Content Area --> <main id="main-content" role="main" tabindex="-1" data-astro-cid-ouamjn2i>     <section class="post-hero" data-astro-cid-2q5oecfc> <div class="container" data-astro-cid-2q5oecfc> <!-- Breadcrumb --> <nav class="breadcrumb" aria-label="Breadcrumb" data-astro-cid-2q5oecfc> <ol data-astro-cid-2q5oecfc> <li data-astro-cid-2q5oecfc><a href="/" data-astro-cid-2q5oecfc>Home</a></li> <li data-astro-cid-2q5oecfc><a href="/blog" data-astro-cid-2q5oecfc>Blog</a></li> <li aria-current="page" data-astro-cid-2q5oecfc>Mastering Data Analysis with Pandas: The Swiss Army Knife of Python</li> </ol> </nav> <!-- Tags --> <div class="post-tags" data-astro-cid-2q5oecfc> <span class="tag" data-astro-cid-2q5oecfc>python</span><span class="tag" data-astro-cid-2q5oecfc>pandas</span><span class="tag" data-astro-cid-2q5oecfc>data analysis</span><span class="tag" data-astro-cid-2q5oecfc>data science</span><span class="tag" data-astro-cid-2q5oecfc>programming</span><span class="tag" data-astro-cid-2q5oecfc>tutorial</span> </div> <h1 class="post-title" data-astro-cid-2q5oecfc>Mastering Data Analysis with Pandas: The Swiss Army Knife of Python</h1> <p class="post-description" data-astro-cid-2q5oecfc>A comprehensive guide to Pandas, the powerful Python library that revolutionizes how we work with data, featuring practical examples and best practices.</p> <div class="post-meta" data-astro-cid-2q5oecfc> <span class="meta-item" data-astro-cid-2q5oecfc> <span class="meta-icon" data-astro-cid-2q5oecfc>📅</span> August 9, 2025 </span> <span class="meta-divider" data-astro-cid-2q5oecfc>·</span> <span class="meta-item" data-astro-cid-2q5oecfc> <span class="meta-icon" data-astro-cid-2q5oecfc>⏱️</span> 8 min read </span> <span class="meta-divider" data-astro-cid-2q5oecfc>·</span> <span class="meta-item" data-astro-cid-2q5oecfc> <span class="meta-icon" data-astro-cid-2q5oecfc>✍️</span>
+Victor Muthomi
+</span> </div> </div> </section>  <article class="blog-article" data-astro-cid-2q5oecfc> <div class="container" data-astro-cid-2q5oecfc> <div class="prose" data-astro-cid-2q5oecfc>  <h1 id="mastering-data-analysis-with-pandas-the-swiss-army-knife-of-python">Mastering Data Analysis with Pandas: The Swiss Army Knife of Python</h1>
+<p>If you’re working with data in Python, Pandas is quite simply indispensable. This powerful library has revolutionized how developers and data scientists manipulate, analyze, and transform data. In this post, I’ll introduce you to Pandas, walk through its core features, and show you how to leverage its capabilities for your own projects.</p>
+<h2 id="what-is-pandas">What is Pandas?</h2>
+<p>Pandas is an open-source Python library that provides high-performance, easy-to-use data structures and data analysis tools. Created by Wes McKinney in 2008, it’s built on top of NumPy and has become the go-to tool for data manipulation tasks in Python.</p>
+<p>The name “Pandas” is derived from “panel data,” a term for multidimensional structured datasets, though some joke it’s because data scientists work in small groups like the endangered bears!</p>
+<h2 id="why-use-pandas">Why Use Pandas?</h2>
+<p>Pandas excels at:</p>
+<ul>
+<li>Reading and writing data between in-memory data structures and different file formats</li>
+<li>Handling missing data gracefully</li>
+<li>Reshaping and pivoting datasets</li>
+<li>Merging and joining datasets</li>
+<li>Time-series functionality</li>
+<li>Powerful data filtering and transformation</li>
+</ul>
+<p>In essence, it brings the power of spreadsheets and SQL databases to Python.</p>
+<h2 id="core-data-structures">Core Data Structures</h2>
+<p>Pandas revolves around two primary data structures:</p>
+<h3 id="1-series">1. Series</h3>
+<p>A Series is a one-dimensional labeled array that can hold any data type:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> pandas </span><span style="color:#F97583">as</span><span style="color:#E1E4E8"> pd</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Create a Series</span></span>
+<span class="line"><span style="color:#E1E4E8">s </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> pd.Series([</span><span style="color:#79B8FF">10</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">20</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">30</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">40</span><span style="color:#E1E4E8">], </span><span style="color:#FFAB70">index</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">[</span><span style="color:#9ECBFF">'a'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'b'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'c'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'d'</span><span style="color:#E1E4E8">])</span></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(s)</span></span></code></pre>
+<p>Output:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>a    10</span></span>
+<span class="line"><span>b    20</span></span>
+<span class="line"><span>c    30</span></span>
+<span class="line"><span>d    40</span></span>
+<span class="line"><span>dtype: int64</span></span></code></pre>
+<p>You can think of a Series as a specialized dictionary or a labeled array.</p>
+<h3 id="2-dataframe">2. DataFrame</h3>
+<p>A DataFrame is a two-dimensional labeled data structure resembling a table or spreadsheet:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6A737D"># Create a DataFrame</span></span>
+<span class="line"><span style="color:#E1E4E8">data </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#9ECBFF">    'Name'</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">'John'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'Anna'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'Peter'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'Linda'</span><span style="color:#E1E4E8">],</span></span>
+<span class="line"><span style="color:#9ECBFF">    'Age'</span><span style="color:#E1E4E8">: [</span><span style="color:#79B8FF">28</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">34</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">29</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">42</span><span style="color:#E1E4E8">],</span></span>
+<span class="line"><span style="color:#9ECBFF">    'City'</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">'New York'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'Paris'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'Berlin'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'London'</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">df </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> pd.DataFrame(data)</span></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(df)</span></span></code></pre>
+<p>Output:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="plaintext"><code><span class="line"><span>    Name  Age      City</span></span>
+<span class="line"><span>0   John   28  New York</span></span>
+<span class="line"><span>1   Anna   34     Paris</span></span>
+<span class="line"><span>2  Peter   29    Berlin</span></span>
+<span class="line"><span>3  Linda   42    London</span></span></code></pre>
+<p>DataFrames are the workhorse of Pandas and where you’ll spend most of your time.</p>
+<h2 id="getting-started-with-pandas">Getting Started with Pandas</h2>
+<h3 id="installation">Installation</h3>
+<p>Installing Pandas is straightforward using pip:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">pip</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> pandas</span></span></code></pre>
+<p>Or with conda:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="bash"><code><span class="line"><span style="color:#B392F0">conda</span><span style="color:#9ECBFF"> install</span><span style="color:#9ECBFF"> pandas</span></span></code></pre>
+<h3 id="reading-data">Reading Data</h3>
+<p>One of Pandas’ strengths is its ability to read various file formats:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6A737D"># CSV</span></span>
+<span class="line"><span style="color:#E1E4E8">df_csv </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> pd.read_csv(</span><span style="color:#9ECBFF">'data.csv'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Excel</span></span>
+<span class="line"><span style="color:#E1E4E8">df_excel </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> pd.read_excel(</span><span style="color:#9ECBFF">'data.xlsx'</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">sheet_name</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'Sheet1'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># JSON</span></span>
+<span class="line"><span style="color:#E1E4E8">df_json </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> pd.read_json(</span><span style="color:#9ECBFF">'data.json'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># SQL</span></span>
+<span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> sqlite3</span></span>
+<span class="line"><span style="color:#E1E4E8">conn </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> sqlite3.connect(</span><span style="color:#9ECBFF">'database.db'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">df_sql </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> pd.read_sql(</span><span style="color:#9ECBFF">'SELECT * FROM table_name'</span><span style="color:#E1E4E8">, conn)</span></span></code></pre>
+<h3 id="exploring-your-data">Exploring Your Data</h3>
+<p>Once you’ve loaded your data, Pandas offers several methods to explore it:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6A737D"># View the first 5 rows</span></span>
+<span class="line"><span style="color:#E1E4E8">df.head()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># View the last 5 rows</span></span>
+<span class="line"><span style="color:#E1E4E8">df.tail()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Get summary statistics</span></span>
+<span class="line"><span style="color:#E1E4E8">df.describe()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Get information about the DataFrame</span></span>
+<span class="line"><span style="color:#E1E4E8">df.info()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Check dimensions</span></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(</span><span style="color:#F97583">f</span><span style="color:#9ECBFF">"Rows: </span><span style="color:#79B8FF">{</span><span style="color:#E1E4E8">df.shape[</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">]</span><span style="color:#79B8FF">}</span><span style="color:#9ECBFF">, Columns: </span><span style="color:#79B8FF">{</span><span style="color:#E1E4E8">df.shape[</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">]</span><span style="color:#79B8FF">}</span><span style="color:#9ECBFF">"</span><span style="color:#E1E4E8">)</span></span></code></pre>
+<h2 id="essential-pandas-operations">Essential Pandas Operations</h2>
+<h3 id="data-selection">Data Selection</h3>
+<p>Pandas provides multiple ways to select data:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6A737D"># Select a single column (returns a Series)</span></span>
+<span class="line"><span style="color:#E1E4E8">names </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> df[</span><span style="color:#9ECBFF">'Name'</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Select multiple columns (returns a DataFrame)</span></span>
+<span class="line"><span style="color:#E1E4E8">subset </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> df[[</span><span style="color:#9ECBFF">'Name'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'Age'</span><span style="color:#E1E4E8">]]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Select rows by position using iloc</span></span>
+<span class="line"><span style="color:#E1E4E8">first_row </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> df.iloc[</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">]  </span><span style="color:#6A737D"># First row</span></span>
+<span class="line"><span style="color:#E1E4E8">first_three_rows </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> df.iloc[</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">:</span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">]  </span><span style="color:#6A737D"># First three rows</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Select rows by label using loc</span></span>
+<span class="line"><span style="color:#E1E4E8">row_by_index </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> df.loc[</span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">]  </span><span style="color:#6A737D"># Row with index 2</span></span></code></pre>
+<h3 id="filtering-data">Filtering Data</h3>
+<p>You can filter data using boolean conditions:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6A737D"># People older than 30</span></span>
+<span class="line"><span style="color:#E1E4E8">older_than_30 </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> df[df[</span><span style="color:#9ECBFF">'Age'</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 30</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># People from New York or Paris</span></span>
+<span class="line"><span style="color:#E1E4E8">from_ny_or_paris </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> df[df[</span><span style="color:#9ECBFF">'City'</span><span style="color:#E1E4E8">].isin([</span><span style="color:#9ECBFF">'New York'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'Paris'</span><span style="color:#E1E4E8">])]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Complex condition: People older than 30 from London</span></span>
+<span class="line"><span style="color:#E1E4E8">older_londoners </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> df[(df[</span><span style="color:#9ECBFF">'Age'</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 30</span><span style="color:#E1E4E8">) </span><span style="color:#F97583">&#x26;</span><span style="color:#E1E4E8"> (df[</span><span style="color:#9ECBFF">'City'</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">==</span><span style="color:#9ECBFF"> 'London'</span><span style="color:#E1E4E8">)]</span></span></code></pre>
+<h3 id="handling-missing-data">Handling Missing Data</h3>
+<p>Pandas provides tools for dealing with missing values:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6A737D"># Check for missing values</span></span>
+<span class="line"><span style="color:#E1E4E8">df.isna().sum()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Drop rows with any missing values</span></span>
+<span class="line"><span style="color:#E1E4E8">df_clean </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> df.dropna()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Fill missing values</span></span>
+<span class="line"><span style="color:#E1E4E8">df_filled </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> df.fillna(</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">)  </span><span style="color:#6A737D"># Fill with zeros</span></span>
+<span class="line"><span style="color:#E1E4E8">df_filled_mean </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> df.fillna(df.mean())  </span><span style="color:#6A737D"># Fill with column means</span></span></code></pre>
+<h3 id="adding-and-removing-columns">Adding and Removing Columns</h3>
+<p>Manipulating columns is straightforward:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6A737D"># Add a new column</span></span>
+<span class="line"><span style="color:#E1E4E8">df[</span><span style="color:#9ECBFF">'Birth Year'</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#79B8FF"> 2025</span><span style="color:#F97583"> -</span><span style="color:#E1E4E8"> df[</span><span style="color:#9ECBFF">'Age'</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Remove a column</span></span>
+<span class="line"><span style="color:#E1E4E8">df_no_city </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> df.drop(</span><span style="color:#9ECBFF">'City'</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">axis</span><span style="color:#F97583">=</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Rename columns</span></span>
+<span class="line"><span style="color:#E1E4E8">df.rename(</span><span style="color:#FFAB70">columns</span><span style="color:#F97583">=</span><span style="color:#E1E4E8">{</span><span style="color:#9ECBFF">'Name'</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'Full Name'</span><span style="color:#E1E4E8">}, </span><span style="color:#FFAB70">inplace</span><span style="color:#F97583">=</span><span style="color:#79B8FF">True</span><span style="color:#E1E4E8">)</span></span></code></pre>
+<h3 id="grouping-and-aggregation">Grouping and Aggregation</h3>
+<p>Pandas’ groupby functionality is similar to SQL’s GROUP BY:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6A737D"># Group by city and calculate mean age</span></span>
+<span class="line"><span style="color:#E1E4E8">city_age </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> df.groupby(</span><span style="color:#9ECBFF">'City'</span><span style="color:#E1E4E8">)[</span><span style="color:#9ECBFF">'Age'</span><span style="color:#E1E4E8">].mean()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Multiple aggregations</span></span>
+<span class="line"><span style="color:#E1E4E8">city_stats </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> df.groupby(</span><span style="color:#9ECBFF">'City'</span><span style="color:#E1E4E8">).agg({</span></span>
+<span class="line"><span style="color:#9ECBFF">    'Age'</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">'mean'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'min'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'max'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'count'</span><span style="color:#E1E4E8">],</span></span>
+<span class="line"><span style="color:#9ECBFF">    'Birth Year'</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">'mean'</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">})</span></span></code></pre>
+<h3 id="merging-and-joining-dataframes">Merging and Joining DataFrames</h3>
+<p>Pandas can combine datasets in various ways:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6A737D"># Sample DataFrames</span></span>
+<span class="line"><span style="color:#E1E4E8">employees </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> pd.DataFrame({</span></span>
+<span class="line"><span style="color:#9ECBFF">    'ID'</span><span style="color:#E1E4E8">: [</span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">4</span><span style="color:#E1E4E8">],</span></span>
+<span class="line"><span style="color:#9ECBFF">    'Name'</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">'Alice'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'Bob'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'Charlie'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'David'</span><span style="color:#E1E4E8">],</span></span>
+<span class="line"><span style="color:#9ECBFF">    'Department_ID'</span><span style="color:#E1E4E8">: [</span><span style="color:#79B8FF">101</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">102</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">101</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">103</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">})</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">departments </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> pd.DataFrame({</span></span>
+<span class="line"><span style="color:#9ECBFF">    'Department_ID'</span><span style="color:#E1E4E8">: [</span><span style="color:#79B8FF">101</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">102</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">103</span><span style="color:#E1E4E8">],</span></span>
+<span class="line"><span style="color:#9ECBFF">    'Department'</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">'HR'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'Engineering'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'Finance'</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">})</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Inner join (only matching records)</span></span>
+<span class="line"><span style="color:#E1E4E8">df_inner </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> employees.merge(departments, </span><span style="color:#FFAB70">on</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'Department_ID'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Left join (all records from left, matching from right)</span></span>
+<span class="line"><span style="color:#E1E4E8">df_left </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> employees.merge(departments, </span><span style="color:#FFAB70">on</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'Department_ID'</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">how</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'left'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Concatenation (stack vertically)</span></span>
+<span class="line"><span style="color:#E1E4E8">df_concat </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> pd.concat([df1, df2], </span><span style="color:#FFAB70">axis</span><span style="color:#F97583">=</span><span style="color:#79B8FF">0</span><span style="color:#E1E4E8">)</span></span></code></pre>
+<h2 id="real-world-pandas-example">Real-World Pandas Example</h2>
+<p>Let’s put everything together with a realistic example. We’ll analyze a dataset of sales transactions:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6A737D"># Sample sales data</span></span>
+<span class="line"><span style="color:#E1E4E8">data </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> {</span></span>
+<span class="line"><span style="color:#9ECBFF">    'Date'</span><span style="color:#E1E4E8">: pd.date_range(</span><span style="color:#FFAB70">start</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'2025-01-01'</span><span style="color:#E1E4E8">, </span><span style="color:#FFAB70">periods</span><span style="color:#F97583">=</span><span style="color:#79B8FF">10</span><span style="color:#E1E4E8">),</span></span>
+<span class="line"><span style="color:#9ECBFF">    'Product'</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">'A'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'B'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'A'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'C'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'B'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'A'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'C'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'B'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'A'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'C'</span><span style="color:#E1E4E8">],</span></span>
+<span class="line"><span style="color:#9ECBFF">    'Category'</span><span style="color:#E1E4E8">: [</span><span style="color:#9ECBFF">'Electronics'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'Clothing'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'Electronics'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'Home'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'Clothing'</span><span style="color:#E1E4E8">, </span></span>
+<span class="line"><span style="color:#9ECBFF">                'Electronics'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'Home'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'Clothing'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'Electronics'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'Home'</span><span style="color:#E1E4E8">],</span></span>
+<span class="line"><span style="color:#9ECBFF">    'Price'</span><span style="color:#E1E4E8">: [</span><span style="color:#79B8FF">100</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">65</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">110</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">95</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">70</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">105</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">90</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">60</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">115</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">100</span><span style="color:#E1E4E8">],</span></span>
+<span class="line"><span style="color:#9ECBFF">    'Quantity'</span><span style="color:#E1E4E8">: [</span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">5</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">4</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">3</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">1</span><span style="color:#E1E4E8">, </span><span style="color:#79B8FF">2</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">}</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#E1E4E8">sales </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> pd.DataFrame(data)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Add a Total column</span></span>
+<span class="line"><span style="color:#E1E4E8">sales[</span><span style="color:#9ECBFF">'Total'</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> sales[</span><span style="color:#9ECBFF">'Price'</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">*</span><span style="color:#E1E4E8"> sales[</span><span style="color:#9ECBFF">'Quantity'</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Extract month from date</span></span>
+<span class="line"><span style="color:#E1E4E8">sales[</span><span style="color:#9ECBFF">'Month'</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> sales[</span><span style="color:#9ECBFF">'Date'</span><span style="color:#E1E4E8">].dt.month_name()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Group by Category and Product</span></span>
+<span class="line"><span style="color:#E1E4E8">category_product_sales </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> sales.groupby([</span><span style="color:#9ECBFF">'Category'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'Product'</span><span style="color:#E1E4E8">]).agg({</span></span>
+<span class="line"><span style="color:#9ECBFF">    'Total'</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'sum'</span><span style="color:#E1E4E8">,</span></span>
+<span class="line"><span style="color:#9ECBFF">    'Quantity'</span><span style="color:#E1E4E8">: </span><span style="color:#9ECBFF">'sum'</span></span>
+<span class="line"><span style="color:#E1E4E8">}).reset_index()</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Find the best-selling product by category</span></span>
+<span class="line"><span style="color:#E1E4E8">best_sellers </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> category_product_sales.loc[</span></span>
+<span class="line"><span style="color:#E1E4E8">    category_product_sales.groupby(</span><span style="color:#9ECBFF">'Category'</span><span style="color:#E1E4E8">)[</span><span style="color:#9ECBFF">'Total'</span><span style="color:#E1E4E8">].idxmax()</span></span>
+<span class="line"><span style="color:#E1E4E8">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"Sales Summary:"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(category_product_sales)</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(</span><span style="color:#9ECBFF">"</span><span style="color:#79B8FF">\n</span><span style="color:#9ECBFF">Best Sellers by Category:"</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#79B8FF">print</span><span style="color:#E1E4E8">(best_sellers)</span></span></code></pre>
+<p>This example demonstrates several Pandas operations:</p>
+<ul>
+<li>Creating a DataFrame</li>
+<li>Working with dates</li>
+<li>Adding calculated columns</li>
+<li>Grouping and aggregating data</li>
+<li>Finding maximum values by group</li>
+</ul>
+<h2 id="performance-tips">Performance Tips</h2>
+<p>When working with large datasets, performance becomes important:</p>
+<ol>
+<li>
+<p><strong>Use vectorized operations</strong> instead of loops:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6A737D"># Good (vectorized)</span></span>
+<span class="line"><span style="color:#E1E4E8">df[</span><span style="color:#9ECBFF">'Total'</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> df[</span><span style="color:#9ECBFF">'Price'</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">*</span><span style="color:#E1E4E8"> df[</span><span style="color:#9ECBFF">'Quantity'</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Bad (loop)</span></span>
+<span class="line"><span style="color:#F97583">for</span><span style="color:#E1E4E8"> i </span><span style="color:#F97583">in</span><span style="color:#79B8FF"> range</span><span style="color:#E1E4E8">(</span><span style="color:#79B8FF">len</span><span style="color:#E1E4E8">(df)):</span></span>
+<span class="line"><span style="color:#E1E4E8">    df.loc[i, </span><span style="color:#9ECBFF">'Total'</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> df.loc[i, </span><span style="color:#9ECBFF">'Price'</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">*</span><span style="color:#E1E4E8"> df.loc[i, </span><span style="color:#9ECBFF">'Quantity'</span><span style="color:#E1E4E8">]</span></span></code></pre>
+</li>
+<li>
+<p><strong>Use appropriate data types</strong> (e.g., categories for strings with few unique values):</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#E1E4E8">df[</span><span style="color:#9ECBFF">'Category'</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> df[</span><span style="color:#9ECBFF">'Category'</span><span style="color:#E1E4E8">].astype(</span><span style="color:#9ECBFF">'category'</span><span style="color:#E1E4E8">)</span></span></code></pre>
+</li>
+<li>
+<p><strong>Avoid chained indexing</strong> which can create copies:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6A737D"># Good</span></span>
+<span class="line"><span style="color:#E1E4E8">df.loc[df[</span><span style="color:#9ECBFF">'Age'</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 30</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'Age_Group'</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> 'Senior'</span></span>
+<span class="line"></span>
+<span class="line"><span style="color:#6A737D"># Bad (chained indexing)</span></span>
+<span class="line"><span style="color:#E1E4E8">df[df[</span><span style="color:#9ECBFF">'Age'</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">></span><span style="color:#79B8FF"> 30</span><span style="color:#E1E4E8">][</span><span style="color:#9ECBFF">'Age_Group'</span><span style="color:#E1E4E8">] </span><span style="color:#F97583">=</span><span style="color:#9ECBFF"> 'Senior'</span></span></code></pre>
+</li>
+<li>
+<p><strong>Consider using specialized functions</strong> like <code>query()</code> for filtering:</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#6A737D"># Using query method</span></span>
+<span class="line"><span style="color:#E1E4E8">seniors </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> df.query(</span><span style="color:#9ECBFF">'Age > 30'</span><span style="color:#E1E4E8">)</span></span></code></pre>
+</li>
+</ol>
+<h2 id="going-beyond-basics">Going Beyond Basics</h2>
+<p>As you become more comfortable with Pandas, explore these advanced features:</p>
+<ul>
+<li><strong>MultiIndex</strong> (hierarchical indexing) for working with higher-dimensional data</li>
+<li><strong>Time series</strong> functionality for date/time operations</li>
+<li><strong>Categorical data</strong> for memory optimization and improved performance</li>
+<li><strong>Styling</strong> for presentation-ready tables</li>
+<li><strong>Custom functions</strong> with <code>apply()</code> and <code>transform()</code></li>
+</ul>
+<h2 id="integration-with-the-python-ecosystem">Integration with the Python Ecosystem</h2>
+<p>Pandas works seamlessly with other libraries:</p>
+<ul>
+<li>
+<p><strong>Visualization</strong>: Matplotlib, Seaborn, Plotly</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> matplotlib.pyplot </span><span style="color:#F97583">as</span><span style="color:#E1E4E8"> plt</span></span>
+<span class="line"><span style="color:#E1E4E8">sales.groupby(</span><span style="color:#9ECBFF">'Month'</span><span style="color:#E1E4E8">)[</span><span style="color:#9ECBFF">'Total'</span><span style="color:#E1E4E8">].sum().plot(</span><span style="color:#FFAB70">kind</span><span style="color:#F97583">=</span><span style="color:#9ECBFF">'bar'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">plt.title(</span><span style="color:#9ECBFF">'Monthly Sales'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">plt.ylabel(</span><span style="color:#9ECBFF">'Total Sales ($)'</span><span style="color:#E1E4E8">)</span></span>
+<span class="line"><span style="color:#E1E4E8">plt.tight_layout()</span></span>
+<span class="line"><span style="color:#E1E4E8">plt.show()</span></span></code></pre>
+</li>
+<li>
+<p><strong>Machine Learning</strong>: Scikit-learn</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">from</span><span style="color:#E1E4E8"> sklearn.model_selection </span><span style="color:#F97583">import</span><span style="color:#E1E4E8"> train_test_split</span></span>
+<span class="line"><span style="color:#E1E4E8">X </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> df[[</span><span style="color:#9ECBFF">'feature1'</span><span style="color:#E1E4E8">, </span><span style="color:#9ECBFF">'feature2'</span><span style="color:#E1E4E8">]]</span></span>
+<span class="line"><span style="color:#E1E4E8">y </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> df[</span><span style="color:#9ECBFF">'target'</span><span style="color:#E1E4E8">]</span></span>
+<span class="line"><span style="color:#E1E4E8">X_train, X_test, y_train, y_test </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> train_test_split(X, y)</span></span></code></pre>
+</li>
+<li>
+<p><strong>Big Data</strong>: Dask (for Pandas operations on larger-than-memory datasets)</p>
+<pre class="astro-code github-dark" style="background-color:#24292e;color:#e1e4e8; overflow-x: auto;" tabindex="0" data-language="python"><code><span class="line"><span style="color:#F97583">import</span><span style="color:#E1E4E8"> dask.dataframe </span><span style="color:#F97583">as</span><span style="color:#E1E4E8"> dd</span></span>
+<span class="line"><span style="color:#E1E4E8">ddf </span><span style="color:#F97583">=</span><span style="color:#E1E4E8"> dd.read_csv(</span><span style="color:#9ECBFF">'huge_file.csv'</span><span style="color:#E1E4E8">)</span></span></code></pre>
+</li>
+</ul>
+<h2 id="common-pandas-gotchas">Common Pandas Gotchas</h2>
+<p>Be aware of these common issues:</p>
+<ol>
+<li><strong>Views vs. Copies</strong>: Pandas sometimes returns a view of the data, sometimes a copy</li>
+<li><strong>Chained Assignment</strong>: Can lead to the “SettingWithCopyWarning”</li>
+<li><strong>Silent Type Conversion</strong>: Pandas might convert data types automatically</li>
+<li><strong>Default Index</strong>: Using the default integer index can cause issues when merging or concatenating</li>
+</ol>
+<h2 id="resources-for-learning-more">Resources for Learning More</h2>
+<p>To deepen your Pandas knowledge:</p>
+<ul>
+<li><a href="https://pandas.pydata.org/docs/">Official Pandas Documentation</a></li>
+<li><a href="https://www.oreilly.com/library/view/python-for-data/9781491957653/">Python for Data Analysis</a> by Wes McKinney (Pandas creator)</li>
+<li><a href="https://github.com/jvns/pandas-cookbook">Pandas Cookbook</a> by Julia Evans</li>
+<li><a href="https://pandas.pydata.org/docs/user_guide/10min.html">10 Minutes to Pandas</a> (quick tutorial)</li>
+</ul>
+<h2 id="conclusion">Conclusion</h2>
+<p>Pandas has earned its reputation as the Swiss Army knife of Python data analysis. Its intuitive API, powerful functionality, and integration with the Python ecosystem make it an essential tool for anyone working with data.</p>
+<p>Whether you’re cleaning messy datasets, performing exploratory analysis, or preparing data for machine learning models, Pandas provides the capabilities you need. The time invested in learning Pandas pays dividends throughout your data journey.</p>
+<p>In future posts, I’ll dive deeper into specific aspects of Pandas and show how to combine it with other libraries for end-to-end data projects. What Pandas techniques would you like to learn more about? Let me know in the comments!</p>
+<hr>
+<p><em>“The most exciting phrase to hear in Science, the one that heralds new discoveries, is not ‘Eureka!’ but ‘That’s funny…’ — And with Pandas, data exploration is all about finding those ‘That’s funny…’ moments.”</em></p>
+<hr>  </div> <!-- Back to Blog --> <div class="back-link-wrapper" data-astro-cid-2q5oecfc> <a href="/blog" class="back-link" data-astro-cid-2q5oecfc> <span data-astro-cid-2q5oecfc>←</span> Back to Blog
+</a> </div> </div> </article>  </main> <!-- Footer --> <footer class="modern-footer" data-astro-cid-sz7xmlte> <div class="footer-glow" data-astro-cid-sz7xmlte></div> <div class="footer-container" data-astro-cid-sz7xmlte> <!-- Main Footer Content --> <div class="footer-grid" data-astro-cid-sz7xmlte> <!-- Brand Section --> <div class="footer-brand" data-astro-cid-sz7xmlte> <a href="/" class="brand-link" data-astro-cid-sz7xmlte> <span class="brand-emoji" data-astro-cid-sz7xmlte>👨‍💻</span> <span class="brand-name" data-astro-cid-sz7xmlte>Victor Muthomi</span> </a> <p class="brand-tagline" data-astro-cid-sz7xmlte>
+Software Engineer crafting elegant solutions for complex problems.
+</p> <div class="availability-badge" data-astro-cid-sz7xmlte> <span class="pulse-dot" data-astro-cid-sz7xmlte></span> <span data-astro-cid-sz7xmlte>Available for opportunities</span> </div> </div> <!-- Quick Links --> <div class="footer-section" data-astro-cid-sz7xmlte> <h4 class="section-title" data-astro-cid-sz7xmlte> <span data-astro-cid-sz7xmlte>🔗</span> Quick Links
+</h4> <nav class="footer-nav" data-astro-cid-sz7xmlte> <a href="/" class="footer-link" data-astro-cid-sz7xmlte> <span class="link-emoji" data-astro-cid-sz7xmlte>🏠</span> <span data-astro-cid-sz7xmlte>Home</span> </a><a href="/projects" class="footer-link" data-astro-cid-sz7xmlte> <span class="link-emoji" data-astro-cid-sz7xmlte>🚀</span> <span data-astro-cid-sz7xmlte>Projects</span> </a><a href="/skills" class="footer-link" data-astro-cid-sz7xmlte> <span class="link-emoji" data-astro-cid-sz7xmlte>⚒️</span> <span data-astro-cid-sz7xmlte>Skills</span> </a> </nav> </div> <!-- Contact Section --> <div class="footer-section" data-astro-cid-sz7xmlte> <h4 class="section-title" data-astro-cid-sz7xmlte> <span data-astro-cid-sz7xmlte>📬</span> Get In Touch
+</h4> <div class="contact-links" data-astro-cid-sz7xmlte> <a href="https://github.com/Victor-Muthomi" class="contact-link" target="_blank" rel="noopener noreferrer" aria-label="Contact via GitHub" data-astro-cid-sz7xmlte> <span class="contact-emoji" data-astro-cid-sz7xmlte>  <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" data-astro-cid-sz7xmlte><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12" data-astro-cid-sz7xmlte></path></svg>   </span> <div class="contact-info" data-astro-cid-sz7xmlte> <span class="contact-label" data-astro-cid-sz7xmlte>GitHub</span> <span class="contact-value" data-astro-cid-sz7xmlte>@Victor-Muthomi</span> </div> </a><a href="https://www.linkedin.com/in/victor-muthomi-497b173a4/" class="contact-link" target="_blank" rel="noopener noreferrer" aria-label="Contact via LinkedIn" data-astro-cid-sz7xmlte> <span class="contact-emoji" data-astro-cid-sz7xmlte>   <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" data-astro-cid-sz7xmlte><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433c-1.144 0-2.063-.926-2.063-2.065 0-1.138.92-2.063 2.063-2.063 1.14 0 2.064.925 2.064 2.063 0 1.139-.925 2.065-2.064 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z" data-astro-cid-sz7xmlte></path></svg>  </span> <div class="contact-info" data-astro-cid-sz7xmlte> <span class="contact-label" data-astro-cid-sz7xmlte>LinkedIn</span> <span class="contact-value" data-astro-cid-sz7xmlte>Victor Muthomi</span> </div> </a><a href="mailto:muthomivictor367@gmail.com" class="contact-link" aria-label="Contact via Email" data-astro-cid-sz7xmlte> <span class="contact-emoji" data-astro-cid-sz7xmlte> 📧    </span> <div class="contact-info" data-astro-cid-sz7xmlte> <span class="contact-label" data-astro-cid-sz7xmlte>Email</span> <span class="contact-value" data-astro-cid-sz7xmlte>muthomivictor367@gmail.com</span> </div> </a><a href="https://wa.me/254712550618" class="contact-link" target="_blank" rel="noopener noreferrer" aria-label="Contact via WhatsApp" data-astro-cid-sz7xmlte> <span class="contact-emoji" data-astro-cid-sz7xmlte>    <svg viewBox="0 0 24 24" width="22" height="22" fill="currentColor" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" data-astro-cid-sz7xmlte><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z" data-astro-cid-sz7xmlte></path></svg> </span> <div class="contact-info" data-astro-cid-sz7xmlte> <span class="contact-label" data-astro-cid-sz7xmlte>WhatsApp</span> <span class="contact-value" data-astro-cid-sz7xmlte>+254 712 550 618</span> </div> </a> </div> </div> </div> <!-- Footer Bottom --> <div class="footer-bottom" data-astro-cid-sz7xmlte> <div class="footer-divider" data-astro-cid-sz7xmlte></div> <div class="footer-bottom-content" data-astro-cid-sz7xmlte> <p class="copyright" data-astro-cid-sz7xmlte> <span data-astro-cid-sz7xmlte>✨</span> 2026 Victor Muthomi. Build with passion.
+</p> <div class="footer-badges" data-astro-cid-sz7xmlte> <span class="tech-badge" data-astro-cid-sz7xmlte>⚡ Fast</span> <span class="tech-badge" data-astro-cid-sz7xmlte>🎨 Modern</span> <span class="tech-badge" data-astro-cid-sz7xmlte>📱 Responsive</span> </div> </div> </div> </div> </footer>  </div>  <!-- Animation System --> <script src="/scripts/animations.js"></script> </body> </html>  
