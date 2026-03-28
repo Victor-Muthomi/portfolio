@@ -98,7 +98,7 @@ const projects = [
   {
     title: 'Intelligent Notification & Messaging Engine',
     description: 'Designed an event-driven communication system that delivers alerts via SMS, email, and in-app notifications based on business triggers. Includes retry logic, scheduling, and user preference management.',
-    technologies: ['Python', 'Message Queue', 'Background Workers', 'APIs'],
+    technologies: ['Python', 'Message Queue', 'Background Workers', 'API'],
     link: '/projects/notification-messaging-engine'
   },
   {
@@ -132,6 +132,11 @@ const projects = [
     link: '/projects/workflow-automation-builder'
   },
 ];
+
+const projectTags = [
+  'All',
+  ...Array.from(new Set(projects.flatMap((project) => project.technologies))).sort(),
+];
 ---
 
 <MainLayout
@@ -155,7 +160,7 @@ const projects = [
         <div class="hero-stats" data-animate="stagger" data-stagger-delay="100">
           <div class="stat-item">
             <span class="stat-emoji">💼</span>
-            <span class="stat-value gradient-text">21</span>
+            <span class="stat-value gradient-text">{projects.length}</span>
             <span class="stat-label">Projects Delivered</span>
           </div>
           <div class="stat-divider"></div>
@@ -175,10 +180,46 @@ const projects = [
     </div>
   </section>
 
+  <!-- Search + Filter Toolbar -->
+  <section class="search-section">
+    <div class="container">
+      <div class="toolbar">
+        <div class="search-wrapper">
+          <span class="search-icon">🔍</span>
+          <input
+            id="project-search"
+            type="search"
+            placeholder="Search projects..."
+            class="search-input glass"
+            autocomplete="off"
+            spellcheck="false"
+          />
+          <button id="clear-project-search" class="clear-btn" aria-label="Clear search" hidden>
+            ✕
+          </button>
+        </div>
+
+        <div class="filter-chips" id="project-filter-chips" role="group" aria-label="Filter by technology">
+          {projectTags.map((tag) => (
+            <button
+              class={`chip${tag === 'All' ? ' active' : ''}`}
+              data-tag={tag}
+              type="button"
+            >
+              {tag === 'All' ? '✨ All' : tag}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <p id="project-results-count" class="results-count" aria-live="polite"></p>
+    </div>
+  </section>
+
   <!-- Projects Grid -->
   <section class="projects-section">
     <div class="container">
-      <div class="projects-grid" data-animate="stagger" data-stagger-delay="100">
+      <div class="projects-grid" id="projects-grid" data-animate="stagger" data-stagger-delay="100">
         {projects.map((project) => (
           <ProjectCard
             title={project.title}
@@ -188,6 +229,9 @@ const projects = [
           />
         ))}
       </div>
+      <p id="project-no-results" class="no-results">
+        😕 No projects match your search. Try different keywords or clear the filter.
+      </p>
     </div>
   </section>
 
@@ -299,10 +343,140 @@ const projects = [
     padding: var(--space-4xl) 0;
   }
 
+  /* Search & Filter Toolbar */
+  .search-section {
+    padding: var(--space-md) 0 var(--space-2xl);
+  }
+
+  .toolbar {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-lg);
+    max-width: 1100px;
+    margin: 0 auto;
+  }
+
+  .search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+
+  .search-icon {
+    position: absolute;
+    left: var(--space-md);
+    font-size: 1rem;
+    pointer-events: none;
+    user-select: none;
+    z-index: 1;
+  }
+
+  .search-input {
+    width: 100%;
+    padding: 0.8rem var(--space-3xl) 0.8rem 2.8rem;
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--glass-border);
+    background: var(--glass-bg);
+    color: var(--color-text-primary);
+    font-size: 1rem;
+    font-family: var(--font-sans);
+    outline: none;
+    transition: border-color var(--transition-fast), box-shadow var(--transition-fast);
+  }
+
+  .search-input::placeholder {
+    color: var(--color-text-muted);
+  }
+
+  .search-input:focus {
+    border-color: var(--color-accent-cyan);
+    box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.15);
+  }
+
+  .search-input::-webkit-search-cancel-button {
+    display: none;
+  }
+
+  .clear-btn {
+    position: absolute;
+    right: var(--space-md);
+    background: none;
+    border: none;
+    color: var(--color-text-tertiary);
+    cursor: pointer;
+    font-size: 0.85rem;
+    padding: 0.25rem;
+    border-radius: var(--radius-full);
+    line-height: 1;
+    transition: color var(--transition-fast);
+  }
+
+  .clear-btn:hover {
+    color: var(--color-text-primary);
+  }
+
+  .filter-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .chip {
+    padding: 0.35rem 0.9rem;
+    background: var(--glass-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: var(--radius-full);
+    font-size: 0.82rem;
+    font-family: var(--font-sans);
+    font-weight: var(--font-weight-medium);
+    color: var(--color-text-secondary);
+    cursor: pointer;
+    transition: background var(--transition-fast), border-color var(--transition-fast),
+      color var(--transition-fast);
+    white-space: nowrap;
+  }
+
+  .chip:hover {
+    border-color: var(--color-accent-cyan);
+    color: var(--color-text-primary);
+  }
+
+  .chip.active {
+    background: rgba(6, 182, 212, 0.18);
+    border-color: var(--color-accent-cyan);
+    color: var(--color-accent-cyan);
+  }
+
+  .results-count {
+    max-width: 1100px;
+    margin: var(--space-md) auto 0;
+    font-size: 0.85rem;
+    color: var(--color-text-tertiary);
+    min-height: 1.2em;
+  }
+
   .projects-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(min(350px, 100%), 1fr));
     gap: var(--space-xl);
+  }
+
+  .project-card[hidden] {
+    display: none;
+  }
+
+  .no-results {
+    max-width: 860px;
+    margin: var(--space-3xl) auto 0;
+    padding: var(--space-3xl) var(--space-xl);
+    text-align: center;
+    color: var(--color-text-secondary);
+    font-size: 1rem;
+    display: none;
+  }
+
+  .no-results.visible {
+    display: block;
   }
 
   /* CTA Section */
@@ -354,6 +528,10 @@ const projects = [
       padding: calc(var(--space-4xl) + 60px) 0 var(--space-3xl);
     }
 
+    .toolbar {
+      gap: var(--space-md);
+    }
+
     .hero-stats {
       flex-direction: column;
       gap: var(--space-lg);
@@ -387,3 +565,73 @@ const projects = [
     }
   }
 </style>
+
+<script>
+  const searchInput = document.getElementById('project-search') as HTMLInputElement;
+  const clearBtn = document.getElementById('clear-project-search') as HTMLButtonElement;
+  const chipGroup = document.getElementById('project-filter-chips') as HTMLElement;
+  const countEl = document.getElementById('project-results-count') as HTMLElement;
+  const noResults = document.getElementById('project-no-results') as HTMLElement | null;
+
+  const cards = Array.from(
+    document.querySelectorAll<HTMLElement>('#projects-grid .project-card')
+  );
+
+  let activeTag = 'All';
+  let query = '';
+
+  function filterProjects() {
+    let visible = 0;
+
+    for (const card of cards) {
+      const searchText = card.dataset.search ?? '';
+      const matchesQuery = !query || searchText.includes(query);
+
+      let matchesTag = true;
+      if (activeTag !== 'All') {
+        try {
+          const tags = JSON.parse(card.dataset.tags ?? '[]') as string[];
+          matchesTag = tags.includes(activeTag.toLowerCase());
+        } catch {
+          matchesTag = false;
+        }
+      }
+
+      const show = matchesQuery && matchesTag;
+      card.hidden = !show;
+      if (show) visible++;
+    }
+
+    const total = cards.length;
+    countEl.textContent =
+      visible === total ? '' : `Showing ${visible} of ${total} project${total !== 1 ? 's' : ''}`;
+
+    if (noResults) noResults.classList.toggle('visible', visible === 0);
+  }
+
+  searchInput?.addEventListener('input', () => {
+    query = searchInput.value.trim().toLowerCase();
+    clearBtn.hidden = query === '';
+    filterProjects();
+  });
+
+  clearBtn?.addEventListener('click', () => {
+    searchInput.value = '';
+    query = '';
+    clearBtn.hidden = true;
+    searchInput.focus();
+    filterProjects();
+  });
+
+  chipGroup?.addEventListener('click', (event) => {
+    const button = (event.target as HTMLElement).closest('.chip') as HTMLButtonElement | null;
+    if (!button) return;
+
+    activeTag = button.dataset.tag ?? 'All';
+    chipGroup.querySelectorAll('.chip').forEach((chip) => chip.classList.remove('active'));
+    button.classList.add('active');
+    filterProjects();
+  });
+
+  filterProjects();
+</script>

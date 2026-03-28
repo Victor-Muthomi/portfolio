@@ -18,7 +18,13 @@ const {
 } = Astro.props;
 ---
 
-<article class="project-card glass" data-tilt>
+<article
+  class="project-card glass"
+  data-tilt
+  data-title={title.toLowerCase()}
+  data-search={`${title} ${description} ${technologies.join(' ')}`.toLowerCase()}
+  data-tags={JSON.stringify(technologies.map((tech) => tech.toLowerCase()))}
+>
   <a 
     href={link} 
     class="project-link" 
