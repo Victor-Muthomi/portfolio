@@ -10,6 +10,7 @@ interface Props {
   image?: string;
   liveUrl?: string;
   githubUrl?: string;
+  youtubeUrl?: string;
   year?: string;
   category?: string;
 }
@@ -22,6 +23,7 @@ const {
   image,
   liveUrl,
   githubUrl,
+  youtubeUrl,
   year = '2024',
   category = 'Enterprise Software'
 } = Astro.props;
@@ -64,29 +66,6 @@ const {
           </div>
         </div>
 
-        <!-- Action Links -->
-        {(liveUrl || githubUrl) && (
-          <div class="hero-actions">
-            {liveUrl && (
-              <a href={liveUrl} class="btn btn-primary" target="_blank" rel="noopener noreferrer">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                  <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
-                  <polyline points="15 3 21 3 21 9" />
-                  <line x1="10" y1="14" x2="21" y2="3" />
-                </svg>
-                View Live Site
-              </a>
-            )}
-            {githubUrl && (
-              <a href={githubUrl} class="btn btn-secondary" target="_blank" rel="noopener noreferrer">
-                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
-                  <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
-                </svg>
-                View Code
-              </a>
-            )}
-          </div>
-        )}
       </div>
 
       <!-- Hero Image -->
@@ -104,6 +83,58 @@ const {
       <slot />
     </div>
   </article>
+
+  <!-- Project Links -->
+  <section class="project-links-section">
+    <div class="container">
+      <div class="project-links-card">
+        <div class="project-links-copy">
+          <span class="project-links-eyebrow">Project Links</span>
+          <h2>Explore the demo and supporting assets</h2>
+          <p>Quick access to the live demo, source code, and video walkthrough for this project.</p>
+        </div>
+
+        <div class="project-links-actions">
+          <a
+            href={liveUrl || '/projects/demo-unavailable'}
+            class="btn btn-primary"
+            target={liveUrl ? '_blank' : undefined}
+            rel={liveUrl ? 'noopener noreferrer' : undefined}
+          >
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+              <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6" />
+              <polyline points="15 3 21 3 21 9" />
+              <line x1="10" y1="14" x2="21" y2="3" />
+            </svg>
+            Project Demo
+          </a>
+
+          {githubUrl ? (
+            <a href={githubUrl} class="btn btn-secondary" target="_blank" rel="noopener noreferrer">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M9 19c-5 1.5-5-2.5-7-3m14 6v-3.87a3.37 3.37 0 0 0-.94-2.61c3.14-.35 6.44-1.54 6.44-7A5.44 5.44 0 0 0 20 4.77 5.07 5.07 0 0 0 19.91 1S18.73.65 16 2.48a13.38 13.38 0 0 0-7 0C6.27.65 5.09 1 5.09 1A5.07 5.07 0 0 0 5 4.77a5.44 5.44 0 0 0-1.5 3.78c0 5.42 3.3 6.61 6.44 7A3.37 3.37 0 0 0 9 18.13V22" />
+              </svg>
+              GitHub
+            </a>
+          ) : (
+            <span class="btn btn-secondary btn-disabled" aria-disabled="true">GitHub</span>
+          )}
+
+          {youtubeUrl ? (
+            <a href={youtubeUrl} class="btn btn-secondary" target="_blank" rel="noopener noreferrer">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.95-1.97C18.86 4 12 4 12 4s-6.86 0-8.59.45A2.78 2.78 0 0 0 1.46 6.42 29.72 29.72 0 0 0 1 12a29.72 29.72 0 0 0 .46 5.58 2.78 2.78 0 0 0 1.95 1.97C5.14 20 12 20 12 20s6.86 0 8.59-.45a2.78 2.78 0 0 0 1.95-1.97A29.72 29.72 0 0 0 23 12a29.72 29.72 0 0 0-.46-5.58Z" />
+                <polygon points="10 15 15 12 10 9 10 15" />
+              </svg>
+              YouTube
+            </a>
+          ) : (
+            <span class="btn btn-secondary btn-disabled" aria-disabled="true">YouTube</span>
+          )}
+        </div>
+      </div>
+    </div>
+  </section>
 
   <!-- Back to Projects -->
   <section class="back-section">
@@ -235,14 +266,6 @@ const {
     border-radius: var(--radius-full);
   }
 
-  /* Hero Actions */
-  .hero-actions {
-    display: flex;
-    flex-wrap: wrap;
-    gap: var(--space-md);
-    margin-bottom: var(--space-2xl);
-  }
-
   /* Hero Image */
   .hero-image-container {
     margin-top: var(--space-3xl);
@@ -268,6 +291,61 @@ const {
     max-width: 800px;
   }
 
+  .btn-disabled {
+    pointer-events: none;
+    opacity: 0.55;
+    filter: saturate(0.7);
+  }
+
+  /* Project Links */
+  .project-links-section {
+    padding-bottom: var(--space-3xl);
+  }
+
+  .project-links-card {
+    display: grid;
+    grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
+    gap: var(--space-2xl);
+    align-items: center;
+    padding: var(--space-2xl);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-xl);
+    background: linear-gradient(135deg, rgba(6, 182, 212, 0.08), rgba(99, 102, 241, 0.08));
+    box-shadow: var(--shadow-xl);
+  }
+
+  .project-links-eyebrow {
+    display: inline-block;
+    margin-bottom: var(--space-sm);
+    font-size: 0.875rem;
+    font-weight: var(--font-weight-semibold);
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--color-accent-cyan);
+  }
+
+  .project-links-copy h2 {
+    margin-bottom: var(--space-sm);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: var(--font-weight-bold);
+  }
+
+  .project-links-copy p {
+    margin-bottom: 0;
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+  }
+
+  .project-links-actions {
+    display: grid;
+    gap: var(--space-md);
+  }
+
+  .project-links-actions .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
   /* Back Section */
   .back-section {
     padding: var(--space-3xl) 0;
@@ -289,12 +367,13 @@ const {
       align-items: flex-start;
     }
 
-    .hero-actions {
-      flex-direction: column;
-      width: 100%;
+    .project-links-card {
+      grid-template-columns: 1fr;
+      gap: var(--space-xl);
+      padding: var(--space-lg);
     }
 
-    .hero-actions .btn {
+    .project-links-actions .btn {
       width: 100%;
       justify-content: center;
     }

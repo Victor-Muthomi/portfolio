@@ -1,0 +1,176 @@
+---
+import MainLayout from '../../layouts/MainLayout.astro';
+
+const contactLinks = [
+  {
+    label: 'Email',
+    value: 'mail@victorblog.me',
+    href: 'mailto:mail@victorblog.me'
+  },
+  {
+    label: 'GitHub',
+    value: '@Victor-Muthomi',
+    href: 'https://github.com/Victor-Muthomi'
+  },
+  {
+    label: 'LinkedIn',
+    value: 'Victor Muthomi',
+    href: 'https://www.linkedin.com/in/victor-muthomi-497b173a4/'
+  },
+  {
+    label: 'WhatsApp',
+    value: 'Chat on WhatsApp',
+    href: 'https://wa.me/message/LZH5LE3VNHIVC1'
+  }
+];
+---
+
+<MainLayout title="Project Demo Unavailable | Victor Muthomi" description="The requested project demo is unavailable at the moment. Use the contact links to reach out.">
+  <section class="demo-unavailable">
+    <div class="container">
+      <div class="demo-card glass">
+        <span class="eyebrow">Demo Unavailable</span>
+        <h1>The demo is unavailable at the moment.</h1>
+        <p>
+          This project does not have a live demo running right now. Use the contact links below to reach out,
+          or jump straight to the contact section on the home page.
+        </p>
+
+        <div class="action-row">
+          <a href="/#contact" class="btn btn-primary">Go to Contact Links</a>
+          <a href="/projects" class="btn btn-secondary">Back to Projects</a>
+        </div>
+      </div>
+
+      <div class="contact-links-panel glass">
+        <h2>Contact Links</h2>
+        <p>Choose the channel that works best for you.</p>
+
+        <div class="contact-links-grid">
+          {contactLinks.map((link) => (
+            <a href={link.href} class="contact-link" target={link.label === 'Email' ? undefined : '_blank'} rel={link.label === 'Email' ? undefined : 'noopener noreferrer'}>
+              <span class="contact-label">{link.label}</span>
+              <span class="contact-value">{link.value}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+    </div>
+  </section>
+</MainLayout>
+
+<style>
+  .demo-unavailable {
+    padding: calc(var(--space-4xl) + 80px) var(--space-lg) var(--space-4xl);
+    background:
+      radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 40%),
+      radial-gradient(circle at 80% 10%, rgba(6, 182, 212, 0.12) 0%, transparent 36%),
+      var(--color-bg-primary);
+  }
+
+  .container {
+    max-width: 1100px;
+    margin: 0 auto;
+    display: grid;
+    gap: var(--space-2xl);
+  }
+
+  .demo-card,
+  .contact-links-panel {
+    padding: var(--space-2xl);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border);
+    background: var(--glass-bg);
+  }
+
+  .eyebrow {
+    display: inline-block;
+    margin-bottom: var(--space-sm);
+    color: var(--color-accent-cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    font-size: 0.875rem;
+    font-weight: var(--font-weight-semibold);
+  }
+
+  h1 {
+    font-size: clamp(2rem, 5vw, 3.5rem);
+    line-height: 1.1;
+    margin-bottom: var(--space-md);
+  }
+
+  p {
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+    font-size: 1.0625rem;
+  }
+
+  .action-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-md);
+    margin-top: var(--space-xl);
+  }
+
+  .contact-links-panel h2 {
+    font-size: 1.5rem;
+    margin-bottom: var(--space-xs);
+  }
+
+  .contact-links-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr));
+    gap: var(--space-md);
+    margin-top: var(--space-lg);
+  }
+
+  .contact-link {
+    display: grid;
+    gap: var(--space-xs);
+    padding: var(--space-lg);
+    border-radius: var(--radius-lg);
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-secondary);
+    text-decoration: none;
+    transition: transform var(--transition-fast), border-color var(--transition-fast);
+  }
+
+  .contact-link:hover {
+    transform: translateY(-2px);
+    border-color: var(--color-accent-cyan);
+  }
+
+  .contact-label {
+    color: var(--color-accent-cyan);
+    font-weight: var(--font-weight-semibold);
+    font-size: 0.875rem;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+
+  .contact-value {
+    color: var(--color-text-primary);
+    font-size: 1rem;
+    word-break: break-word;
+  }
+
+  @media (max-width: 768px) {
+    .demo-unavailable {
+      padding-top: calc(var(--space-3xl) + 60px);
+    }
+
+    .demo-card,
+    .contact-links-panel {
+      padding: var(--space-lg);
+    }
+
+    .action-row {
+      flex-direction: column;
+    }
+
+    .action-row .btn {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>
