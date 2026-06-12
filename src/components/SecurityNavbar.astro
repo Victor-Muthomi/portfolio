@@ -1,0 +1,182 @@
+---
+// src/components/SecurityNavbar.astro
+
+const navLinks = [
+  { label: 'Overview', href: '#hero' },
+  { label: 'Methodology', href: '#methodology' },
+  { label: 'Skills', href: '#expertise' },
+  { label: 'Tools', href: '#tools' },
+  { label: 'Lab', href: '#lab' },
+  { label: 'Findings', href: '#findings' },
+  { label: 'Reports', href: '#reporting' },
+  { label: 'Training', href: '#training' },
+  { label: 'Contact', href: '#footer' },
+];
+---
+
+<nav id="security-nav" class="fixed top-0 left-0 right-0 z-[100] transition-all duration-300">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="glass-nav mt-4 rounded-2xl border border-border flex items-center justify-between px-6 py-3 transition-all duration-300">
+      <!-- Brand/Logo -->
+      <a href="#hero" class="flex items-center gap-2 group">
+        <div class="w-8 h-8 rounded bg-accent/20 border border-accent/40 flex items-center justify-center group-hover:border-accent group-hover:shadow-[0_0_10px_rgba(0,229,255,0.3)] transition-all">
+          <span class="text-accent font-mono font-bold text-sm">>_</span>
+        </div>
+        <span class="font-bold text-lg tracking-tight">DEFENSE<span class="text-accent">.IO</span></span>
+      </a>
+
+      <!-- Desktop Links -->
+      <div class="hidden xl:flex items-center gap-1">
+        {navLinks.map((link) => (
+          <a 
+            href={link.href} 
+            class="nav-item px-4 py-2 text-xs font-mono font-bold uppercase tracking-widest text-muted hover:text-accent transition-all relative"
+          >
+            {link.label}
+            <span class="active-indicator absolute bottom-1 left-4 right-4 h-0.5 bg-accent scale-x-0 transition-transform origin-left"></span>
+          </a>
+        ))}
+      </div>
+
+      <!-- Mobile Toggle -->
+      <button 
+        id="mobile-toggle" 
+        class="xl:hidden text-accent p-2 hover:bg-accent/10 rounded-lg transition-colors"
+        aria-label="Toggle Navigation Menu"
+        aria-expanded="false"
+        aria-controls="mobile-menu"
+      >
+        <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m4 6h16" />
+        </svg>
+      </button>
+
+      <!-- Back to Main Portfolio -->
+      <a href="/" class="hidden sm:flex items-center gap-2 text-[10px] font-mono font-bold text-muted hover:text-foreground transition-all group">
+         MAIN_SYSTEM <span class="group-hover:translate-x-1 transition-transform">→</span>
+      </a>
+    </div>
+  </div>
+
+  <!-- Mobile Menu Panel -->
+  <div id="mobile-menu" class="fixed inset-0 z-[110] bg-background/95 backdrop-blur-xl translate-x-full transition-transform duration-500 xl:hidden">
+    <div class="flex flex-col h-full">
+      <div class="flex items-center justify-between px-8 py-6 border-b border-border">
+        <span class="font-bold text-xl tracking-tighter">NAV_MENU</span>
+        <button 
+          id="mobile-close" 
+          class="text-accent p-2 hover:rotate-90 transition-transform duration-300"
+          aria-label="Close Menu"
+        >
+          <svg xmlns="http://www.w3.org/2000/svg" class="h-8 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12" />
+          </svg>
+        </button>
+      </div>
+      <div class="flex-1 flex flex-col justify-center items-center gap-8 py-12">
+        {navLinks.map((link) => (
+          <a 
+            href={link.href} 
+            class="mobile-nav-item text-2xl font-black uppercase tracking-widest hover:text-accent transition-colors"
+          >
+            {link.label}
+          </a>
+        ))}
+      </div>
+      <div class="p-8 border-t border-border mt-auto">
+        <a href="/" class="flex items-center justify-center gap-3 py-4 rounded-xl bg-accent/10 border border-accent/30 text-accent font-bold">
+           Return to Main Hub
+        </a>
+      </div>
+    </div>
+  </div>
+</nav>
+
+<style>
+  .glass-nav {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    -webkit-backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+  }
+
+  .nav-item.active {
+    color: var(--color-accent, #00E5FF);
+  }
+
+  .nav-item.active .active-indicator {
+    transform: scaleX(1);
+  }
+
+  /* Scrolled State */
+  .scrolled .glass-nav {
+    margin-top: 0;
+    border-radius: 0;
+    border-x: none;
+    border-top: none;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    max-width: 100%;
+  }
+
+  /* Smooth scroll support */
+  :global(html) {
+    scroll-behavior: smooth;
+  }
+</style>
+
+<script>
+  // Mobile Menu Logic
+  const mobileToggle = document.getElementById('mobile-toggle');
+  const mobileClose = document.getElementById('mobile-close');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileLinks = document.querySelectorAll('.mobile-nav-item');
+
+  function toggleMenu() {
+    const isExpanded = mobileMenu?.classList.contains('translate-x-0');
+    mobileMenu?.classList.toggle('translate-x-full');
+    mobileMenu?.classList.toggle('translate-x-0');
+    mobileToggle?.setAttribute('aria-expanded', (!isExpanded).toString());
+    document.body.classList.toggle('overflow-hidden');
+  }
+
+  mobileToggle?.addEventListener('click', toggleMenu);
+  mobileClose?.addEventListener('click', toggleMenu);
+  mobileLinks.forEach(link => link.addEventListener('click', toggleMenu));
+
+  // Active Link Tracking (Intersection Observer)
+  const sections = document.querySelectorAll('section[id], footer[id]');
+  const navItems = document.querySelectorAll('.nav-item');
+
+  function updateActiveLink() {
+    let currentSectionId = '';
+    
+    sections.forEach(section => {
+      const sectionTop = section.offsetTop;
+      const sectionHeight = section.clientHeight;
+      if (window.scrollY >= (sectionTop - 200)) {
+        currentSectionId = section.getAttribute('id');
+      }
+    });
+
+    navItems.forEach(item => {
+      item.classList.remove('active');
+      if (item.getAttribute('href') === `#${currentSectionId}`) {
+        item.classList.add('active');
+      }
+    });
+  }
+
+  window.addEventListener('scroll', updateActiveLink);
+  updateActiveLink();
+
+  // Scroll Header Effect
+  const nav = document.getElementById('security-nav');
+  window.addEventListener('scroll', () => {
+    if (window.scrollY > 50) {
+      nav?.classList.add('scrolled');
+    } else {
+      nav?.classList.remove('scrolled');
+    }
+  });
+</script>

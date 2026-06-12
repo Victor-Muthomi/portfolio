@@ -117,6 +117,20 @@ const quickLinks = [
         <p class="copyright">
           <span>✨</span> {currentYear} Victor Muthomi. Build with passion.
         </p>
+        <a
+          class="sponsor-button"
+          href="https://github.com/sponsors/Victor-Muthomi"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="Sponsor Victor Muthomi on GitHub"
+        >
+          <span class="sponsor-heart" aria-hidden="true">
+            <svg viewBox="0 0 24 24" width="18" height="18" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+              <path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/>
+            </svg>
+          </span>
+          <span class="sponsor-label">Sponsor</span>
+        </a>
         <div class="footer-badges">
           <span class="tech-badge">⚡ Fast</span>
           <span class="tech-badge">🎨 Modern</span>
@@ -367,6 +381,51 @@ const quickLinks = [
     gap: var(--space-sm);
   }
 
+  .sponsor-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.65rem;
+    padding: 0.8rem 1.15rem;
+    min-height: 2.9rem;
+    background: linear-gradient(180deg, rgba(127, 29, 29, 0.24), rgba(69, 10, 10, 0.18));
+    border: 1px solid rgba(153, 27, 27, 0.55);
+    border-radius: 999px;
+    color: #fecaca;
+    text-decoration: none;
+    font-size: 0.95rem;
+    font-weight: var(--font-weight-semibold);
+    line-height: 1;
+    letter-spacing: 0.01em;
+    box-shadow: 0 10px 24px rgba(69, 10, 10, 0.18);
+    transition:
+      transform var(--transition-fast),
+      border-color var(--transition-fast),
+      background var(--transition-fast),
+      box-shadow var(--transition-fast),
+      color var(--transition-fast);
+  }
+
+  .sponsor-button:hover {
+    transform: translateY(-2px);
+    border-color: rgba(220, 38, 38, 0.85);
+    background: linear-gradient(180deg, rgba(153, 27, 27, 0.32), rgba(69, 10, 10, 0.26));
+    color: #ffffff;
+    box-shadow: 0 14px 28px rgba(69, 10, 10, 0.26);
+  }
+
+  .sponsor-heart {
+    color: #7f1d1d;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    line-height: 1;
+    flex-shrink: 0;
+  }
+
+  .sponsor-label {
+    transform: translateY(0.5px);
+  }
+
   .tech-badge {
     padding: var(--space-xs) var(--space-sm);
     background: var(--color-bg-tertiary);
@@ -424,6 +483,10 @@ const quickLinks = [
     }
 
     .footer-badges {
+      justify-content: center;
+    }
+
+    .sponsor-button {
       justify-content: center;
     }
   }

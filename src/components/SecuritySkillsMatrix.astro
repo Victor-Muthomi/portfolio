@@ -1,0 +1,78 @@
+---
+// src/components/SecuritySkillsMatrix.astro
+
+const skills = [
+  { name: 'Network Penetration Testing', level: 90 },
+  { name: 'Web Application Security', level: 92 },
+  { name: 'Linux Security', level: 88 },
+  { name: 'OSINT', level: 90 },
+  { name: 'Vulnerability Assessment', level: 90 },
+  { name: 'Technical Reporting', level: 95 },
+  { name: 'Windows Security', level: 75 },
+  { name: 'Active Directory Security', level: 70 }
+];
+---
+
+<section id="skills-matrix" class="py-32 bg-surface/10 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="text-center mb-20 reveal">
+      <h2 class="text-4xl font-black mb-4">Security <span class="text-accent underline decoration-accent/20 underline-offset-8">Skills Matrix.</span></h2>
+      <p class="text-muted text-lg max-w-2xl mx-auto">
+        Technical proficiency across core offensive security domains and enterprise system hardening.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-10">
+      {skills.map((skill, index) => (
+        <div class="reveal skill-item" style={`transition-delay: ${index * 50}ms;`}>
+          <div class="flex justify-between items-end mb-3">
+            <span class="font-bold tracking-tight text-sm md:text-base">{skill.name}</span>
+            <span class="font-mono text-accent text-sm font-bold">{skill.level}%</span>
+          </div>
+          
+          <div class="h-2 w-full bg-surface border border-border rounded-full overflow-hidden">
+            <div 
+              class="h-full bg-accent skill-bar transition-all duration-1000 ease-out shadow-[0_0_10px_rgba(0,229,255,0.3)]" 
+              style="width: 0%;" 
+              data-level={skill.level}
+            ></div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+
+  <style>
+    .skill-bar {
+      width: 0;
+      transition: width 1.5s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+    
+    .skill-bar.animated {
+      width: var(--final-width);
+    }
+  </style>
+
+  <script is:inline>
+    function animateSkills() {
+      const bars = document.querySelectorAll('.skill-bar');
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            const bar = entry.target;
+            const level = bar.getAttribute('data-level');
+            bar.style.width = level + '%';
+            observer.unobserve(bar);
+          }
+        });
+      }, { threshold: 0.2 });
+
+      bars.forEach(bar => observer.observe(bar));
+    }
+
+    // Initialize animation
+    document.addEventListener('DOMContentLoaded', animateSkills);
+    // In case DOMContentLoaded already fired (Astro swaps)
+    animateSkills();
+  </script>
+</section>

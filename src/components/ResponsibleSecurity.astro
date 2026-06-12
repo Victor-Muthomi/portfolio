@@ -1,0 +1,69 @@
+---
+// src/components/ResponsibleSecurity.astro
+---
+
+<section id="ethics" class="py-24 bg-background relative overflow-hidden">
+  <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="reveal">
+      <div class="glass-strong p-12 rounded-[2.5rem] border-accent/20 relative overflow-hidden group hover:border-accent/40 transition-all duration-500 text-center">
+        <!-- Background Glow -->
+        <div class="absolute -top-32 -left-32 w-64 h-64 bg-accent/5 blur-3xl group-hover:bg-accent/10 transition-colors"></div>
+        <div class="absolute -bottom-32 -right-32 w-64 h-64 bg-accent/5 blur-3xl group-hover:bg-accent/10 transition-colors"></div>
+
+        <div class="relative z-10">
+          <div class="tech-label mx-auto mb-8">ETHICAL_DISCLOSURE_PROTOCOL</div>
+          <!-- Shield Icon -->
+          <div class="w-20 h-20 mx-auto mb-8 rounded-2xl bg-accent/10 border border-accent/20 flex items-center justify-center text-4xl text-accent shadow-[0_0_30px_rgba(0,229,255,0.15)] group-hover:scale-110 group-hover:shadow-[0_0_40px_rgba(0,229,255,0.25)] transition-all duration-500">
+            <svg xmlns="http://www.w3.org/2000/svg" class="h-10 w-10" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A11.952 11.952 0 003 11.235c0 3.945 1.907 7.441 4.834 9.619l1.166.864 1.166-.864C13.093 18.676 15 15.18 15 11.235c0-1.848-.415-3.598-1.162-5.161" />
+            </svg>
+          </div>
+
+          <h2 class="text-3xl md:text-4xl font-black mb-6 tracking-tight">Responsible <span class="text-accent underline decoration-accent/20 underline-offset-8">Security Practice.</span></h2>
+          
+          <div class="max-w-2xl mx-auto space-y-6">
+            <p class="text-lg text-foreground/90 font-medium leading-relaxed">
+              All security testing is conducted within authorized environments, training laboratories, educational platforms, and systems where 
+              <span class="text-accent">explicit permission</span> has been granted.
+            </p>
+            
+            <p class="text-muted text-base leading-relaxed">
+              I strictly adhere to responsible disclosure practices and industry-standard penetration testing methodologies, 
+              ensuring all assessments are professional, ethical, and legally compliant.
+            </p>
+          </div>
+
+          <!-- Trust Badges / Commitments -->
+          <div class="mt-12 pt-10 border-t border-border flex flex-wrap justify-center gap-8 md:gap-12">
+            {[
+              { label: 'Authorized Only', icon: '✅' },
+              { label: 'Responsible Disclosure', icon: '📢' },
+              { label: 'Data Privacy', icon: '🔒' },
+              { label: 'Industry Standards', icon: '📝' }
+            ].map((item) => (
+              <div class="flex items-center gap-2 group/badge">
+                <span class="text-sm">{item.icon}</span>
+                <span class="text-[10px] font-mono font-bold uppercase tracking-widest text-muted group-hover/badge:text-accent transition-colors">{item.label}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <!-- Decorative Technical Specs -->
+        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 w-full px-12 flex justify-between items-center text-[7px] font-mono text-muted/30 uppercase tracking-[0.3em] pointer-events-none">
+          <span>ETHICS_PROTOCOL_V.1.0</span>
+          <span>COMPLIANCE_STATUS: VERIFIED</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+  .glass-strong {
+    background: rgba(255, 255, 255, 0.08); /* Derived from global .glass-strong */
+    backdrop-filter: blur(16px);
+    border: 1px solid var(--color-border-strong);
+    box-shadow: var(--shadow-2xl);
+  }
+</style>

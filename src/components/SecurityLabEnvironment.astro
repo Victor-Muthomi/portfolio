@@ -1,0 +1,76 @@
+---
+// src/components/SecurityLabEnvironment.astro
+
+const labCategories = [
+  {
+    title: 'Virtualization',
+    icon: '💻',
+    items: ['KVM', 'Virt Manager', 'VirtualBox']
+  },
+  {
+    title: 'Operating Systems',
+    icon: '🐧',
+    items: ['Kali Linux', 'Ubuntu', 'Windows 10', 'Windows Server']
+  },
+  {
+    title: 'Practice Platforms',
+    icon: '🎯',
+    items: ['Hack The Box', 'TryHackMe', 'OWASP Juice Shop', 'DVWA', 'Metasploitable 2']
+  }
+];
+---
+
+<section id="lab" class="py-32 bg-surface/5 relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="text-center mb-24 reveal">
+      <div class="tech-label">PRACTICAL_EXPERIENCE</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-6">Security <span class="text-accent underline decoration-accent/20 underline-offset-8">Lab Environment.</span></h2>
+      <p class="text-muted text-lg max-w-2xl mx-auto leading-relaxed">
+        A dedicated technical environment for vulnerability research, malware analysis, and continuous security skill development using industry-standard platforms.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {labCategories.map((category, index) => (
+        <div class="reveal group h-full" style={`transition-delay: ${index * 150}ms;`}>
+          <div class="h-full glass-card p-10 rounded-[2.5rem] border-border hover:border-accent/40 hover:bg-surface/80 transition-all duration-700 relative overflow-hidden flex flex-col items-center text-center animate-float" style={`animation-delay: ${index * 0.5}s;`}>
+            <!-- Background Glow -->
+            <div class="absolute -top-24 -right-24 w-48 h-48 bg-accent/5 blur-3xl group-hover:bg-accent/10 transition-colors"></div>
+            
+            <div class="w-20 h-20 rounded-3xl bg-background border border-border flex items-center justify-center text-4xl mb-8 group-hover:scale-110 group-hover:shadow-[0_0_20px_rgba(0,229,255,0.2)] group-hover:border-accent/40 transition-all duration-500">
+              {category.icon}
+            </div>
+            
+            <h3 class="text-2xl font-bold mb-8 tracking-tight group-hover:text-accent transition-colors">{category.title}</h3>
+            
+            <ul class="space-y-4 w-full">
+              {category.items.map((item) => (
+                <li class="flex items-center justify-center gap-3 py-2 px-4 rounded-xl bg-surface/50 border border-border group-hover:border-accent/20 transition-all">
+                  <span class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></span>
+                  <span class="text-sm font-medium text-muted group-hover:text-foreground transition-colors">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+  }
+
+  @keyframes float {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-10px); }
+  }
+
+  .animate-float {
+    animation: float 6s ease-in-out infinite;
+  }
+</style>

@@ -1,0 +1,107 @@
+---
+// src/components/SampleFindings.astro
+
+const findings = [
+  {
+    severity: 'Critical',
+    score: '9.8',
+    title: 'Stored Cross Site Scripting',
+    impact: 'Session Hijacking',
+    recommendation: 'Implement robust input validation and context-aware output encoding across all user-facing entry points.',
+    color: 'text-red-500',
+    border: 'border-red-500/30',
+    bg: 'bg-red-500/5'
+  },
+  {
+    severity: 'High',
+    score: '8.1',
+    title: 'SMB Signing Disabled',
+    impact: 'NTLM Relay Attacks',
+    recommendation: 'Enable SMB signing through Group Policy Objects (GPO) to prevent Man-in-the-Middle (MitM) relay attacks.',
+    color: 'text-orange-500',
+    border: 'border-orange-500/30',
+    bg: 'bg-orange-500/5'
+  },
+  {
+    severity: 'Medium',
+    score: '5.4',
+    title: 'Outdated Apache Version',
+    impact: 'Known Vulnerabilities',
+    recommendation: 'Upgrade the Apache HTTP Server to the latest stable and supported release to mitigate known security flaws.',
+    color: 'text-yellow-500',
+    border: 'border-yellow-500/30',
+    bg: 'bg-yellow-500/5'
+  }
+];
+---
+
+<section id="findings" class="py-32 bg-background relative overflow-hidden">
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+    <div class="text-center mb-24 reveal">
+      <div class="tech-label">ASSESSMENT_OUTPUT</div>
+      <h2 class="text-4xl md:text-5xl font-black mb-6">Sample Security <span class="text-accent underline decoration-accent/20 underline-offset-8">Findings.</span></h2>
+      <p class="text-muted text-lg max-w-2xl mx-auto leading-relaxed">
+        Example technical findings from recent vulnerability assessments, demonstrating structured technical reporting and risk prioritization.
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      {findings.map((finding, index) => (
+        <div class={`reveal group h-full`} style={`transition-delay: ${index * 150}ms;`}>
+          <div class={`h-full glass-card border ${finding.border} rounded-2xl overflow-hidden flex flex-col group-hover:bg-surface/40 transition-all duration-500`}>
+            <!-- Header: Severity & Score -->
+            <div class={`p-6 border-b ${finding.border} flex justify-between items-center ${finding.bg}`}>
+              <div class="flex items-center gap-2">
+                <span class={`w-2 h-2 rounded-full ${finding.severity === 'Critical' ? 'bg-red-500 animate-ping' : finding.severity === 'High' ? 'bg-orange-500' : 'bg-yellow-500'}`}></span>
+                <span class={`text-xs font-mono font-bold tracking-widest uppercase ${finding.color}`}>{finding.severity}</span>
+              </div>
+              <div class="flex flex-col items-end">
+                <span class="text-[8px] font-mono text-muted uppercase tracking-tighter">CVSS_V3</span>
+                <span class="text-xl font-mono font-black text-foreground">{finding.score}</span>
+              </div>
+            </div>
+
+            <!-- Body: Finding Content -->
+            <div class="p-8 flex-1">
+              <h3 class="text-xl font-bold mb-6 tracking-tight group-hover:text-accent transition-colors">{finding.title}</h3>
+              
+              <div class="space-y-6">
+                <div>
+                  <h4 class="text-[10px] font-mono font-bold text-accent/60 uppercase tracking-widest mb-2">Technical_Impact:</h4>
+                  <p class="text-sm text-foreground leading-relaxed font-medium">
+                    {finding.impact}
+                  </p>
+                </div>
+                
+                <div class="p-4 rounded-xl bg-background/50 border border-border">
+                  <h4 class="text-[10px] font-mono font-bold text-accent/60 uppercase tracking-widest mb-2">Remediation_Path:</h4>
+                  <p class="text-xs text-muted leading-relaxed">
+                    {finding.recommendation}
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            <!-- Footer: Meta Information -->
+            <div class="p-4 bg-background/30 border-t border-border flex justify-between items-center">
+              <span class="text-[9px] font-mono text-muted/50 uppercase tracking-widest leading-none">Status: Confirmed_Verified</span>
+              <div class="flex gap-1">
+                <div class="w-1.5 h-1.5 rounded-full bg-accent/20"></div>
+                <div class="w-1.5 h-1.5 rounded-full bg-accent/20"></div>
+                <div class="w-1.5 h-1.5 rounded-full bg-accent/40"></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
+
+<style>
+  .glass-card {
+    background: var(--glass-bg);
+    backdrop-filter: blur(var(--glass-blur));
+    border: 1px solid var(--glass-border);
+  }
+</style>
