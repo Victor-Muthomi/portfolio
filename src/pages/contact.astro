@@ -1,0 +1,203 @@
+---
+import MainLayout from '../layouts/MainLayout.astro';
+import Navbar from '../components/Navbar.astro';
+
+const contactMethods = [
+  {
+    label: 'Email',
+    value: 'mail@victorblog.me',
+    href: 'mailto:mail@victorblog.me',
+    description: 'Best for project briefs, collaboration requests, and longer follow-ups.',
+    emoji: '📧',
+  },
+  {
+    label: 'GitHub',
+    value: '@Victor-Muthomi',
+    href: 'https://github.com/Victor-Muthomi',
+    description: 'Browse code samples, experiments, and open-source work.',
+    emoji: '🐙',
+  },
+  {
+    label: 'LinkedIn',
+    value: 'Victor Muthomi',
+    href: 'https://www.linkedin.com/in/victor-muthomi-497b173a4/',
+    description: 'Connect professionally for opportunities and partnerships.',
+    emoji: '💼',
+  },
+  {
+    label: 'WhatsApp',
+    value: 'Chat on WhatsApp',
+    href: 'https://wa.me/message/LZH5LE3VNHIVC1',
+    description: 'Use this for quick messages and faster responses.',
+    emoji: '💬',
+  },
+];
+---
+
+<MainLayout
+  title="Contact | Victor Muthomi - Software Engineer"
+  description="Contact Victor Muthomi via email, GitHub, LinkedIn, or WhatsApp."
+>
+  <Navbar slot="nav" developerName="Victor Muthomi" currentPath="/contact" />
+
+  <section class="contact-hero">
+    <div class="container">
+      <div class="hero-copy" data-animate="fade-up">
+        <span class="eyebrow">Contact</span>
+        <h1>Let's start a conversation.</h1>
+        <p>
+          If you have a project in mind, need engineering help, or want to discuss an opportunity,
+          reach out through any of the channels below.
+        </p>
+      </div>
+
+      <div class="contact-grid" data-animate="stagger" data-stagger-delay="120">
+        {contactMethods.map((method) => (
+          <a
+            href={method.href}
+            class="contact-card glass"
+            target={method.label !== 'Email' ? '_blank' : undefined}
+            rel={method.label !== 'Email' ? 'noopener noreferrer' : undefined}
+            aria-label={`Contact via ${method.label}: ${method.value}`}
+          >
+            <div class="contact-icon" aria-hidden="true">{method.emoji}</div>
+            <div class="contact-content">
+              <h2>{method.label}</h2>
+              <p class="contact-value">{method.value}</p>
+              <p class="contact-description">{method.description}</p>
+            </div>
+            <span class="contact-arrow" aria-hidden="true">↗</span>
+          </a>
+        ))}
+      </div>
+
+      <div class="contact-note glass" data-animate="fade-up">
+        <h2>Preferred contact details</h2>
+        <p>
+          Email is the best option for detailed requests. GitHub and LinkedIn are ideal if you want
+          to review my work before reaching out.
+        </p>
+      </div>
+    </div>
+  </section>
+</MainLayout>
+
+<style>
+  .contact-hero {
+    padding: calc(var(--space-4xl) + 80px) var(--space-lg) var(--space-4xl);
+    background:
+      radial-gradient(circle at 20% 20%, rgba(99, 102, 241, 0.12) 0%, transparent 38%),
+      radial-gradient(circle at 80% 15%, rgba(6, 182, 212, 0.12) 0%, transparent 34%),
+      linear-gradient(180deg, var(--color-bg-primary) 0%, var(--color-bg-secondary) 100%);
+  }
+
+  .container {
+    max-width: 1120px;
+    margin: 0 auto;
+  }
+
+  .hero-copy {
+    text-align: center;
+    max-width: 760px;
+    margin: 0 auto var(--space-3xl);
+  }
+
+  .eyebrow {
+    display: inline-flex;
+    margin-bottom: var(--space-md);
+    color: var(--color-accent-cyan);
+    text-transform: uppercase;
+    letter-spacing: 0.12em;
+    font-size: 0.875rem;
+    font-weight: var(--font-weight-semibold);
+  }
+
+  h1 {
+    font-size: clamp(2.5rem, 6vw, 4.5rem);
+    line-height: 1.05;
+    margin-bottom: var(--space-lg);
+  }
+
+  .hero-copy p,
+  .contact-note p,
+  .contact-description {
+    color: var(--color-text-secondary);
+    line-height: 1.7;
+  }
+
+  .contact-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr));
+    gap: var(--space-lg);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .contact-card {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-md);
+    padding: var(--space-xl);
+    border-radius: var(--radius-xl);
+    text-decoration: none;
+    border: 1px solid var(--color-border);
+    transition: transform var(--transition-normal), border-color var(--transition-normal);
+  }
+
+  .contact-card:hover {
+    transform: translateY(-4px);
+    border-color: var(--color-accent-cyan);
+  }
+
+  .contact-icon {
+    width: 3rem;
+    height: 3rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 999px;
+    background: rgba(6, 182, 212, 0.12);
+    color: var(--color-accent-cyan);
+    font-size: 1.4rem;
+  }
+
+  .contact-content h2 {
+    font-size: 1.35rem;
+    margin-bottom: var(--space-2xs);
+  }
+
+  .contact-value {
+    font-weight: var(--font-weight-semibold);
+    color: var(--color-text-primary);
+    margin-bottom: var(--space-xs);
+    word-break: break-word;
+  }
+
+  .contact-arrow {
+    margin-top: auto;
+    align-self: flex-end;
+    color: var(--color-accent-cyan);
+    font-size: 1.25rem;
+    transition: transform var(--transition-fast);
+  }
+
+  .contact-card:hover .contact-arrow {
+    transform: translate(2px, -2px);
+  }
+
+  .contact-note {
+    padding: var(--space-xl);
+    border-radius: var(--radius-xl);
+    border: 1px solid var(--color-border);
+  }
+
+  .contact-note h2 {
+    margin-bottom: var(--space-sm);
+    font-size: 1.25rem;
+  }
+
+  @media (max-width: 768px) {
+    .contact-hero {
+      padding-top: calc(var(--space-3xl) + 72px);
+    }
+  }
+</style>

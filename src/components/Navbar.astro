@@ -11,12 +11,44 @@ const {
 
 const navLinks = [
   { label: 'Home', href: '/', emoji: '🏠' },
-  { label: 'Security', href: '/skills/pentest/cybersecurity', emoji: '🛡️' },
+  {
+    label: 'Pentest',
+    href: '/skills/pentest/cybersecurity',
+    emoji: '🛡️',
+    children: [
+      { label: 'Cybersecurity Portfolio', href: '/skills/pentest/cybersecurity', emoji: '🔐' },
+      { label: 'Web App Pentesting', href: '/skills/pentest/cybersecurity#expertise', emoji: '🌐' },
+      { label: 'Assessment Projects', href: '/skills/pentest/cybersecurity#projects', emoji: '📋' },
+    ],
+  },
+  {
+    label: 'Mobile Application',
+    href: '/projects/dating-mobile-app',
+    emoji: '📱',
+    children: [
+      { label: 'Dating Mobile App', href: '/projects/dating-mobile-app', emoji: '💬' },
+      { label: 'Rent Management App', href: '/projects/rent-management', emoji: '🏘️' },
+      { label: 'All Mobile Projects', href: '/projects?tag=Flutter', emoji: '📦' },
+    ],
+  },
+  {
+    label: 'Website',
+    href: '/projects/ai-virtual-assistant',
+    emoji: '🖥️',
+    children: [
+      { label: 'AI Virtual Assistant', href: '/projects/ai-virtual-assistant', emoji: '🤖' },
+      { label: 'SaaS Boilerplate', href: '/projects/multi-tenant-saas', emoji: '🏗️' },
+      { label: 'All Web Projects', href: '/projects', emoji: '🧭' },
+    ],
+  },
   { label: 'Projects', href: '/projects', emoji: '🚀' },
   { label: 'Skills', href: '/skills', emoji: '⚒️' },
   { label: 'Blog', href: '/blog', emoji: '✍️' },
   // { label: 'Downloads', href: '/downloads', emoji: '📥' },
 ];
+
+const isActiveLink = (href: string) => currentPath === href || (href !== '/' && currentPath.startsWith(href));
+const isActiveItem = (link: typeof navLinks[number]) => isActiveLink(link.href) || link.children?.some((child) => isActiveLink(child.href));
 ---
 
 <nav class="navbar" role="navigation" aria-label="Main navigation">
@@ -42,14 +74,42 @@ const navLinks = [
     <!-- Desktop nav links (inside nav for layout) -->
     <div class="nav-links-desktop" id="nav-links-desktop">
       {navLinks.map((link) => (
-        <a 
-          href={link.href} 
-          class:list={['nav-link', { active: currentPath === link.href }]}
-          aria-current={currentPath === link.href ? 'page' : undefined}
-        >
-          <span class="nav-emoji">{link.emoji}</span>
-          <span>{link.label}</span>
-        </a>
+        link.children ? (
+          <div class:list={['nav-dropdown', { active: isActiveItem(link) }]}>
+            <a
+              href={link.href}
+              class:list={['nav-link nav-dropdown-trigger', { active: isActiveItem(link) }]}
+              aria-current={isActiveLink(link.href) ? 'page' : undefined}
+              aria-haspopup="true"
+            >
+              <span class="nav-emoji">{link.emoji}</span>
+              <span>{link.label}</span>
+              <span class="dropdown-caret" aria-hidden="true">⌄</span>
+            </a>
+            <div class="dropdown-menu" role="menu">
+              {link.children.map((child) => (
+                <a
+                  href={child.href}
+                  class:list={['dropdown-link', { active: isActiveLink(child.href) }]}
+                  aria-current={isActiveLink(child.href) ? 'page' : undefined}
+                  role="menuitem"
+                >
+                  <span class="nav-emoji">{child.emoji}</span>
+                  <span>{child.label}</span>
+                </a>
+              ))}
+            </div>
+          </div>
+        ) : (
+          <a 
+            href={link.href} 
+            class:list={['nav-link', { active: isActiveItem(link) }]}
+            aria-current={isActiveLink(link.href) ? 'page' : undefined}
+          >
+            <span class="nav-emoji">{link.emoji}</span>
+            <span>{link.label}</span>
+          </a>
+        )
       ))}
       {/* <a 
         href="/files/resume.pdf" 
@@ -67,14 +127,36 @@ const navLinks = [
 <!-- Mobile nav panel — outside <nav> to avoid backdrop-filter compositing -->
 <div class="nav-links" id="nav-links" aria-hidden="true">
   {navLinks.map((link) => (
-    <a 
-      href={link.href} 
-      class:list={['nav-link', { active: currentPath === link.href }]}
-      aria-current={currentPath === link.href ? 'page' : undefined}
-    >
-      <span class="nav-emoji">{link.emoji}</span>
-      <span>{link.label}</span>
-    </a>
+    link.children ? (
+      <details class:list={['mobile-nav-group', { active: isActiveItem(link) }]}>
+        <summary class:list={['nav-link mobile-nav-summary', { active: isActiveItem(link) }]}>
+          <span class="nav-emoji">{link.emoji}</span>
+          <span>{link.label}</span>
+          <span class="dropdown-caret" aria-hidden="true">⌄</span>
+        </summary>
+        <div class="mobile-dropdown-links">
+          {link.children.map((child) => (
+            <a
+              href={child.href}
+              class:list={['dropdown-link', { active: isActiveLink(child.href) }]}
+              aria-current={isActiveLink(child.href) ? 'page' : undefined}
+            >
+              <span class="nav-emoji">{child.emoji}</span>
+              <span>{child.label}</span>
+            </a>
+          ))}
+        </div>
+      </details>
+    ) : (
+      <a 
+        href={link.href} 
+        class:list={['nav-link', { active: isActiveItem(link) }]}
+        aria-current={isActiveLink(link.href) ? 'page' : undefined}
+      >
+        <span class="nav-emoji">{link.emoji}</span>
+        <span>{link.label}</span>
+      </a>
+    )
   ))}
   {/* <a 
     href="/files/resume.pdf" 
@@ -116,7 +198,7 @@ const navLinks = [
     isExpanded ? closeMenu() : openMenu();
   });
 
-  navLinks?.querySelectorAll('.nav-link').forEach((link) => {
+  navLinks?.querySelectorAll('a').forEach((link) => {
     link.addEventListener('click', closeMenu);
   });
 
@@ -234,6 +316,66 @@ const navLinks = [
     gap: var(--space-sm);
   }
 
+  .nav-dropdown {
+    position: relative;
+  }
+
+  .nav-dropdown-trigger {
+    padding-right: calc(var(--space-md) + var(--space-xs));
+  }
+
+  .dropdown-caret {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 0.875rem;
+    height: 0.875rem;
+    font-size: 0.9rem;
+    line-height: 1;
+    transform: translateY(-1px);
+    transition: transform var(--transition-base);
+  }
+
+  .nav-dropdown:hover .dropdown-caret,
+  .nav-dropdown:focus-within .dropdown-caret,
+  .mobile-nav-group[open] .dropdown-caret {
+    transform: rotate(180deg) translateY(1px);
+  }
+
+  .dropdown-menu {
+    position: absolute;
+    top: calc(100% + var(--space-sm));
+    left: 0;
+    min-width: 230px;
+    padding: var(--space-sm);
+    background: rgba(19, 19, 26, 0.96);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    box-shadow: 0 18px 45px rgba(0, 0, 0, 0.38);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px);
+    transition: opacity var(--transition-base), transform var(--transition-base);
+  }
+
+  .dropdown-menu::before {
+    content: '';
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: calc(var(--space-sm) * -1);
+    height: var(--space-sm);
+  }
+
+  .nav-dropdown:hover .dropdown-menu,
+  .nav-dropdown:focus-within .dropdown-menu {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+  }
+
   /* Mobile nav panel (outside nav, independent stacking context) */
   .nav-links {
     display: none;
@@ -256,6 +398,27 @@ const navLinks = [
     text-decoration: none;
     transition: all var(--transition-base);
     border-radius: var(--radius-md);
+  }
+
+  .dropdown-link {
+    display: flex;
+    align-items: center;
+    gap: var(--space-sm);
+    width: 100%;
+    padding: var(--space-sm) var(--space-md);
+    color: var(--color-text-secondary);
+    text-decoration: none;
+    border-radius: var(--radius-md);
+    font-size: 0.9rem;
+    font-weight: var(--font-weight-medium);
+    transition: all var(--transition-base);
+  }
+
+  .dropdown-link:hover,
+  .dropdown-link:focus-visible,
+  .dropdown-link.active {
+    color: var(--color-text-primary);
+    background: var(--glass-bg);
   }
 
   .nav-emoji {
@@ -369,6 +532,36 @@ const navLinks = [
       font-size: 1rem;
     }
 
+    .mobile-nav-group {
+      display: block;
+    }
+
+    .mobile-nav-summary {
+      width: 100%;
+      cursor: pointer;
+      list-style: none;
+      justify-content: flex-start;
+    }
+
+    .mobile-nav-summary::-webkit-details-marker {
+      display: none;
+    }
+
+    .mobile-nav-summary .dropdown-caret {
+      margin-left: auto;
+    }
+
+    .mobile-dropdown-links {
+      display: grid;
+      gap: var(--space-xs);
+      padding: 0 0 var(--space-xs) var(--space-lg);
+    }
+
+    .mobile-dropdown-links .dropdown-link {
+      padding: var(--space-sm) var(--space-md);
+      font-size: 0.9375rem;
+    }
+
     .nav-link::before {
       left: 0;
       transform: none;
@@ -397,6 +590,14 @@ const navLinks = [
     .nav-link {
       padding: var(--space-sm);
       font-size: 0.875rem;
+    }
+
+    .nav-dropdown-trigger {
+      padding-right: var(--space-sm);
+    }
+
+    .dropdown-menu {
+      min-width: 210px;
     }
   }
 </style>
