@@ -45,6 +45,15 @@ const reportSections = [
     details: "Provides the technical evidence required for deep-dive analysis."
   }
 ];
+
+const templateDetailsText = `Pentest Report Template
+Classification: Confidential
+Format: ISO/IEC 27001 compliant
+Template Version: 4.2.0
+
+Sections:
+${reportSections.map((section, index) => `${index + 1}. ${section.title}: ${section.description} ${section.details}`).join('\n')}
+`;
 ---
 
 <section id="reporting" class="py-32 bg-surface/10 relative overflow-hidden">
@@ -103,93 +112,50 @@ const reportSections = [
               </div>
             </div>
 
-            <!-- PDF Mockup Visual -->
+            <!-- PDF Live Preview -->
             <div class="relative aspect-[3/4] bg-background border border-border rounded-lg shadow-2xl overflow-hidden mb-8 group-hover:border-accent/30 transition-all">
-              <!-- Grid background for document feel -->
-              <div class="absolute inset-0 opacity-5 bg-[radial-gradient(#fff_1px,transparent_1px)] [background-size:20px_20px]"></div>
-              
-              <div class="p-8 h-full flex flex-col">
-                <!-- Report Header Mockup -->
-                <div class="flex justify-between items-start mb-12">
-                  <div class="space-y-1">
-                    <div class="w-20 h-2 bg-accent/20 rounded"></div>
-                    <div class="w-12 h-1 bg-accent/10 rounded"></div>
-                  </div>
-                  <div class="w-8 h-8 rounded bg-accent/5 border border-accent/20"></div>
-                </div>
+              <iframe
+                src="/files/pentest_report.pdf#view=FitH"
+                title="Sample pentest report preview"
+                class="absolute inset-0 h-full w-full"
+              ></iframe>
 
-                <!-- Report Content Simulation -->
-                <div class="flex-1 space-y-6">
-                  <div class="space-y-3">
-                    <div class="w-full h-4 bg-muted/20 rounded"></div>
-                    <div class="w-3/4 h-3 bg-muted/10 rounded"></div>
-                  </div>
-                  
-                  <div class="p-4 rounded border border-border bg-surface/40 space-y-3">
-                    <div class="flex items-center gap-2">
-                      <div class="w-2 h-2 rounded-full bg-red-500"></div>
-                      <div class="w-24 h-2 bg-red-400/20 rounded"></div>
-                    </div>
-                    <div class="w-full h-1 bg-muted/10 rounded"></div>
-                    <div class="w-full h-1 bg-muted/10 rounded"></div>
-                    <div class="w-2/3 h-1 bg-muted/10 rounded"></div>
-                  </div>
+              <div class="absolute inset-0 pointer-events-none bg-gradient-to-b from-background/30 via-transparent to-background/35"></div>
 
-                  <div class="space-y-2">
-                    <div class="w-1/2 h-3 bg-accent/20 rounded"></div>
-                    <div class="grid grid-cols-2 gap-4">
-                      <div class="aspect-video bg-muted/5 border border-border rounded flex items-center justify-center">
-                        <div class="w-1/2 h-1/2 rounded border border-dashed border-accent/20"></div>
-                      </div>
-                      <div class="aspect-video bg-muted/5 border border-border rounded flex items-center justify-center">
-                        <div class="w-1/2 h-1/2 rounded border border-dashed border-accent/20 flex flex-col gap-2 p-2">
-                          <div class="w-full h-full bg-accent/5"></div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-
-                <!-- Report Footer Mockup -->
-                <div class="pt-6 border-t border-border flex justify-between items-center mt-auto">
-                   <div class="w-16 h-1.5 bg-muted/20 rounded"></div>
-                   <div class="w-6 h-3 bg-accent/10 rounded text-[6px] font-mono flex items-center justify-center text-accent/40">PAGE 01</div>
-                </div>
+              <div class="absolute bottom-4 right-4 rounded-full border border-accent/25 bg-background/80 px-3 py-1 text-[9px] font-mono uppercase tracking-[0.2em] text-accent/70 backdrop-blur-sm">
+                Live PDF Preview
               </div>
-
-              <!-- Overlay Gradient for document top/bottom -->
-              <div class="absolute inset-x-0 top-0 h-12 bg-gradient-to-b from-background to-transparent opacity-60"></div>
-              <div class="absolute inset-x-0 bottom-0 h-12 bg-gradient-to-t from-background to-transparent opacity-60"></div>
             </div>
 
             <!-- Action Buttons -->
             <div class="space-y-4">
-              <button class="w-full py-4 rounded-xl bg-accent text-background font-bold flex items-center justify-center gap-3 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(0,229,255,0.3)] transition-all">
+              <a href="/files/pentest_report.pdf" download class="w-full py-4 rounded-xl bg-accent text-background font-bold flex items-center justify-center gap-3 hover:scale-[1.02] hover:shadow-[0_0_20px_rgba(0,229,255,0.3)] transition-all" aria-label="Download the sample pentest report as a PDF">
                 <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                   <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 10v6m0 0l-3-3m3 3l3-3m2 8H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
                 </svg>
                 Download Sample Report (PDF)
-              </button>
+              </a>
               
               <div class="grid grid-cols-2 gap-3">
-                <button class="py-3 rounded-xl border border-border bg-surface/50 text-xs font-bold hover:bg-surface transition-all flex items-center justify-center gap-2">
+                <a href="/files/pentest_report.pdf" target="_blank" rel="noreferrer" class="py-3 rounded-xl border border-border bg-surface/50 text-xs font-bold hover:bg-surface transition-all flex items-center justify-center gap-2" aria-label="Open the sample pentest report in a new browser tab">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
                   </svg>
                   Interactive View
-                </button>
-                <button class="py-3 rounded-xl border border-border bg-surface/50 text-xs font-bold hover:bg-surface transition-all flex items-center justify-center gap-2">
+                </a>
+                <button type="button" id="template-details-copy-button" class="py-3 rounded-xl border border-border bg-surface/50 text-xs font-bold text-accent hover:bg-surface transition-all flex items-center justify-center gap-2" aria-describedby="template-details-copy-status">
                   <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7v8a2 2 0 002 2h6M8 7V5a2 2 0 012-2h4.586a1 1 0 01.707.293l4.414 4.414a1 1 0 01.293.707V15a2 2 0 01-2 2h-2M8 7H6a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2v-2" />
                   </svg>
                   Template Details
                 </button>
               </div>
+              <p id="template-details-copy-status" class="min-h-5 text-xs md:text-sm font-mono uppercase tracking-[0.16em] text-accent/80 leading-relaxed" aria-live="polite"></p>
             </div>
 
             <!-- Technical Metadata Footer -->
-            <div class="mt-8 pt-6 border-t border-border flex items-center justify-between text-[8px] font-mono text-muted uppercase tracking-widest">
+            <div class="mt-8 pt-6 border-t border-border flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between text-[10px] md:text-xs font-mono text-muted uppercase tracking-[0.12em] leading-relaxed">
               <span>Template_VER: 4.2.0</span>
               <span>Classification: Confidential</span>
               <span>Format: ISO/IEC 27001 compliant</span>
@@ -200,6 +166,46 @@ const reportSections = [
     </div>
   </div>
 </section>
+
+<textarea id="template-details-content" hidden readonly aria-hidden="true">{templateDetailsText}</textarea>
+
+<script is:inline>
+  const templateDetailsButton = document.getElementById('template-details-copy-button');
+  const templateDetailsContent = document.getElementById('template-details-content');
+  const templateDetailsStatus = document.getElementById('template-details-copy-status');
+
+  async function copyTemplateDetails() {
+    if (!(templateDetailsContent instanceof HTMLTextAreaElement)) return;
+
+    const templateText = templateDetailsContent.value.trim();
+
+    try {
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(templateText);
+      } else {
+        const fallbackTextarea = document.createElement('textarea');
+        fallbackTextarea.value = templateText;
+        fallbackTextarea.setAttribute('readonly', 'true');
+        fallbackTextarea.style.position = 'absolute';
+        fallbackTextarea.style.left = '-9999px';
+        document.body.appendChild(fallbackTextarea);
+        fallbackTextarea.select();
+        document.execCommand('copy');
+        document.body.removeChild(fallbackTextarea);
+      }
+
+      if (templateDetailsStatus) {
+        templateDetailsStatus.textContent = 'Template details copied to clipboard';
+      }
+    } catch {
+      if (templateDetailsStatus) {
+        templateDetailsStatus.textContent = 'Copy failed, select the hidden template block manually';
+      }
+    }
+  }
+
+  templateDetailsButton?.addEventListener('click', copyTemplateDetails);
+</script>
 
 <style>
   .glass-card {

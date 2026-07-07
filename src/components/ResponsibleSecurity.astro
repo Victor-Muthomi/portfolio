@@ -42,15 +42,15 @@
               { label: 'Industry Standards', icon: '📝' }
             ].map((item) => (
               <div class="flex items-center gap-2 group/badge">
-                <span class="text-sm">{item.icon}</span>
-                <span class="text-[10px] font-mono font-bold uppercase tracking-widest text-muted group-hover/badge:text-accent transition-colors">{item.label}</span>
+                <span class="text-base">{item.icon}</span>
+                <span class="text-xs md:text-sm font-mono font-bold uppercase tracking-[0.14em] text-muted leading-relaxed group-hover/badge:text-accent transition-colors">{item.label}</span>
               </div>
             ))}
           </div>
         </div>
 
         <!-- Decorative Technical Specs -->
-        <div class="absolute bottom-6 left-1/2 -translate-x-1/2 w-full px-12 flex justify-between items-center text-[7px] font-mono text-muted/30 uppercase tracking-[0.3em] pointer-events-none">
+        <div class="relative z-10 mt-10 pt-6 border-t border-border/70 px-4 sm:px-12 flex flex-col gap-2 sm:flex-row sm:justify-between sm:items-center text-[10px] md:text-xs font-mono text-muted/45 uppercase tracking-[0.16em] leading-relaxed pointer-events-none">
           <span>ETHICS_PROTOCOL_V.1.0</span>
           <span>COMPLIANCE_STATUS: VERIFIED</span>
         </div>
