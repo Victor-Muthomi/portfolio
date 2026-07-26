@@ -24,6 +24,16 @@ const {
         <span class="intro-label">Hello, I'm</span>
       </div>
 
+      <!-- Portrait -->
+      <div class="hero-portrait">
+        <img
+          src="/images/file_00000000c94471fd800a8e181a38c5a6.png"
+          alt="Portrait of Victor Muthomi"
+          loading="eager"
+          decoding="async"
+        />
+      </div>
+
       <!-- Name -->
       <h1 class="hero-name">
         {name}
@@ -129,6 +139,25 @@ const {
     font-size: 1.125rem;
     font-weight: var(--font-weight-medium);
     color: var(--color-text-secondary);
+  }
+
+  .hero-portrait {
+    width: min(100%, clamp(240px, 38vw, 520px));
+    aspect-ratio: 4 / 5;
+    border-radius: var(--radius-xl);
+    overflow: hidden;
+    border: 1px solid var(--color-border);
+    box-shadow: var(--shadow-xl);
+    opacity: 0;
+    animation: fadeInUp 0.6s ease-out 0.25s forwards;
+  }
+
+  .hero-portrait img {
+    width: 100%;
+    height: 100%;
+    display: block;
+    object-fit: cover;
+    object-position: center 16%;
   }
 
   .hero-name {
@@ -304,6 +333,11 @@ const {
       gap: var(--space-md);
     }
 
+    .hero-portrait {
+      width: min(100%, 320px);
+      aspect-ratio: 4 / 5;
+    }
+
     .hero-stats {
       flex-direction: column;
       align-items: flex-start;
@@ -323,6 +357,10 @@ const {
   }
 
   @media (min-width: 769px) and (max-width: 1024px) {
+    .hero-portrait {
+      width: min(60vw, 380px);
+    }
+
     .hero-decoration {
       right: 0;
       width: 450px;
@@ -337,6 +375,7 @@ const {
     .hero-title,
     .hero-subtitle,
     .hero-description,
+    .hero-portrait,
     .hero-intro,
     .hero-stats {
       animation: none;
