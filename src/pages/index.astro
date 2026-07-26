@@ -14,9 +14,9 @@ import Hero from '../components/Hero.astro';
   <!-- Hero Section -->
   <Hero 
     name="Victor Muthomi"
-    title="Software Engineer | Intelligent Systems & Scalable Platforms"
-    subtitle="Building scalable solutions across ERP systems, mobile applications, and AI/ML integration"
-    description="Accomplished software engineer specialising in full-stack development using Python, FastAPI, Flask, Flutter, and the Frappe/ERPNext ecosystem. Experienced in designing intelligent, data-driven systems by integrating machine learning models, data pipelines, and automation workflows into production applications. Passionate about advancing the intersection of software engineering, AI/ML, and practical automation, with hands-on experience in model integration, API orchestration, and scalable system architecture."
+    title="Software Engineer | Intelligent Systems, Pentester & Scalable Platforms"
+    subtitle="Building secure, scalable solutions across ERP systems, mobile applications, AI/ML integration, and penetration testing"
+    description="Accomplished software engineer specialising in full-stack development using Python, FastAPI, Flask, Flutter, and the Frappe/ERPNext ecosystem. Experienced in designing intelligent, data-driven systems by integrating machine learning models, data pipelines, secure APIs, and automation workflows into production applications. I also bring hands-on penetration testing knowledge across reconnaissance, vulnerability assessment, web/API security, controlled exploitation, Linux security, and professional reporting. Passionate about advancing the intersection of software engineering, AI/ML, cybersecurity, and practical automation, with experience in model integration, API orchestration, scalable architecture, and security-minded system design."
   />
   <!-- About Me Section -->
   <section class="about-section" id="about">
@@ -42,25 +42,76 @@ import Hero from '../components/Hero.astro';
 
           <div class="journey-narrative">
             <div class="journey-text">
-              <p>
-                From rural Kenya to the forefront of technological innovation, my journey is a testament to the power 
-                of dedication and curiosity. With a passion for programming sparked in my teenage years, I pursued a 
-                career in software development and data science, driven by a desire to craft elegant solutions to complex problems.
-              </p>
-              <p>
-                Today, I specialise in Python development, data science, and Frappe/ERPNext applications, delivering 
-                impactful solutions for individuals, businesses, and communities. My expertise has been recognised 
-                by leading tech companies and SMEs, and I have had the privilege of mentoring aspiring developers, 
-                empowering them to excel in the technology industry.
-              </p>
+              <p class="journey-caption">Victor Muthomi working at a development workstation</p>
+
+              <p>From rural Kenya to the forefront of technology, my journey has been shaped by curiosity, persistence, and a passion for solving real-world problems. My interest in programming began during my teenage years and grew into a career focused on software engineering, where I discovered the satisfaction of building scalable systems that improve how people and organizations work.</p>
+
+<p>Today, I specialize in Python development, backend engineering, and Frappe/ERPNext solutions, designing secure, scalable applications for businesses, institutions, and communities. My experience spans enterprise software, REST APIs, automation, database design, cloud deployments, and AI-powered solutions, enabling me to deliver technology that is both practical and reliable.</p>
+
+<p>As my experience grew, I became increasingly interested in understanding not only how systems are built, but also how they can be broken—and more importantly, how they can be secured. That curiosity led me into cybersecurity, where I began specializing in offensive security and penetration testing.</p>
+
+<p>I have developed my skills through extensive hands-on practice on platforms including <strong>Hack The Box</strong>, <strong>TryHackMe</strong>, <strong>PortSwigger Web Security Academy</strong>, <strong>OWASP Juice Shop</strong>, <strong>OWASP WebGoat</strong>, <strong>CyberDefenders</strong>, <strong>OverTheWire</strong>, and <strong>PicoCTF</strong>. These environments have allowed me to simulate real-world attack scenarios and gain practical experience in reconnaissance, web application security, API security, authentication flaws, privilege escalation, exploitation, post-exploitation, vulnerability assessment, Active Directory fundamentals, Linux and Windows security, and secure coding practices.</p>
+
+<p>My security toolkit includes <strong>Burp Suite</strong>, <strong>Nmap</strong>, <strong>Wireshark</strong>, <strong>Metasploit Framework</strong>, <strong>SQLMap</strong>, <strong>Nikto</strong>, <strong>Gobuster</strong>, <strong>ffuf</strong>, <strong>Hydra</strong>, <strong>John the Ripper</strong>, <strong>Hashcat</strong>, <strong>Aircrack-ng</strong>, <strong>Kismet</strong>, <strong>Impacket</strong>, <strong>NetExec (formerly CrackMapExec)</strong>, and custom Python scripts for automation and security testing. Working in Linux-first environments has strengthened my understanding of networking, operating systems, secure system administration, vulnerability assessment, and penetration testing methodologies based on industry best practices.</p>
+
+<p>Today, I combine the perspectives of both a software engineer and an offensive security practitioner. I approach every application with a security-first mindset—mapping attack surfaces, identifying vulnerabilities, validating security risks responsibly, and translating technical findings into practical remediation strategies. My background as a developer enables me not only to discover security issues but also to understand their root causes and recommend effective, developer-friendly solutions.</p>
+
+<p>I believe the strongest security professionals understand how software is engineered, and the strongest software engineers understand how it can be attacked. My goal is to continue advancing as a penetration tester and security researcher while building resilient applications that can withstand modern cyber threats and contribute to a safer digital ecosystem.</p>
             </div>
             <blockquote class="journey-quote">
               <span class="quote-mark">&ldquo;</span>
-              Every line of code I write is a step further from where I began and a bridge to where someone else
-              might start their journey.
+              Every line of code I write is a step further from where I began; every security lesson helps make that
+              bridge stronger for the people who depend on it.
               <span class="quote-mark">&rdquo;</span>
             </blockquote>
           </div>
+        </div>
+      </div>
+
+      <!-- Security Practice -->
+      <div class="security-practice glass" data-animate="fade-up">
+        <div class="security-practice-header">
+          <div>
+            <p class="security-eyebrow">Authorized Security Practice</p>
+            <h2 class="security-title">
+              Building software with a tester's mindset.
+            </h2>
+          </div>
+          <a href="/skills/pentest/cybersecurity" class="security-link">
+            Check more about my security skills &amp; practice
+          </a>
+        </div>
+
+        <div class="security-stats">
+          <div class="security-stat">
+            <span class="security-stat-value">12+</span>
+            <span class="security-stat-label">CVEs Identified</span>
+          </div>
+          <div class="security-stat">
+            <span class="security-stat-value">45+</span>
+            <span class="security-stat-label">Platforms Tested</span>
+          </div>
+          <div class="security-stat">
+            <span class="security-stat-value">28</span>
+            <span class="security-stat-label">Critical Hotfixes</span>
+          </div>
+          <div class="security-stat">
+            <span class="security-stat-value">99.9%</span>
+            <span class="security-stat-label">Uptime Secured</span>
+          </div>
+        </div>
+
+        <div class="security-methods">
+          {[
+            'Reconnaissance',
+            'Enumeration',
+            'Vulnerability Analysis',
+            'Controlled Exploitation',
+            'Privilege Escalation Review',
+            'Professional Reporting'
+          ].map((method) => (
+            <span class="security-method">{method}</span>
+          ))}
         </div>
       </div>
 
@@ -149,6 +200,38 @@ import Hero from '../components/Hero.astro';
             <p class="achievement-desc">
               Adopted modular architecture, version control workflows, documentation standards, and testing
               strategies to ensure software longevity and team collaboration readiness.
+            </p>
+          </div>
+          <div class="achievement-card glass">
+            <div class="achievement-icon">🔐</div>
+            <h3 class="achievement-title">Practiced Responsible Penetration Testing</h3>
+            <p class="achievement-desc">
+              Conducted authorized security assessments across web applications, APIs, networks, and Linux/Windows
+              environments using structured workflows from reconnaissance through evidence-based reporting.
+            </p>
+          </div>
+          <div class="achievement-card glass">
+            <div class="achievement-icon">🧪</div>
+            <h3 class="achievement-title">Built Hands-On Security Lab Experience</h3>
+            <p class="achievement-desc">
+              Strengthened offensive and defensive skills through TryHackMe, Hack The Box, OWASP Juice Shop, DVWA,
+              Active Directory practice, vulnerability research, and Python-based security automation.
+            </p>
+          </div>
+          <div class="achievement-card glass">
+            <div class="achievement-icon">🕵️</div>
+            <h3 class="achievement-title">Mapped Attack Surfaces with OSINT &amp; Recon</h3>
+            <p class="achievement-desc">
+              Applied reconnaissance workflows using tools such as Shodan, Amass, theHarvester, Maltego, and Nmap
+              to identify exposed assets, service fingerprints, DNS records, and realistic entry points.
+            </p>
+          </div>
+          <div class="achievement-card glass">
+            <div class="achievement-icon">📄</div>
+            <h3 class="achievement-title">Delivered Clear Security Reports</h3>
+            <p class="achievement-desc">
+              Produced structured findings with severity, affected assets, reproduction steps, business impact,
+              evidence, remediation guidance, and retest recommendations for technical and leadership audiences.
             </p>
           </div>
           <div class="achievement-card glass">
@@ -305,6 +388,14 @@ import Hero from '../components/Hero.astro';
     margin: 0 auto;
   }
 
+  .journey-text .journey-caption {
+    margin-bottom: var(--space-lg);
+    color: var(--color-text-primary);
+    font-size: clamp(1.25rem, 2.5vw, 1.625rem);
+    font-weight: var(--font-weight-bold);
+    line-height: 1.3;
+  }
+
   .journey-text p {
     font-size: 1.0625rem;
     color: var(--color-text-secondary);
@@ -336,6 +427,120 @@ import Hero from '../components/Hero.astro';
     font-style: normal;
     line-height: 0;
     vertical-align: -0.4em;
+  }
+
+  /* Security Practice */
+  .security-practice {
+    max-width: 1100px;
+    margin: 0 auto var(--space-4xl);
+    padding: var(--space-3xl);
+    border-radius: var(--radius-2xl);
+    border: 1px solid var(--color-border);
+    border-left: 4px solid var(--color-accent-cyan);
+    background:
+      linear-gradient(135deg, rgba(6, 182, 212, 0.08), transparent 42%),
+      var(--glass-bg);
+  }
+
+  .security-practice-header {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-xl);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .security-eyebrow {
+    margin-bottom: var(--space-sm);
+    color: var(--color-accent-cyan);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: var(--font-weight-bold);
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+  }
+
+  .security-title {
+    max-width: 620px;
+    font-size: clamp(1.5rem, 3vw, 2.25rem);
+    font-weight: var(--font-weight-bold);
+    color: var(--color-text-primary);
+    line-height: 1.2;
+  }
+
+  .security-link {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    padding: var(--space-sm) var(--space-md);
+    border: 1px solid rgba(6, 182, 212, 0.32);
+    border-radius: var(--radius-md);
+    color: var(--color-accent-cyan);
+    font-size: 0.875rem;
+    font-weight: var(--font-weight-semibold);
+    text-decoration: none;
+    transition: transform var(--transition-base), border-color var(--transition-base), background var(--transition-base);
+  }
+
+  .security-link:hover,
+  .security-link:focus-visible {
+    transform: translateY(-2px);
+    border-color: var(--color-accent-cyan);
+    background: rgba(6, 182, 212, 0.08);
+    outline: none;
+  }
+
+  .security-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-md);
+    margin-bottom: var(--space-2xl);
+  }
+
+  .security-stat {
+    padding: var(--space-lg);
+    border: 1px solid var(--color-border);
+    border-radius: var(--radius-lg);
+    background: rgba(255, 255, 255, 0.03);
+  }
+
+  .security-stat-value {
+    display: block;
+    margin-bottom: var(--space-xs);
+    color: var(--color-accent-cyan);
+    font-family: var(--font-mono);
+    font-size: clamp(1.5rem, 3vw, 2rem);
+    font-weight: var(--font-weight-black);
+  }
+
+  .security-stat-label {
+    display: block;
+    color: var(--color-text-secondary);
+    font-size: 0.8125rem;
+    font-weight: var(--font-weight-semibold);
+    line-height: 1.4;
+    text-transform: uppercase;
+  }
+
+  .security-methods {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--space-sm);
+  }
+
+  .security-method {
+    display: inline-flex;
+    align-items: center;
+    min-height: 2.25rem;
+    padding: var(--space-xs) var(--space-md);
+    border: 1px solid rgba(99, 102, 241, 0.26);
+    border-radius: var(--radius-full);
+    color: var(--color-text-secondary);
+    background: rgba(99, 102, 241, 0.07);
+    font-family: var(--font-mono);
+    font-size: 0.75rem;
+    font-weight: var(--font-weight-semibold);
   }
 
   /* Achievements Grid */
@@ -450,10 +655,33 @@ import Hero from '../components/Hero.astro';
       margin: 0 auto;
     }
 
+    .security-practice {
+      padding: var(--space-2xl);
+    }
+
+    .security-practice-header {
+      flex-direction: column;
+      gap: var(--space-lg);
+    }
+
+    .security-link {
+      width: 100%;
+    }
+
+    .security-stats {
+      grid-template-columns: repeat(2, 1fr);
+    }
+
     .about-forward {
       flex-direction: column;
       gap: var(--space-lg);
       padding: var(--space-2xl);
+    }
+  }
+
+  @media (max-width: 520px) {
+    .security-stats {
+      grid-template-columns: 1fr;
     }
   }
 </style>
